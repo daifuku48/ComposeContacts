@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<Event: UiEvent, State: UiState>(
     private val reducer: Reducer<State, Event>,
-    private val useCase: List<UseCase<State, Event>>
+    private val useCase: List<UseCase<State, Event>>,
+    private val appNavigator: Navigator
 ) : ViewModel() {
 
     private val initialState: State by lazy {
@@ -29,6 +31,10 @@ abstract class BaseViewModel<Event: UiEvent, State: UiState>(
 
     init {
         subscribeEvents()
+    }
+
+    protected fun navigate(destination: String) {
+        appNavigator.navigateTo(destination)
     }
 
     private fun subscribeEvents() {
