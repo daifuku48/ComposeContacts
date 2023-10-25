@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.presentation.ui.theme
+package com.danilkharytonov.composecontacts.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.presentation.ui.theme
+package com.danilkharytonov.composecontacts.ui.theme
 
 import android.app.Activity
 import android.os.Build
