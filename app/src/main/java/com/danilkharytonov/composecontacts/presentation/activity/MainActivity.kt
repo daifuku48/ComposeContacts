@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts
+package com.danilkharytonov.composecontacts.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.danilkharytonov.composecontacts.ui.theme.ComposeContactsTheme
+import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

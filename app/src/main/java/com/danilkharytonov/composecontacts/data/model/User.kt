@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.data
+package com.danilkharytonov.composecontacts.data.model
 
 data class User(
     var name: String,
