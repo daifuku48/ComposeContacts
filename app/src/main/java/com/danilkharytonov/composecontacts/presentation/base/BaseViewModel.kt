@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-abstract class BaseViewModel<Event: UiEvent, State: UiState>(
+abstract class BaseViewModel<Event : UiEvent, State : UiState>(
     private val reducer: Reducer<State, Event>,
     private val useCase: List<UseCase<State, Event>>,
     private val appNavigator: Navigator
@@ -21,12 +21,13 @@ abstract class BaseViewModel<Event: UiEvent, State: UiState>(
     private val initialState: State by lazy {
         createInitialState()
     }
-    abstract fun createInitialState() : State
 
-    private val _uiState : MutableStateFlow<State> = MutableStateFlow(initialState)
+    abstract fun createInitialState(): State
+
+    private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-    private val _event : MutableSharedFlow<Event> = MutableSharedFlow()
+    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
     val event = _event.asSharedFlow()
 
     init {
