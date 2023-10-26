@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -47,10 +48,37 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    //noinspection KaptUsageInsteadOfKsp
+    kapt("androidx.room:room-compiler:2.6.0")
+
+    //Koin
+    implementation("io.insert-koin:koin-android:3.5.0")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    // Navigation Component
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
