@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,23 +25,8 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    val event = _event.asSharedFlow()
-
-    init {
-        subscribeEvents()
-    }
-
     protected fun navigate(destination: String) {
         appNavigator.navigateTo(destination)
-    }
-
-    private fun subscribeEvents() {
-        viewModelScope.launch {
-            event.collect {
-                handleEvent(it)
-            }
-        }
     }
 
     protected fun handleEvent(event: Event) {
@@ -54,16 +37,5 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
                 handleEvent(result)
             }
         }
-    }
-
-    fun setEvent(event: Event) {
-        val newEvent = event
-        viewModelScope.launch {
-            _event.emit(newEvent)
-        }
-    }
-
-    protected fun setState(state: State) {
-        _uiState.value = state
     }
 }
