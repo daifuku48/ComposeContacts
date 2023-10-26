@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +26,8 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-    protected fun navigate(destination: String) {
-        appNavigator.navigateTo(destination)
+    protected fun navigate(destination: String, navOptions: NavOptions? = null) {
+        appNavigator.navigateTo(destination, navOptions)
     }
 
     protected fun handleEvent(event: Event) {
