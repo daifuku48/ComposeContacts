@@ -1,11 +1,11 @@
-package com.danilkharytonov.composecontacts.presentation.main_user_view
+package com.danilkharytonov.composecontacts.presentation.create_user_view
 
 import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.presentation.base.UiState
 
-data class MainUserState (
-    val user: User = User(
-        uuid ="",
+data class CreateUserState(
+    val savedUser: User = User(
+        uuid = "",
         name = "",
         surname = "",
         phoneNumber = "",
@@ -13,6 +13,5 @@ data class MainUserState (
         dateOfBirth = "",
         iconImage = ""
     ),
-    val isLoading: Boolean = false,
-    val isUserEmpty: Boolean = false
+    val isSaved: Boolean = false
 ) : UiState

@@ -1,6 +1,7 @@
 package com.danilkharytonov.composecontacts.app
 
 import android.app.Application
+import com.danilkharytonov.composecontacts.di.appModule
 import com.danilkharytonov.composecontacts.di.databaseModule
 import com.danilkharytonov.composecontacts.di.domainModule
 import com.danilkharytonov.composecontacts.di.repositoryModule
@@ -16,12 +17,15 @@ class App : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(
-                databaseModule,
-                domainModule,
-                repositoryModule,
-                viewModelModule
-            ))
+            modules(
+                listOf(
+                    appModule,
+                    databaseModule,
+                    domainModule,
+                    repositoryModule,
+                    viewModelModule
+                )
+            )
         }
     }
 }

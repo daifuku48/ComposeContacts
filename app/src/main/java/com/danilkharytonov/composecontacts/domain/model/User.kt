@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.domain.model
 
+import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
 import com.danilkharytonov.composecontacts.data.database.MainUserEntity
-import com.danilkharytonov.composecontacts.data.repository.MainUserRepositoryImpl.Companion.MAIN_USER_ID
 
 data class User(
     var uuid: String,
@@ -14,7 +14,7 @@ data class User(
     var category: String? = null
 )
 
-fun User.toMainUserEntity() : MainUserEntity {
+fun User.toMainUserEntity(): MainUserEntity {
     return MainUserEntity(
         uuid = MAIN_USER_ID,
         name = name,

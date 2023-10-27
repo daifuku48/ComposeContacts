@@ -4,10 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.danilkharytonov.composecontacts.domain.model.User
 
+const val MAIN_USER_ID = "MAIN_USER_ID"
+
 @Entity("main_user_table")
 data class MainUserEntity(
     @PrimaryKey
-    var uuid: String,
+    var uuid: String = MAIN_USER_ID,
     var name: String,
     var surname: String,
     var phoneNumber: String,

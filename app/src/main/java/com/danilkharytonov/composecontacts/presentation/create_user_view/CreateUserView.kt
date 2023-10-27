@@ -3,7 +3,6 @@ package com.danilkharytonov.composecontacts.presentation.create_user_view
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,52 +17,41 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CreateUser() {
+fun CreateUser(viewModel: CreateUserViewModel) {
     ComposeContactsTheme {
-        CreateUserView(Modifier.fillMaxSize())
+        Surface(modifier = Modifier.fillMaxSize()) {
+            CreateUserView(viewModel)
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateUserView(modifier: Modifier) {
-    var nameField by rememberSaveable {
-        mutableStateOf("")
-    }
-    var surnameField by rememberSaveable {
-        mutableStateOf("")
-    }
-    var phoneNumberField by rememberSaveable {
-        mutableStateOf("")
-    }
-    var emailField by rememberSaveable {
-        mutableStateOf("")
-    }
-    var dateOfBirth by rememberSaveable {
-        mutableStateOf("")
-    }
+fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
+    val state by viewModel.uiState.collectAsState()
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-
+        if (uri != null) {
+            viewModel.updateIconEventHandle(uri.toString())
         }
+    }
 
-    Surface(modifier = modifier) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -82,18 +70,20 @@ fun CreateUserView(modifier: Modifier) {
                     text = "Icon",
                     fontSize = 16.sp
                 )
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_person_24),
+
+                AsyncImage(
+                    model = state.savedUser.iconImage,
                     contentDescription = stringResource(R.string.user_icon),
                     modifier = Modifier
                         .clickable {
                             launcher.launch(
                                 PickVisualMediaRequest(
-                                    mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly
+                                    mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
                                 )
                             )
                         }
-                        .size(100.dp)
+                        .size(100.dp),
+                    error = painterResource(id = R.drawable.baseline_person_24)
                 )
             }
 
@@ -103,9 +93,9 @@ fun CreateUserView(modifier: Modifier) {
                     fontSize = 16.sp
                 )
                 TextField(
-                    value = nameField,
+                    value = state.savedUser.name,
                     onValueChange = { text ->
-                        nameField = text
+                        viewModel.updateNameEventHandle(text)
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -117,9 +107,9 @@ fun CreateUserView(modifier: Modifier) {
                     fontSize = 16.sp
                 )
                 TextField(
-                    value = surnameField,
+                    value = state.savedUser.surname,
                     onValueChange = { text ->
-                        surnameField = text
+                        viewModel.updateSurnameEventHandle(text)
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -131,9 +121,9 @@ fun CreateUserView(modifier: Modifier) {
                     fontSize = 16.sp
                 )
                 TextField(
-                    value = phoneNumberField,
+                    value = state.savedUser.phoneNumber,
                     onValueChange = { text ->
-                        surnameField = text
+                        viewModel.updatePhoneEventNumber(text)
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -145,9 +135,9 @@ fun CreateUserView(modifier: Modifier) {
                     fontSize = 16.sp
                 )
                 TextField(
-                    value = emailField,
+                    value = state.savedUser.email,
                     onValueChange = { text ->
-                        emailField = text
+                        viewModel.updateEmailEventHandle(text)
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -159,17 +149,19 @@ fun CreateUserView(modifier: Modifier) {
                     fontSize = 16.sp
                 )
                 TextField(
-                    value = dateOfBirth,
+                    value = state.savedUser.dateOfBirth,
                     onValueChange = { text ->
-                        dateOfBirth = text
+                        viewModel.updateDateOfBirthHandle(text)
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
 
             Button(onClick = {
-
-            }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                viewModel.handleSaveUser()
+            }, modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(30.dp)) {
                 Text(
                     text = stringResource(R.string.create),
                     fontSize = 20.sp
@@ -179,14 +171,8 @@ fun CreateUserView(modifier: Modifier) {
     }
 }
 
+
 @Composable
 fun CreateSpace() {
     Spacer(Modifier.padding(10.dp))
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun CreateUserPreview() {
-    CreateUserView(Modifier.fillMaxSize())
 }
