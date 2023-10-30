@@ -14,18 +14,7 @@ class SaveMainUserUseCase(
     override suspend fun execute(state: CreateUserState, event: CreateUserEvent): CreateUserEvent {
         return if (event is CreateUserEvent.SaveUserEvent) {
             if (isValidState(state)) {
-                if (state.iconImage.isEmpty()) {
-                    state.copy(iconImage = resourceManager.createDefaultImageUri().toString())
-                }
-                val user = User(
-                    uuid = state.uuid,
-                    name = state.name,
-                    surname = state.surname,
-                    phoneNumber = state.phoneNumber,
-                    email = state.email,
-                    dateOfBirth = state.dateOfBirth,
-                    iconImage = state.iconImage
-                )
+                val user = initUser(state)
                 mainUserRepository.insertMainUser(user = user)
                 resourceManager.setUserCreation()
                 CreateUserEvent.UserSaved
@@ -33,6 +22,27 @@ class SaveMainUserUseCase(
                 CreateUserEvent.Error
             }
         } else CreateUserEvent.Error
+    }
+
+    private fun initUser(state: CreateUserState): User {
+        if (state.iconImage.isEmpty())
+            return User(
+                uuid = state.uuid,
+                name = state.name,
+                surname = state.surname,
+                phoneNumber = state.phoneNumber,
+                email = state.email,
+                dateOfBirth = state.dateOfBirth,
+                iconImage = resourceManager.createDefaultImageUri().toString()
+            ) else return User(
+            uuid = state.uuid,
+            name = state.name,
+            surname = state.surname,
+            phoneNumber = state.phoneNumber,
+            email = state.email,
+            dateOfBirth = state.dateOfBirth,
+            iconImage = state.iconImage
+        )
     }
 
     override fun canHandle(event: CreateUserEvent): Boolean {

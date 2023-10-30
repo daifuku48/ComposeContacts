@@ -10,5 +10,5 @@ data class CreateUserState(
     val email: String = "",
     val dateOfBirth: String = "",
     val iconImage: String = "",
-    val isError: Boolean = false
+    val isError: Boolean? = null
 ) : UiState
