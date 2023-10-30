@@ -46,10 +46,10 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            viewModel.updateIconEventHandle(uri.toString())
+            if (uri != null) {
+                viewModel.updateIconEventHandle(uri.toString())
+            }
         }
-    }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -157,11 +157,13 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
                 )
             }
 
-            Button(onClick = {
-                viewModel.handleSaveUser()
-            }, modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(30.dp)) {
+            Button(
+                onClick = {
+                    viewModel.handleSaveUser()
+                }, modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(30.dp)
+            ) {
                 Text(
                     text = stringResource(R.string.create),
                     fontSize = 20.sp

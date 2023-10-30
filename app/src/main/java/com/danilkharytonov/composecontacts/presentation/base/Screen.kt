@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.presentation.navigation
+package com.danilkharytonov.composecontacts.presentation.base
 
 sealed class Screen(val route: String){
     object UserScreen : Screen(MAIN_USER_SCREEN)

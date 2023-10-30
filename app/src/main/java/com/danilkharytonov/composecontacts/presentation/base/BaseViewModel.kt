@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

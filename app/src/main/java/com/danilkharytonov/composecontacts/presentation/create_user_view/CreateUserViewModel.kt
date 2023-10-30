@@ -3,8 +3,8 @@ package com.danilkharytonov.composecontacts.presentation.create_user_view
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import com.danilkharytonov.composecontacts.presentation.navigation.Screen
 
 class CreateUserViewModel(
     reducer: CreateUserReducer,

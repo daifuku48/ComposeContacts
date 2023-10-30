@@ -1,5 +1,7 @@
 package com.danilkharytonov.composecontacts.di
 
+import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
+import com.danilkharytonov.composecontacts.presentation.activity.MainViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.AppNavigator
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserReducer
@@ -27,6 +29,14 @@ val viewModelModule = module {
             reducer = CreateUserReducer(),
             useCases = listOf(get()),
             appNavigator = get()
+        )
+    }
+
+    viewModel {
+        MainViewModel(
+            checkingExistingUserUseCase = CheckingExistingUserUseCase(
+                appRepository = get()
+            )
         )
     }
 }

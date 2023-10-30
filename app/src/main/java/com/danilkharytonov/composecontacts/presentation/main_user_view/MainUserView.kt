@@ -1,5 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,9 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -45,9 +44,9 @@ fun MainUserView(viewModel: MainUserViewModel) {
                     AsyncImage(
                         model = state.user.iconImage,
                         contentDescription = stringResource(R.string.user_icon),
-                        contentScale = ContentScale.Crop,
                         modifier = Modifier.size(100.dp),
                     )
+                    Log.d("image", state.user.iconImage)
                     Column {
                         Text(text = "Name: ${state.user.name}, ${state.user.surname}")
                         Text(text = "Phone: ${state.user.phoneNumber}")
@@ -68,10 +67,4 @@ fun MainUserView(viewModel: MainUserViewModel) {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainUserPreview() {
-    //MainUserView()
 }
