@@ -12,6 +12,5 @@ data class CreateUserState(
         email = "",
         dateOfBirth = "",
         iconImage = ""
-    ),
-    val isSaved: Boolean = false
+    )
 ) : UiState

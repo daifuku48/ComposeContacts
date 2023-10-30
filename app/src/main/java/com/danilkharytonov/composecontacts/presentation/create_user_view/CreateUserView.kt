@@ -55,7 +55,8 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = stringResource(R.string.creating_user),
@@ -65,103 +66,94 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
                 fontSize = 30.sp,
             )
 
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = "Icon",
-                    fontSize = 16.sp
-                )
+            Text(
+                text = "Icon",
+                fontSize = 16.sp
+            )
 
-                AsyncImage(
-                    model = state.savedUser.iconImage,
-                    contentDescription = stringResource(R.string.user_icon),
-                    modifier = Modifier
-                        .clickable {
-                            launcher.launch(
-                                PickVisualMediaRequest(
-                                    mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
-                                )
+            AsyncImage(
+                model = state.savedUser.iconImage,
+                contentDescription = stringResource(R.string.user_icon),
+                modifier = Modifier
+                    .clickable {
+                        launcher.launch(
+                            PickVisualMediaRequest(
+                                mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
                             )
-                        }
-                        .size(100.dp),
-                    error = painterResource(id = R.drawable.baseline_person_24)
-                )
-            }
+                        )
+                    }
+                    .size(100.dp),
+                error = painterResource(id = R.drawable.baseline_person_24)
+            )
 
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = stringResource(R.string.your_name),
-                    fontSize = 16.sp
-                )
-                TextField(
-                    value = state.savedUser.name,
-                    onValueChange = { text ->
-                        viewModel.updateNameEventHandle(text)
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+            Text(
+                text = stringResource(R.string.your_name),
+                fontSize = 16.sp
+            )
+            TextField(
+                value = state.savedUser.name,
+                onValueChange = { text ->
+                    viewModel.updateNameEventHandle(text)
+                }
+            )
+
             CreateSpace()
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = stringResource(R.string.surname),
-                    fontSize = 16.sp
-                )
-                TextField(
-                    value = state.savedUser.surname,
-                    onValueChange = { text ->
-                        viewModel.updateSurnameEventHandle(text)
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+
+            Text(
+                text = stringResource(R.string.surname),
+                fontSize = 16.sp
+            )
+            TextField(
+                value = state.savedUser.surname,
+                onValueChange = { text ->
+                    viewModel.updateSurnameEventHandle(text)
+                }
+            )
+
             CreateSpace()
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = stringResource(R.string.phone_number),
-                    fontSize = 16.sp
-                )
-                TextField(
-                    value = state.savedUser.phoneNumber,
-                    onValueChange = { text ->
-                        viewModel.updatePhoneEventNumber(text)
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+
+            Text(
+                text = stringResource(R.string.phone_number),
+                fontSize = 16.sp
+            )
+            TextField(
+                value = state.savedUser.phoneNumber,
+                onValueChange = { text ->
+                    viewModel.updatePhoneEventNumber(text)
+                }
+            )
+
             CreateSpace()
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = stringResource(R.string.email),
-                    fontSize = 16.sp
-                )
-                TextField(
-                    value = state.savedUser.email,
-                    onValueChange = { text ->
-                        viewModel.updateEmailEventHandle(text)
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+
+            Text(
+                text = stringResource(R.string.email),
+                fontSize = 16.sp
+            )
+            TextField(
+                value = state.savedUser.email,
+                onValueChange = { text ->
+                    viewModel.updateEmailEventHandle(text)
+                }
+            )
+
             CreateSpace()
-            Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text(
-                    text = stringResource(R.string.date_of_birth),
-                    fontSize = 16.sp
-                )
-                TextField(
-                    value = state.savedUser.dateOfBirth,
-                    onValueChange = { text ->
-                        viewModel.updateDateOfBirthHandle(text)
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
+
+            Text(
+                text = stringResource(R.string.date_of_birth),
+                fontSize = 16.sp
+            )
+            TextField(
+                value = state.savedUser.dateOfBirth,
+                onValueChange = { text ->
+                    viewModel.updateDateOfBirthHandle(text)
+                }
+            )
+
 
             Button(
                 onClick = {
                     viewModel.handleSaveUser()
                 }, modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
                     .padding(30.dp)
             ) {
                 Text(
@@ -172,7 +164,6 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
         }
     }
 }
-
 
 @Composable
 fun CreateSpace() {

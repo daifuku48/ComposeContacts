@@ -1,6 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,12 +45,11 @@ fun MainUserView(viewModel: MainUserViewModel) {
                         contentDescription = stringResource(R.string.user_icon),
                         modifier = Modifier.size(100.dp),
                     )
-                    Log.d("image", state.user.iconImage)
                     Column {
-                        Text(text = "Name: ${state.user.name}, ${state.user.surname}")
-                        Text(text = "Phone: ${state.user.phoneNumber}")
-                        Text(text = "Email: ${state.user.email}")
-                        Text(text = "Date: ${state.user.dateOfBirth}")
+                        Text(text = stringResource(id = R.string.Name, state.user.name, state.user.surname))
+                        Text(text = stringResource(id = R.string.Phone, state.user.phoneNumber))
+                        Text(text = stringResource(id = R.string.Email, state.user.email))
+                        Text(text = stringResource(id = R.string.Date, state.user.dateOfBirth))
                     }
                 }
 
