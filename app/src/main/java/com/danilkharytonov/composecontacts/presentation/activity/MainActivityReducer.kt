@@ -7,7 +7,7 @@ class MainActivityReducer : Reducer<MainActivityState, MainActivityEvent> {
         return when(event){
             is MainActivityEvent.CheckExistingUser -> state
             is MainActivityEvent.UserIsExist -> state.copy(userIsExist = true)
-            is MainActivityEvent.UserIsNotExist -> state.copy(userIsExist = true)
+            is MainActivityEvent.UserIsNotExist -> state.copy(userIsExist = false)
         }
     }
 }

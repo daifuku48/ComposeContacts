@@ -2,7 +2,6 @@ package com.danilkharytonov.composecontacts.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
@@ -40,9 +39,5 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
                 handleEvent(result)
             }
         }
-    }
-
-    fun attachNavController(navController: NavController) {
-        appNavigator.attach(navController)
     }
 }

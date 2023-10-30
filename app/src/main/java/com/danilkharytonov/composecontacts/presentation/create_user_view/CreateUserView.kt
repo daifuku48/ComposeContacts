@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CreateUser(viewModel: CreateUserViewModel) {
@@ -44,7 +42,7 @@ fun CreateUser(viewModel: CreateUserViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
+fun CreateUserView(viewModel: CreateUserViewModel) {
     val state by viewModel.uiState.collectAsState()
 
     val launcher =
@@ -138,7 +136,6 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
                 },
                 label = { Text(text = stringResource(R.string.date_of_birth)) },
             )
-
 
             Button(
                 onClick = {

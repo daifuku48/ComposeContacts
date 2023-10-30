@@ -1,6 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.presentation.base.UiState
 
 data class CreateUserState(
@@ -10,5 +9,6 @@ data class CreateUserState(
     val phoneNumber: String = "",
     val email: String = "",
     val dateOfBirth: String = "",
-    val iconImage: String = ""
+    val iconImage: String = "",
+    val isError: Boolean = false
 ) : UiState

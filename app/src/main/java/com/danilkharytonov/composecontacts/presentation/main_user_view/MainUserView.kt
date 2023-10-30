@@ -41,10 +41,23 @@ fun MainUserView(viewModel: MainUserViewModel) {
                         modifier = Modifier.size(100.dp),
                     )
                     Column {
-                        Text(text = stringResource(id = R.string.Name, state.name.toString(), state.surname.toString()))
-                        Text(text = stringResource(id = R.string.Phone, state.phoneNumber.toString()))
-                        Text(text = stringResource(id = R.string.Email, state.email.toString()))
-                        Text(text = stringResource(id = R.string.Date, state.dateOfBirth.toString()))
+                        state.name?.let { name ->
+                            state.surname?.let { surname ->
+                                Text(text = stringResource(id = R.string.Name, name, surname))
+                            }
+                        }
+
+                        state.phoneNumber?.let {
+                            Text(text = stringResource(id = R.string.Phone, it))
+                        }
+
+                        state.email?.let {
+                            Text(text = stringResource(id = R.string.Email, it))
+                        }
+
+                        state.dateOfBirth?.let {
+                            Text(text = stringResource(id = R.string.Date, it))
+                        }
                     }
                 }
 

@@ -32,20 +32,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
-        splashScreen.setKeepOnScreenCondition{true}
+        splashScreen.setKeepOnScreenCondition { true }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     var startDestination = ""
                     if (state.userIsExist != null) {
-                        if (state.userIsExist) {
-                            startDestination = Screen.UserScreen.route
+                        startDestination = if (state.userIsExist) {
+                            Screen.UserScreen.route
                         } else {
-                            startDestination = Screen.CreateUserScreen.route
+                            Screen.CreateUserScreen.route
                         }
                         splashScreen.setKeepOnScreenCondition { false }
                     }
-                    checkStoragePermission()
+                    checkReadingStoragePermission()
                     setContent {
                         DisposableEffect(Unit) {
                             onDispose {
@@ -76,12 +76,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun checkStoragePermission() {
+    private fun checkReadingStoragePermission() {
         if (ActivityCompat.checkSelfPermission(this, permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                this,
+                this@MainActivity,
                 arrayOf(permission.READ_EXTERNAL_STORAGE),
                 STORAGE_PERMISSION_CODE
             )

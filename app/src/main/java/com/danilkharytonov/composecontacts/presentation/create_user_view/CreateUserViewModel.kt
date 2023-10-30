@@ -17,7 +17,7 @@ class CreateUserViewModel(
 
     fun handleSaveUser() {
         handleEvent(CreateUserEvent.SaveUserEvent)
-        val navOptions = NavOptions.Builder().setPopUpTo(Screen.CREATE_USER_SCREEN, false).build()
+        val navOptions = NavOptions.Builder().setPopUpTo(Screen.MAIN_USER_SCREEN, false).build()
         navigate(Screen.MAIN_USER_SCREEN, navOptions)
     }
 
