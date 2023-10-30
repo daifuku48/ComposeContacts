@@ -1,13 +1,26 @@
 package com.danilkharytonov.composecontacts.domain.use_cases.main_activity
 
 import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
-import com.danilkharytonov.composecontacts.domain.repository.AppRepository
+import com.danilkharytonov.composecontacts.domain.repository.ResourceManager
+import com.danilkharytonov.composecontacts.presentation.activity.MainActivityEvent
+import com.danilkharytonov.composecontacts.presentation.activity.MainActivityState
+import com.danilkharytonov.composecontacts.presentation.base.UseCase
 
 class CheckingExistingUserUseCase(
-    private val appRepository: AppRepository
-) {
-    fun execute(): Boolean {
-        val prefs = appRepository.getSharedPreferences()
-        return prefs.getBoolean(MAIN_USER_ID, false)
+    private val resourceManager: ResourceManager
+) : UseCase<MainActivityState, MainActivityEvent> {
+    override suspend fun execute(
+        state: MainActivityState,
+        event: MainActivityEvent
+    ): MainActivityEvent {
+        return if (event is MainActivityEvent.CheckExistingUser){
+            if (resourceManager.checkUserCreation()){
+                MainActivityEvent.UserIsExist
+            } else MainActivityEvent.UserIsNotExist
+        } else MainActivityEvent.UserIsNotExist
+    }
+
+    override fun canHandle(event: MainActivityEvent): Boolean {
+        return event is MainActivityEvent.CheckExistingUser
     }
 }

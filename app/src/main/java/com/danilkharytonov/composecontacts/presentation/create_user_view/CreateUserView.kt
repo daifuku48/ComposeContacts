@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -72,7 +75,7 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
             )
 
             AsyncImage(
-                model = state.savedUser.iconImage,
+                model = state.iconImage,
                 contentDescription = stringResource(R.string.user_icon),
                 modifier = Modifier
                     .clickable {
@@ -86,67 +89,54 @@ fun CreateUserView(viewModel: CreateUserViewModel = koinViewModel()) {
                 error = painterResource(id = R.drawable.baseline_person_24)
             )
 
-            Text(
-                text = stringResource(R.string.your_name),
-                fontSize = 16.sp
-            )
             TextField(
-                value = state.savedUser.name,
+                value = state.name,
                 onValueChange = { text ->
                     viewModel.updateNameEventHandle(text)
-                }
+                },
+                label = { Text(text = stringResource(R.string.your_name)) }
             )
 
             CreateSpace()
 
-            Text(
-                text = stringResource(R.string.surname),
-                fontSize = 16.sp
-            )
             TextField(
-                value = state.savedUser.surname,
+                value = state.surname,
                 onValueChange = { text ->
                     viewModel.updateSurnameEventHandle(text)
-                }
+                },
+                label = { Text(text = stringResource(R.string.surname)) }
             )
 
             CreateSpace()
 
-            Text(
-                text = stringResource(R.string.phone_number),
-                fontSize = 16.sp
-            )
             TextField(
-                value = state.savedUser.phoneNumber,
+                value = state.phoneNumber,
                 onValueChange = { text ->
                     viewModel.updatePhoneEventNumber(text)
-                }
+                },
+                label = { Text(text = stringResource(R.string.phone_number)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
             )
 
             CreateSpace()
 
-            Text(
-                text = stringResource(R.string.email),
-                fontSize = 16.sp
-            )
             TextField(
-                value = state.savedUser.email,
+                value = state.email,
                 onValueChange = { text ->
                     viewModel.updateEmailEventHandle(text)
-                }
+                },
+                label = { Text(text = stringResource(R.string.email)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
             CreateSpace()
 
-            Text(
-                text = stringResource(R.string.date_of_birth),
-                fontSize = 16.sp
-            )
             TextField(
-                value = state.savedUser.dateOfBirth,
+                value = state.dateOfBirth,
                 onValueChange = { text ->
                     viewModel.updateDateOfBirthHandle(text)
-                }
+                },
+                label = { Text(text = stringResource(R.string.date_of_birth)) },
             )
 
 

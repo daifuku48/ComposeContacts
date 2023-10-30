@@ -4,7 +4,6 @@ import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
 
 sealed class MainUserEvent : UiEvent {
-    object UserIsEmpty : MainUserEvent()
     object UserLoading : MainUserEvent()
     data class UserLoaded(val user: User) : MainUserEvent()
     object Error : MainUserEvent()

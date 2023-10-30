@@ -1,6 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
-import android.util.Log
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.domain.use_cases.main_user_view.GetMainUserUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
@@ -18,7 +17,6 @@ class MainUserViewModel(
     }
 
     fun navigateToCreatingMainUser() {
-        Log.d("USER", "USER")
         val navOptions = NavOptions.Builder().setPopUpTo(MAIN_USER_SCREEN, false).build()
         navigate(CREATE_USER_SCREEN, navOptions)
     }

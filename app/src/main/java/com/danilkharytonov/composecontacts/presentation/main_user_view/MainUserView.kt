@@ -24,11 +24,6 @@ import com.danilkharytonov.composecontacts.R
 @Composable
 fun MainUserView(viewModel: MainUserViewModel) {
     val state by viewModel.uiState.collectAsState()
-
-    if (state.isUserEmpty) {
-        viewModel.navigateToCreatingMainUser()
-    }
-
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -41,15 +36,15 @@ fun MainUserView(viewModel: MainUserViewModel) {
             } else {
                 Row(modifier = Modifier.padding(30.dp)) {
                     AsyncImage(
-                        model = state.user.iconImage,
+                        model = state.iconImage,
                         contentDescription = stringResource(R.string.user_icon),
                         modifier = Modifier.size(100.dp),
                     )
                     Column {
-                        Text(text = stringResource(id = R.string.Name, state.user.name, state.user.surname))
-                        Text(text = stringResource(id = R.string.Phone, state.user.phoneNumber))
-                        Text(text = stringResource(id = R.string.Email, state.user.email))
-                        Text(text = stringResource(id = R.string.Date, state.user.dateOfBirth))
+                        Text(text = stringResource(id = R.string.Name, state.name.toString(), state.surname.toString()))
+                        Text(text = stringResource(id = R.string.Phone, state.phoneNumber.toString()))
+                        Text(text = stringResource(id = R.string.Email, state.email.toString()))
+                        Text(text = stringResource(id = R.string.Date, state.dateOfBirth.toString()))
                     }
                 }
 

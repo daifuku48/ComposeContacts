@@ -13,8 +13,7 @@ class GetMainUserUseCase(
         return if (event is MainUserEvent.UserLoading) {
             val user = repository.getMainUser()
             if (user == null || user.uuid.isEmpty()) {
-                Log.d("USER", "USER is empty")
-                MainUserEvent.UserIsEmpty
+                MainUserEvent.Error
             } else MainUserEvent.UserLoaded(user)
         } else {
             MainUserEvent.Error

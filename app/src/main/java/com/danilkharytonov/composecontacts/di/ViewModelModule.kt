@@ -1,6 +1,7 @@
 package com.danilkharytonov.composecontacts.di
 
 import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
+import com.danilkharytonov.composecontacts.presentation.activity.MainActivityReducer
 import com.danilkharytonov.composecontacts.presentation.activity.MainViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.AppNavigator
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
@@ -12,10 +13,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    factory<Navigator> {
-        AppNavigator()
-    }
-
     viewModel {
         MainUserViewModel(
             reducer = MainUserReducer(),
@@ -34,9 +31,9 @@ val viewModelModule = module {
 
     viewModel {
         MainViewModel(
-            checkingExistingUserUseCase = CheckingExistingUserUseCase(
-                appRepository = get()
-            )
+            reducer = MainActivityReducer(),
+            useCases = listOf(get()),
+            appNavigator = get()
         )
     }
 }

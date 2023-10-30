@@ -10,8 +10,7 @@ val databaseModule = module {
             context = get(),
             klass = UserDatabase::class.java,
             name = "user_db"
-        ).fallbackToDestructiveMigration()
-            .build()
+        ).build()
     }
 
     single {

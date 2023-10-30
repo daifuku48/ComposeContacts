@@ -4,13 +4,11 @@ import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.presentation.base.UiState
 
 data class CreateUserState(
-    val savedUser: User = User(
-        uuid = "",
-        name = "",
-        surname = "",
-        phoneNumber = "",
-        email = "",
-        dateOfBirth = "",
-        iconImage = ""
-    )
+    val uuid: String = "",
+    val name: String = "",
+    val surname: String = "",
+    val phoneNumber: String = "",
+    val email: String = "",
+    val dateOfBirth: String = "",
+    val iconImage: String = ""
 ) : UiState

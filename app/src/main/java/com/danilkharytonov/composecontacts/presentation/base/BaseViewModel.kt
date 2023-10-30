@@ -45,9 +45,4 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
     fun attachNavController(navController: NavController) {
         appNavigator.attach(navController)
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        appNavigator.detach()
-    }
 }
