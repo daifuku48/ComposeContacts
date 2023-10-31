@@ -13,5 +13,7 @@
     <string name="Phone">Phone: %s</string>
     <string name="Email">Email: %s</string>
     <string name="Date">Date: %s</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

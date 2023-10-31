@@ -29,7 +29,7 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
 
     private val _uiEvents: MutableList<Event> = arrayListOf()
 
-    abstract fun handleSpecialEvent(event: Event)
+    protected abstract fun handleSpecialEvent(event: Event)
 
     protected fun addSpecialEvent(event: Event) {
         _uiEvents.add(event)

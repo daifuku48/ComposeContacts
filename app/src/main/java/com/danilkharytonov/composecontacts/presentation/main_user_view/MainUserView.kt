@@ -72,12 +72,11 @@ fun MainUserView(viewModel: MainUserViewModel) {
 
                 Button(
                     onClick = {
-                        // Handle button click
+                        viewModel.handleNavigateToEditScreen()
                     }, modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(100.dp)
                 ) {
-                    Text(text = stringResource(R.string.contacts), fontSize = 30.sp)
+                    Text(text = stringResource(R.string.edit_profile), fontSize = 30.sp)
                 }
             }
         }

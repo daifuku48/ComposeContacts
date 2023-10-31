@@ -144,7 +144,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                     .padding(30.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.create),
+                    text = stringResource(R.string.save),
                     fontSize = 20.sp
                 )
             }

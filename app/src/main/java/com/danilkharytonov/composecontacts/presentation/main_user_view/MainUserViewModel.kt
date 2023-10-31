@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.main_user_view
 
 import com.danilkharytonov.composecontacts.domain.use_cases.main_user_view.GetMainUserUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 
 class MainUserViewModel(
@@ -10,6 +11,7 @@ class MainUserViewModel(
     appNavigator: Navigator
 ) : BaseViewModel<MainUserEvent, MainUserState>(reducer, useCases, appNavigator) {
     init {
+        addSpecialEvent(MainUserEvent.NavigateToEditingUserEvent)
         handleEvent(MainUserEvent.UserLoading)
     }
 
@@ -17,5 +19,18 @@ class MainUserViewModel(
         return MainUserState()
     }
 
-    override fun handleSpecialEvent(event: MainUserEvent) {}
+    private fun navigateToEditingScreen(){
+        navigate(Screen.CREATE_USER_SCREEN)
+    }
+
+    fun handleNavigateToEditScreen(){
+        handleEvent(MainUserEvent.NavigateToEditingUserEvent)
+    }
+
+    override fun handleSpecialEvent(event: MainUserEvent) {
+        when(event){
+            MainUserEvent.NavigateToEditingUserEvent -> navigateToEditingScreen()
+            else -> {}
+        }
+    }
 }
