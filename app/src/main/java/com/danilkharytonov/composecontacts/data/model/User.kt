@@ -8,3 +8,4 @@ data class User(
     var dateOfBirth: String,
     var iconImage: String
 )
+
