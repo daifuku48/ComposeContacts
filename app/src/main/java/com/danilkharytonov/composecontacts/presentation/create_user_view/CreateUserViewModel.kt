@@ -11,11 +11,22 @@ class CreateUserViewModel(
     useCases: List<SaveMainUserUseCase>,
     appNavigator: Navigator
 ) : BaseViewModel<CreateUserEvent, CreateUserState>(reducer, useCases, appNavigator) {
+    init {
+        addSpecialEvent(CreateUserEvent.UserSaved)
+    }
+
     override fun createInitialState(): CreateUserState {
         return CreateUserState()
     }
 
-    fun navigateToMainUserScreen() {
+    override fun handleSpecialEvent(event: CreateUserEvent) {
+        when (event) {
+            CreateUserEvent.UserSaved -> navigateToMainUserScreen()
+            else -> {}
+        }
+    }
+
+    private fun navigateToMainUserScreen() {
         val navOptions = NavOptions.Builder().setPopUpTo(Screen.MAIN_USER_SCREEN, false).build()
         navigate(Screen.MAIN_USER_SCREEN, navOptions)
     }

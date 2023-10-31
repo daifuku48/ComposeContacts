@@ -18,7 +18,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -52,14 +51,6 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                 viewModel.updateIconEventHandle(uri.toString())
             }
         }
-
-    LaunchedEffect(key1 = state.isError, block = {
-        if (state.isError != null) {
-            if (!state.isError!!) {
-                viewModel.navigateToMainUserScreen()
-            }
-        }
-    })
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(

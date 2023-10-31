@@ -1,5 +1,7 @@
 package com.danilkharytonov.composecontacts.domain.use_cases.create_user_view
 
+import androidx.core.net.toUri
+import com.danilkharytonov.composecontacts.data.repository.ResourceManagerImpl.Companion.MAIN_USER_IMAGE
 import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.domain.repository.MainUserRepository
 import com.danilkharytonov.composecontacts.domain.repository.ResourceManager
@@ -17,6 +19,7 @@ class SaveMainUserUseCase(
                 val user = initUser(state)
                 mainUserRepository.insertMainUser(user = user)
                 resourceManager.setUserCreation()
+                resourceManager.saveUserImage(state.iconImage.toUri())
                 CreateUserEvent.UserSaved
             } else {
                 CreateUserEvent.Error
@@ -41,7 +44,7 @@ class SaveMainUserUseCase(
             phoneNumber = state.phoneNumber,
             email = state.email,
             dateOfBirth = state.dateOfBirth,
-            iconImage = state.iconImage
+            iconImage = MAIN_USER_IMAGE
         )
     }
 

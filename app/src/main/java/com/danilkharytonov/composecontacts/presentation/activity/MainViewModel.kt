@@ -17,4 +17,6 @@ class MainViewModel(
     override fun createInitialState(): MainActivityState {
         return MainActivityState()
     }
+
+    override fun handleSpecialEvent(event: MainActivityEvent) {}
 }

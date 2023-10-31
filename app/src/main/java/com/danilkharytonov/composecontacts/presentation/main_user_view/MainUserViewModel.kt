@@ -16,4 +16,6 @@ class MainUserViewModel(
     override fun createInitialState(): MainUserState {
         return MainUserState()
     }
+
+    override fun handleSpecialEvent(event: MainUserEvent) {}
 }

@@ -6,8 +6,8 @@ class CreateUserReducer : Reducer<CreateUserState, CreateUserEvent> {
     override fun reduce(state: CreateUserState, event: CreateUserEvent): CreateUserState {
         return when (event) {
             is CreateUserEvent.SaveUserEvent -> state
-            is CreateUserEvent.UserSaved -> state.copy(isError = false)
-            is CreateUserEvent.Error -> state.copy(isError = true)
+            is CreateUserEvent.UserSaved -> state
+            is CreateUserEvent.Error -> state
             is CreateUserEvent.NameChangedEvent -> state.copy(name = event.name)
             is CreateUserEvent.SurnameChangedEvent -> state.copy(surname = event.surname)
             is CreateUserEvent.PhoneChangedEvent -> state.copy(phoneNumber = event.phone)

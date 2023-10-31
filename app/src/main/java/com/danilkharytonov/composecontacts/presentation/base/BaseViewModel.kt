@@ -27,12 +27,27 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
+    private val _uiEvents: MutableStateFlow<MutableList<Event>> = MutableStateFlow(arrayListOf())
+
+    abstract fun handleSpecialEvent(event: Event)
+
+    protected fun addSpecialEvent(event: Event) {
+        _uiEvents.value.add(event)
+    }
+
     protected fun navigate(destination: String, navOptions: NavOptions? = null) {
         appNavigator.navigateTo(destination, navOptions)
     }
 
     protected fun handleEvent(event: Event) {
         _uiState.update { reducer.reduce(state = uiState.value, event = event) }
+        viewModelScope.launch {
+            _uiEvents.collect {
+                if (_uiEvents.value.contains(event)) {
+                    handleSpecialEvent(event)
+                }
+            }
+        }
         useCase.filter { it.canHandle(event) }.forEach { useCase ->
             viewModelScope.launch(Dispatchers.IO) {
                 val result = useCase.execute(uiState.value, event)
