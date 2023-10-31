@@ -22,7 +22,7 @@ class ResourceManagerImpl(
     }
 
     override fun checkUserCreation(): Boolean {
-        return false //sharedPreferences.getBoolean(MAIN_USER_ID, false)
+        return sharedPreferences.getBoolean(MAIN_USER_ID, false)
     }
 
     override fun setUserCreation() {
