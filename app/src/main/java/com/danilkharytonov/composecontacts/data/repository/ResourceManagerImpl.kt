@@ -44,5 +44,6 @@ class ResourceManagerImpl(
 
     companion object {
         const val SHARED_PREFERENCES = "SHARED_PREFERENCES"
+        const val STORAGE_PERMISSION_CODE = 1
     }
 }

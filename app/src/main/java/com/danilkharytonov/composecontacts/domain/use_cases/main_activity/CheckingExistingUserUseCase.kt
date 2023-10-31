@@ -1,6 +1,5 @@
 package com.danilkharytonov.composecontacts.domain.use_cases.main_activity
 
-import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
 import com.danilkharytonov.composecontacts.domain.repository.ResourceManager
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivityEvent
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivityState
@@ -10,11 +9,10 @@ class CheckingExistingUserUseCase(
     private val resourceManager: ResourceManager
 ) : UseCase<MainActivityState, MainActivityEvent> {
     override suspend fun execute(
-        state: MainActivityState,
-        event: MainActivityEvent
+        state: MainActivityState, event: MainActivityEvent
     ): MainActivityEvent {
-        return if (event is MainActivityEvent.CheckExistingUser){
-            if (resourceManager.checkUserCreation()){
+        return if (event is MainActivityEvent.CheckExistingUser) {
+            if (resourceManager.checkUserCreation()) {
                 MainActivityEvent.UserIsExist
             } else MainActivityEvent.UserIsNotExist
         } else MainActivityEvent.UserIsNotExist

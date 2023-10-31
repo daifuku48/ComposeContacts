@@ -54,8 +54,8 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
         }
 
     LaunchedEffect(key1 = state.isError, block = {
-        if (state.isError != null){
-            if (!state.isError!!){
+        if (state.isError != null) {
+            if (!state.isError!!) {
                 viewModel.navigateToMainUserScreen()
             }
         }

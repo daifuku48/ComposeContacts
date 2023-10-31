@@ -1,11 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
 
 
 sealed class CreateUserEvent : UiEvent {
-    object SaveUserEvent: CreateUserEvent()
+    object SaveUserEvent : CreateUserEvent()
     object UserSaved : CreateUserEvent()
     object Error : CreateUserEvent()
 

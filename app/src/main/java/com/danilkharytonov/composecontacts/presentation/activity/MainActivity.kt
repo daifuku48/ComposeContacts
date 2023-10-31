@@ -1,12 +1,9 @@
 package com.danilkharytonov.composecontacts.presentation.activity
 
-import android.Manifest.permission
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.DisposableEffect
-import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -45,7 +42,6 @@ class MainActivity : ComponentActivity() {
                         }
                         splashScreen.setKeepOnScreenCondition { false }
                     }
-                    checkReadingStoragePermission()
                     setContent {
                         DisposableEffect(Unit) {
                             onDispose {
@@ -74,21 +70,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    private fun checkReadingStoragePermission() {
-        if (ActivityCompat.checkSelfPermission(this, permission.READ_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(permission.READ_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_CODE
-            )
-        }
-    }
-
-    companion object {
-        const val STORAGE_PERMISSION_CODE = 1
     }
 }

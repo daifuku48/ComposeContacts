@@ -1,5 +1,8 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,19 +14,37 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
+import com.danilkharytonov.composecontacts.data.repository.ResourceManagerImpl.Companion.STORAGE_PERMISSION_CODE
 
 @Composable
 fun MainUserView(viewModel: MainUserViewModel) {
     val state by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+    val activity = LocalView.current.context as Activity
+    LaunchedEffect(key1 = Unit, block = {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                STORAGE_PERMISSION_CODE
+            )
+        }
+    })
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {

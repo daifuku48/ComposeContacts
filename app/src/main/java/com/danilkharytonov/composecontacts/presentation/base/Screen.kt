@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.base
 
-sealed class Screen(val route: String){
+sealed class Screen(val route: String) {
     object UserScreen : Screen(MAIN_USER_SCREEN)
     object CreateUserScreen : Screen(CREATE_USER_SCREEN)
 
