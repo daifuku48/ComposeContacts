@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.presentation.create_user_view
+package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,20 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
 
 @Composable
-fun CreateUser(viewModel: CreateUserViewModel) {
-    ComposeContactsTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            CreateUserView(viewModel)
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CreateUserView(viewModel: CreateUserViewModel) {
+fun EditProfileView(viewModel: EditProfileViewModel){
     val state by viewModel.uiState.collectAsState()
 
     val launcher =
@@ -60,7 +48,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.creating_user),
+                text = stringResource(R.string.editing_user),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(50.dp),
@@ -68,7 +56,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
             )
 
             Text(
-                text = stringResource(id = R.string.icon),
+                text = stringResource(R.string.icon),
                 fontSize = 16.sp
             )
 
@@ -95,7 +83,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                 label = { Text(text = stringResource(R.string.your_name)) }
             )
 
-            CreateSpace()
+            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
 
             TextField(
                 value = state.surname,
@@ -105,7 +93,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                 label = { Text(text = stringResource(R.string.surname)) }
             )
 
-            CreateSpace()
+            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
 
             TextField(
                 value = state.phoneNumber,
@@ -116,7 +104,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
             )
 
-            CreateSpace()
+            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
 
             TextField(
                 value = state.email,
@@ -127,10 +115,10 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
-            CreateSpace()
+            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
 
             TextField(
-                value = state.dateOfBirth,
+                value = state.date,
                 onValueChange = { text ->
                     viewModel.updateDateOfBirthHandle(text)
                 },
@@ -139,7 +127,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
 
             Button(
                 onClick = {
-                    viewModel.handleSaveUser()
+                    viewModel.handleEditUser()
                 }, modifier = Modifier
                     .padding(30.dp)
             ) {
@@ -151,6 +139,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
         }
     }
 }
+
 
 @Composable
 fun CreateSpace() {

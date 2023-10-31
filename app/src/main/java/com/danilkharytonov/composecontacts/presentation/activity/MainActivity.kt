@@ -16,11 +16,14 @@ import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUser
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserViewModel
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileView
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileViewModel
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserView
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -53,12 +56,17 @@ class MainActivity : ComponentActivity() {
                                     ) {
                                         composable(route = Screen.CreateUserScreen.route) {
                                             val createUserViewModel = getViewModel<CreateUserViewModel>()
-                                            CreateUser(createUserViewModel)
+                                            CreateUser(viewModel = createUserViewModel)
                                         }
 
                                         composable(route = Screen.UserScreen.route) {
                                             val mainUserViewModel = getViewModel<MainUserViewModel>()
                                             MainUserView(viewModel = mainUserViewModel)
+                                        }
+
+                                        composable(route = Screen.EditProfileScreen.route){
+                                            val editProfileViewModel = getViewModel<EditProfileViewModel>()
+                                            EditProfileView(viewModel = editProfileViewModel)
                                         }
                                     }
                                 }

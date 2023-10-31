@@ -7,6 +7,8 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.AppNavig
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserReducer
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserViewModel
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileReducer
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileViewModel
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserReducer
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -32,6 +34,14 @@ val viewModelModule = module {
     viewModel {
         MainViewModel(
             reducer = MainActivityReducer(),
+            useCases = listOf(get()),
+            appNavigator = get()
+        )
+    }
+
+    viewModel{
+        EditProfileViewModel(
+            reducer = EditProfileReducer(),
             useCases = listOf(get()),
             appNavigator = get()
         )
