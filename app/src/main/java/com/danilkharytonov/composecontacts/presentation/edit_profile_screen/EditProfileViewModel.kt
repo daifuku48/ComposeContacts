@@ -1,24 +1,45 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.domain.use_cases.edit_profile.EditProfileUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import java.util.Date
+import kotlinx.coroutines.launch
 
 class EditProfileViewModel(
-    reducer: EditProfileReducer,
-    useCases: List<EditProfileUseCase>,
-    appNavigator: Navigator
+    reducer: EditProfileReducer, useCases: List<EditProfileUseCase>, appNavigator: Navigator
 ) : BaseViewModel<EditProfileEvent, EditProfileState>(reducer, useCases, appNavigator) {
+
+    init {
+        addSpecialEvent(EditProfileEvent.EditingUserSavedEvent)
+        handleEvent(EditProfileEvent.GetMainUserEvent)
+    }
+
     override fun createInitialState(): EditProfileState {
         return EditProfileState()
     }
 
-    fun updateIconEventHandle(image: String){
+    fun updateIconEventHandle(image: String) {
         handleEvent(EditProfileEvent.EditIconEvent(image))
     }
 
-    override fun handleSpecialEvent(event: EditProfileEvent) {}
+    override fun handleSpecialEvent(event: EditProfileEvent) {
+        when (event) {
+            EditProfileEvent.EditingUserSavedEvent -> {
+                navigateToMainScreen()
+            }
+            else -> {}
+        }
+    }
+
+    private fun navigateToMainScreen() {
+        viewModelScope.launch {
+            val navOptions = NavOptions.Builder().setPopUpTo(Screen.MAIN_USER_SCREEN, true).build()
+            navigate(Screen.MAIN_USER_SCREEN, navOptions)
+        }
+    }
 
     fun updateNameEventHandle(name: String) {
         handleEvent(EditProfileEvent.EditNameEvent(name))

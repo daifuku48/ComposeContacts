@@ -39,6 +39,10 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
         appNavigator.navigateTo(destination, navOptions)
     }
 
+    protected fun popBackStack() {
+        appNavigator.pop()
+    }
+
     protected fun handleEvent(event: Event) {
         _uiState.update { reducer.reduce(state = uiState.value, event = event) }
         if (_uiEvents.contains(event)) {

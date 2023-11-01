@@ -12,6 +12,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,7 +28,9 @@ import java.io.File
 @Composable
 fun MainUserView(viewModel: MainUserViewModel) {
     val state by viewModel.uiState.collectAsState()
-
+    LaunchedEffect("Key", block = {
+        viewModel.updateState()
+    })
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -41,10 +44,12 @@ fun MainUserView(viewModel: MainUserViewModel) {
                 Row(modifier = Modifier.padding(30.dp)) {
                     Image(
                         painter = rememberAsyncImagePainter(
-                            File(
-                                LocalContext.current.filesDir,
-                                state.iconImage
-                            )
+                            state.iconImage?.let {
+                                File(
+                                    LocalContext.current.filesDir,
+                                    it
+                                )
+                            }
                         ),
                         contentDescription = stringResource(R.string.user_icon),
                         modifier = Modifier.size(100.dp),

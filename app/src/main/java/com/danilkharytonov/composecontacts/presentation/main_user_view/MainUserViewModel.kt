@@ -12,25 +12,28 @@ class MainUserViewModel(
 ) : BaseViewModel<MainUserEvent, MainUserState>(reducer, useCases, appNavigator) {
     init {
         addSpecialEvent(MainUserEvent.NavigateToEditingUserEvent)
-        handleEvent(MainUserEvent.UserLoading)
     }
 
     override fun createInitialState(): MainUserState {
         return MainUserState()
     }
 
-    private fun navigateToEditingScreen(){
-        navigate(Screen.CREATE_USER_SCREEN)
+    private fun navigateToEditingScreen() {
+        navigate(Screen.EDIT_PROFILE_SCREEN)
     }
 
-    fun handleNavigateToEditScreen(){
+    fun handleNavigateToEditScreen() {
         handleEvent(MainUserEvent.NavigateToEditingUserEvent)
     }
 
     override fun handleSpecialEvent(event: MainUserEvent) {
-        when(event){
+        when (event) {
             MainUserEvent.NavigateToEditingUserEvent -> navigateToEditingScreen()
             else -> {}
         }
+    }
+
+    fun updateState() {
+        handleEvent(MainUserEvent.UserLoading)
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,8 +30,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProfileView(viewModel: EditProfileViewModel){
+fun EditProfileView(viewModel: EditProfileViewModel) {
     val state by viewModel.uiState.collectAsState()
 
     val launcher =

@@ -9,6 +9,15 @@ class EditProfileReducer : Reducer<EditProfileState, EditProfileEvent> {
             is EditProfileEvent.NavigateToProfileScreenEvent -> state
             is EditProfileEvent.EditingUserSavedEvent -> state
             is EditProfileEvent.GetMainUserEvent -> state
+            is EditProfileEvent.MainUserIsGetEvent -> state.copy(
+                name = event.name,
+                surname = event.surname,
+                phoneNumber = event.phone,
+                email = event.email,
+                date = event.birth,
+                iconImage = event.imageIcon
+            )
+
             is EditProfileEvent.ErrorEvent -> state
             is EditProfileEvent.EditNameEvent -> state.copy(name = event.name)
             is EditProfileEvent.EditSurnameEvent -> state.copy(surname = event.surname)

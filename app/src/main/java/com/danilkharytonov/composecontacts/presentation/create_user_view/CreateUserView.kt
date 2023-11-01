@@ -20,6 +20,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -43,7 +44,7 @@ fun CreateUser(viewModel: CreateUserViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateUserView(viewModel: CreateUserViewModel) {
-    val state by viewModel.uiState.collectAsState()
+    val state by remember{viewModel.uiState}.collectAsState()
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -144,7 +145,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
                     .padding(30.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.save),
+                    text = stringResource(R.string.create),
                     fontSize = 20.sp
                 )
             }
