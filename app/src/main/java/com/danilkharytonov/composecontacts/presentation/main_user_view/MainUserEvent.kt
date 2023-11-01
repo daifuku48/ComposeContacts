@@ -5,6 +5,7 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
 
 sealed class MainUserEvent : UiEvent {
     object UserLoading : MainUserEvent()
+    object NavigateToEditingUserEvent : MainUserEvent()
     data class UserLoaded(val user: User) : MainUserEvent()
     object Error : MainUserEvent()
 }

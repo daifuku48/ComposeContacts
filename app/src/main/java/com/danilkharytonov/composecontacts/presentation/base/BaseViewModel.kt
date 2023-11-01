@@ -29,7 +29,7 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
 
     private val _uiEvents: MutableList<Event> = arrayListOf()
 
-    abstract fun handleSpecialEvent(event: Event)
+    protected abstract fun handleSpecialEvent(event: Event)
 
     protected fun addSpecialEvent(event: Event) {
         _uiEvents.add(event)
@@ -37,6 +37,10 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
 
     protected fun navigate(destination: String, navOptions: NavOptions? = null) {
         appNavigator.navigateTo(destination, navOptions)
+    }
+
+    protected fun popBackStack() {
+        appNavigator.pop()
     }
 
     protected fun handleEvent(event: Event) {

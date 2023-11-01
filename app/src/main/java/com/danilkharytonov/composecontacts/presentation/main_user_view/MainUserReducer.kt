@@ -15,6 +15,7 @@ class MainUserReducer : Reducer<MainUserState, MainUserEvent> {
                 iconImage = event.user.iconImage,
                 isLoading = false)
             is MainUserEvent.UserLoading -> state.copy(isLoading = true)
+            is MainUserEvent.NavigateToEditingUserEvent -> state
             MainUserEvent.Error -> state.copy(isLoading = false)
         }
     }
