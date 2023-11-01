@@ -1,5 +1,6 @@
 package com.danilkharytonov.composecontacts.domain.use_cases.edit_profile
 
+import android.util.Patterns
 import androidx.core.net.toUri
 import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
 import com.danilkharytonov.composecontacts.data.repository.ResourceManagerImpl.Companion.MAIN_USER_IMAGE
@@ -21,7 +22,11 @@ class EditProfileUseCase(
     ): EditProfileEvent {
         return when (event) {
             is EditProfileEvent.SaveEditingUser -> {
-                if (isValidState(state)) {
+                if (isValidDate(state.date) && isValidName(state.name) && isValidEmail(state.email) && isValidName(
+                        state.surname
+                    ) &&
+                    isValidPhoneNumber(state.phoneNumber)
+                ) {
                     val user = initUser(state)
                     mainUserRepository.insertMainUser(user = user)
                     if (state.iconImage != MAIN_USER_IMAGE) {
@@ -34,7 +39,7 @@ class EditProfileUseCase(
             is EditProfileEvent.GetMainUserEvent -> {
                 val user = mainUserRepository.getMainUser()
                 if (user != null) {
-                    EditProfileEvent.MainUserIsGetEvent(
+                    EditProfileEvent.MainUserIsReceivedEvent(
                         name = user.name,
                         surname = user.surname,
                         phone = user.phoneNumber,
@@ -76,12 +81,21 @@ class EditProfileUseCase(
         return event is EditProfileEvent.SaveEditingUser || event is EditProfileEvent.GetMainUserEvent
     }
 
-    private fun isValidState(state: EditProfileState): Boolean {
+    private fun isValidName(name: String): Boolean {
+        return name.isNotEmpty() && name.matches(Regex("^[A-Za-z ]+\$"))
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = Patterns.EMAIL_ADDRESS
+        return emailPattern.matcher(email).matches()
+    }
+
+    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        return phoneNumber.isNotEmpty()
+    }
+
+    private fun isValidDate(date: String): Boolean {
         val pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.\\d{4}$")
-        return pattern.matcher(state.date).matches()
-                || state.name.isNotEmpty()
-                || state.email.isNotEmpty()
-                || state.phoneNumber.isNotEmpty()
-                || state.surname.isNotEmpty()
+        return pattern.matcher(date).matches()
     }
 }

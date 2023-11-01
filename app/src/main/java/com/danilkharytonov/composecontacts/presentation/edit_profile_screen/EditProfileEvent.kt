@@ -5,7 +5,7 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
 sealed class EditProfileEvent : UiEvent {
     object SaveEditingUser : EditProfileEvent()
     object GetMainUserEvent : EditProfileEvent()
-    data class MainUserIsGetEvent(
+    data class MainUserIsReceivedEvent(
         val name: String,
         val surname: String,
         val phone: String,

@@ -9,7 +9,7 @@ class EditProfileReducer : Reducer<EditProfileState, EditProfileEvent> {
             is EditProfileEvent.NavigateToProfileScreenEvent -> state
             is EditProfileEvent.EditingUserSavedEvent -> state
             is EditProfileEvent.GetMainUserEvent -> state
-            is EditProfileEvent.MainUserIsGetEvent -> state.copy(
+            is EditProfileEvent.MainUserIsReceivedEvent -> state.copy(
                 name = event.name,
                 surname = event.surname,
                 phoneNumber = event.phone,

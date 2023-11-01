@@ -14,7 +14,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -42,102 +41,100 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
             }
         }
 
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(R.string.editing_user),
             modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .align(Alignment.CenterHorizontally)
+                .padding(50.dp),
+            fontSize = 30.sp,
+        )
+
+        Text(
+            text = stringResource(R.string.icon),
+            fontSize = 16.sp
+        )
+
+        AsyncImage(
+            model = state.iconImage,
+            contentDescription = stringResource(R.string.user_icon),
+            modifier = Modifier
+                .clickable {
+                    launcher.launch(
+                        PickVisualMediaRequest(
+                            mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
+                        )
+                    )
+                }
+                .size(100.dp),
+            error = painterResource(id = R.drawable.baseline_person_24)
+        )
+
+        TextField(
+            value = state.name,
+            onValueChange = { text ->
+                viewModel.updateNameEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.your_name)) }
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.surname,
+            onValueChange = { text ->
+                viewModel.updateSurnameEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.surname)) }
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.phoneNumber,
+            onValueChange = { text ->
+                viewModel.updatePhoneEventNumber(text)
+            },
+            label = { Text(text = stringResource(R.string.phone_number)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.email,
+            onValueChange = { text ->
+                viewModel.updateEmailEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.email)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.date,
+            onValueChange = { text ->
+                viewModel.updateDateOfBirthHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.date_of_birth)) },
+        )
+
+        Button(
+            onClick = {
+                viewModel.handleEditUser()
+            }, modifier = Modifier
+                .padding(30.dp)
         ) {
             Text(
-                text = stringResource(R.string.editing_user),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(50.dp),
-                fontSize = 30.sp,
+                text = stringResource(R.string.save),
+                fontSize = 20.sp
             )
-
-            Text(
-                text = stringResource(R.string.icon),
-                fontSize = 16.sp
-            )
-
-            AsyncImage(
-                model = state.iconImage,
-                contentDescription = stringResource(R.string.user_icon),
-                modifier = Modifier
-                    .clickable {
-                        launcher.launch(
-                            PickVisualMediaRequest(
-                                mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
-                            )
-                        )
-                    }
-                    .size(100.dp),
-                error = painterResource(id = R.drawable.baseline_person_24)
-            )
-
-            TextField(
-                value = state.name,
-                onValueChange = { text ->
-                    viewModel.updateNameEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.your_name)) }
-            )
-
-            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
-
-            TextField(
-                value = state.surname,
-                onValueChange = { text ->
-                    viewModel.updateSurnameEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.surname)) }
-            )
-
-            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
-
-            TextField(
-                value = state.phoneNumber,
-                onValueChange = { text ->
-                    viewModel.updatePhoneEventNumber(text)
-                },
-                label = { Text(text = stringResource(R.string.phone_number)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-            )
-
-            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
-
-            TextField(
-                value = state.email,
-                onValueChange = { text ->
-                    viewModel.updateEmailEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.email)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-            )
-
-            com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace()
-
-            TextField(
-                value = state.date,
-                onValueChange = { text ->
-                    viewModel.updateDateOfBirthHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.date_of_birth)) },
-            )
-
-            Button(
-                onClick = {
-                    viewModel.handleEditUser()
-                }, modifier = Modifier
-                    .padding(30.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.save),
-                    fontSize = 20.sp
-                )
-            }
         }
     }
 }

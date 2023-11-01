@@ -33,7 +33,7 @@ class MainUserViewModel(
         }
     }
 
-    fun updateState() {
+    fun requestUserData() {
         handleEvent(MainUserEvent.UserLoading)
     }
 }

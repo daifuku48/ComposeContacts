@@ -44,7 +44,7 @@ fun CreateUser(viewModel: CreateUserViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateUserView(viewModel: CreateUserViewModel) {
-    val state by remember{viewModel.uiState}.collectAsState()
+    val state by remember { viewModel.uiState }.collectAsState()
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -53,102 +53,100 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
             }
         }
 
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(R.string.creating_user),
             modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .align(Alignment.CenterHorizontally)
+                .padding(50.dp),
+            fontSize = 30.sp,
+        )
+
+        Text(
+            text = stringResource(id = R.string.icon),
+            fontSize = 16.sp
+        )
+
+        AsyncImage(
+            model = state.iconImage,
+            contentDescription = stringResource(R.string.user_icon),
+            modifier = Modifier
+                .clickable {
+                    launcher.launch(
+                        PickVisualMediaRequest(
+                            mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
+                        )
+                    )
+                }
+                .size(100.dp),
+            error = painterResource(id = R.drawable.baseline_person_24)
+        )
+
+        TextField(
+            value = state.name,
+            onValueChange = { text ->
+                viewModel.updateNameEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.your_name)) }
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.surname,
+            onValueChange = { text ->
+                viewModel.updateSurnameEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.surname)) }
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.phoneNumber,
+            onValueChange = { text ->
+                viewModel.updatePhoneEventNumber(text)
+            },
+            label = { Text(text = stringResource(R.string.phone_number)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.email,
+            onValueChange = { text ->
+                viewModel.updateEmailEventHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.email)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+
+        CreateSpace()
+
+        TextField(
+            value = state.dateOfBirth,
+            onValueChange = { text ->
+                viewModel.updateDateOfBirthHandle(text)
+            },
+            label = { Text(text = stringResource(R.string.date_of_birth)) },
+        )
+
+        Button(
+            onClick = {
+                viewModel.handleSaveUser()
+            }, modifier = Modifier
+                .padding(30.dp)
         ) {
             Text(
-                text = stringResource(R.string.creating_user),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(50.dp),
-                fontSize = 30.sp,
+                text = stringResource(R.string.create),
+                fontSize = 20.sp
             )
-
-            Text(
-                text = stringResource(id = R.string.icon),
-                fontSize = 16.sp
-            )
-
-            AsyncImage(
-                model = state.iconImage,
-                contentDescription = stringResource(R.string.user_icon),
-                modifier = Modifier
-                    .clickable {
-                        launcher.launch(
-                            PickVisualMediaRequest(
-                                mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
-                            )
-                        )
-                    }
-                    .size(100.dp),
-                error = painterResource(id = R.drawable.baseline_person_24)
-            )
-
-            TextField(
-                value = state.name,
-                onValueChange = { text ->
-                    viewModel.updateNameEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.your_name)) }
-            )
-
-            CreateSpace()
-
-            TextField(
-                value = state.surname,
-                onValueChange = { text ->
-                    viewModel.updateSurnameEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.surname)) }
-            )
-
-            CreateSpace()
-
-            TextField(
-                value = state.phoneNumber,
-                onValueChange = { text ->
-                    viewModel.updatePhoneEventNumber(text)
-                },
-                label = { Text(text = stringResource(R.string.phone_number)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-            )
-
-            CreateSpace()
-
-            TextField(
-                value = state.email,
-                onValueChange = { text ->
-                    viewModel.updateEmailEventHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.email)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-            )
-
-            CreateSpace()
-
-            TextField(
-                value = state.dateOfBirth,
-                onValueChange = { text ->
-                    viewModel.updateDateOfBirthHandle(text)
-                },
-                label = { Text(text = stringResource(R.string.date_of_birth)) },
-            )
-
-            Button(
-                onClick = {
-                    viewModel.handleSaveUser()
-                }, modifier = Modifier
-                    .padding(30.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.create),
-                    fontSize = 20.sp
-                )
-            }
         }
     }
 }
