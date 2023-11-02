@@ -32,6 +32,6 @@ val domainModule = module {
     }
 
     factory {
-        SearchContactsUseCase()
+        SearchContactsUseCase(get())
     }
 }

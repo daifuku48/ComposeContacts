@@ -19,7 +19,9 @@ class SubUserRepositoryImpl(private val subUserDao: SubUserDao) : SubUserReposit
     }
 
     override fun getUsersByCategory(category: Category): PersistentList<ContactUser> {
-        return subUserDao.getUsersByCategory(category).map { it.toDomain() }.toPersistentList()
+        return if (category == Category.ALL) {
+            getAllUsers()
+        } else subUserDao.getUsersByCategory(category).map { it.toDomain() }.toPersistentList()
     }
 
     override fun deleteUserById(uuid: String) {
