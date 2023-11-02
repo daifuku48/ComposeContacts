@@ -9,13 +9,12 @@ class ContactsReducer : Reducer<ContactsState, ContactsEvent> {
                 currentCategory = event.category,
                 currentCategoryText = event.categoryText
             )
-
             is ContactsEvent.ContactsIsFiltered -> state.copy(contactsList = event.contacts)
             is ContactsEvent.ExpandedChangedEvent -> state.copy(isExpanded = event.isExpanded)
             is ContactsEvent.FilterContactsEvent -> state
-            ContactsEvent.GetContactsEvent -> state
+            is ContactsEvent.GetContactsEvent -> state
             is ContactsEvent.SearchTextChangedEvent -> state.copy(searchText = event.searchText)
-            ContactsEvent.ErrorEvent -> state
+            is ContactsEvent.ErrorEvent -> state
         }
     }
 }

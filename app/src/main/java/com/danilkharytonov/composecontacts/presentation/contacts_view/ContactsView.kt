@@ -1,5 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,12 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.OutlinedTextField
@@ -25,15 +26,21 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getString
+import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.domain.model.Category
 import org.koin.androidx.compose.koinViewModel
@@ -44,12 +51,17 @@ fun ContactsView(
     viewModel: ContactsViewModel
 ) {
     val state by viewModel.uiState.collectAsState()
-    val categoryList = mapOf(
-        Category.ALL to stringResource(id = R.string.Category_All),
-        Category.FAMILY to stringResource(id = R.string.Category_Family),
-        Category.FRIENDS to stringResource(id = R.string.Category_Friends),
-        Category.WORK to stringResource(id = R.string.Category_Work)
-    )
+    val context = LocalContext.current
+    val categoryMap by remember {
+        mutableStateOf(
+            mapOf(
+                Category.ALL to getString(context, R.string.Category_All),
+                Category.FAMILY to getString(context, R.string.Category_Family),
+                Category.FRIENDS to getString(context, R.string.Category_Friends),
+                Category.WORK to getString(context, R.string.Category_Work)
+            )
+        )
+    }
     Column(modifier = Modifier.fillMaxSize()) {
 
         Row(modifier = Modifier.padding(10.dp)) {
@@ -73,76 +85,36 @@ fun ContactsView(
                     }
                 ) {
                     TextField(
+                        modifier = Modifier.menuAnchor(),
+                        readOnly = true,
                         value = state.currentCategoryText,
                         onValueChange = {},
-                        readOnly = true,
+                        label = { Text(stringResource(R.string.category)) },
                         trailingIcon = { TrailingIcon(expanded = state.isExpanded) },
-                        modifier = Modifier.menuAnchor()
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
                     )
-
                     ExposedDropdownMenu(
                         expanded = state.isExpanded,
                         onDismissRequest = { viewModel.handleExpandMenu() }
                     ) {
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = stringResource(id = R.string.Category_All),
-                                    fontSize = 16.sp
-                                )
-                            },
-                            onClick = {
-                                viewModel.handleChangedCategory(
-                                    Category.ALL,
-                                    categoryText = categoryList[Category.ALL]!!
+                        Category.values().forEach { category ->
+                            key(category) {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = categoryMap[category]!!,
+                                            fontSize = 16.sp
+                                        )
+                                    },
+                                    onClick = {
+                                        viewModel.handleChangedCategory(
+                                            category,
+                                            categoryText = categoryMap[category]!!
+                                        )
+                                    }
                                 )
                             }
-                        )
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = stringResource(id = R.string.Category_Family),
-                                    fontSize = 16.sp
-                                )
-                            },
-                            onClick = {
-                                viewModel.handleChangedCategory(
-                                    Category.FAMILY,
-                                    categoryText = categoryList[Category.FAMILY]!!
-                                )
-                                viewModel.handleExpandMenu()
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = stringResource(id = R.string.Category_Friends),
-                                    fontSize = 16.sp
-                                )
-                            },
-                            onClick = {
-                                viewModel.handleChangedCategory(
-                                    Category.FRIENDS,
-                                    categoryText = categoryList[Category.FRIENDS]!!
-                                )
-                                viewModel.handleExpandMenu()
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = stringResource(id = R.string.Category_Work),
-                                    fontSize = 16.sp
-                                )
-                            },
-                            onClick = {
-                                viewModel.handleChangedCategory(
-                                    Category.WORK,
-                                    categoryText = categoryList[Category.WORK]!!
-                                )
-                                viewModel.handleExpandMenu()
-                            }
-                        )
+                        }
                     }
                 }
             }
@@ -160,10 +132,10 @@ fun ContactsView(
                             //Navigate to user details
                         }
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.baseline_person_24),
-                        contentDescription = null,
-                        modifier = Modifier.size(50.dp)
+
+                    AsyncImage(
+                        model = state.contactsList[index].iconImage,
+                        contentDescription = null
                     )
 
                     Column(modifier = Modifier.padding(start = 10.dp)) {

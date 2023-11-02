@@ -23,4 +23,5 @@
     <string name="Category_Work">Work</string>
     <string name="search">Search</string>
     <string name="all">All</string>
+    <string name="category">Category</string>
 </resources>

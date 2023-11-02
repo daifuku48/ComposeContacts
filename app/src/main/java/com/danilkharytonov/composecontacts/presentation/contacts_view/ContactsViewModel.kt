@@ -30,6 +30,12 @@ class ContactsViewModel(
 
     fun handleChangedCategory(category: Category, categoryText: String) {
         handleEvent(ContactsEvent.CategoryOnChangedEvent(category, categoryText))
+        handleEvent(
+            ContactsEvent.FilterContactsEvent(
+                searchText = uiState.value.searchText,
+                category = uiState.value.currentCategory
+            )
+        )
     }
 
     fun handleExpandMenu() {

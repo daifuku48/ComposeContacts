@@ -9,31 +9,22 @@ import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsSt
 class FilterContactsUseCase(private val repository: SubUserRepository) :
     UseCase<ContactsState, ContactsEvent> {
     override suspend fun execute(state: ContactsState, event: ContactsEvent): ContactsEvent {
-        return if (event is ContactsEvent.FilterContactsEvent) {
-            when (event.category) {
-                Category.ALL -> ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
-                Category.FAMILY -> ContactsEvent.ContactsIsFiltered(
-                    repository.getUsersByCategory(
-                        event.category
+        return when (event) {
+            is ContactsEvent.FilterContactsEvent -> {
+                when (event.category) {
+                    Category.ALL -> ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
+                    else -> ContactsEvent.ContactsIsFiltered(
+                        repository.getUsersByCategory(
+                            event.category
+                        )
                     )
-                )
-
-                Category.FRIENDS -> ContactsEvent.ContactsIsFiltered(
-                    repository.getUsersByCategory(
-                        event.category
-                    )
-                )
-
-                Category.WORK -> ContactsEvent.ContactsIsFiltered(
-                    repository.getUsersByCategory(
-                        event.category
-                    )
-                )
+                }
             }
-
-        } else if (event is ContactsEvent.GetContactsEvent){
-            ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
-        } else ContactsEvent.ErrorEvent
+            is ContactsEvent.GetContactsEvent -> {
+                ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
+            }
+            else -> ContactsEvent.ErrorEvent
+        }
     }
 
     override fun canHandle(event: ContactsEvent): Boolean {
