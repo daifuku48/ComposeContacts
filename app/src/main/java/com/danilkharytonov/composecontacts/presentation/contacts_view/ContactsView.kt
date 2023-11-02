@@ -56,14 +56,14 @@ fun ContactsView(
             OutlinedTextField(
                 value = state.searchText,
                 onValueChange = { text ->
-                    viewModel.handleChangerSearchText(text)
+                    viewModel.handleChangedSearchText(text)
                 },
                 label = { Text(text = stringResource(R.string.search)) },
                 modifier = Modifier.weight(0.6f)
             )
             Box(
                 modifier = Modifier
-                    .weight(0.3f)
+                    .weight(0.4f)
                     .padding(top = 7.dp)
             ) {
                 ExposedDropdownMenuBox(

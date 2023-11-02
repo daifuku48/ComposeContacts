@@ -30,11 +30,13 @@ class FilterContactsUseCase(private val repository: SubUserRepository) :
                     )
                 )
             }
-            ContactsEvent.ErrorEvent
+
+        } else if (event is ContactsEvent.GetContactsEvent){
+            ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
         } else ContactsEvent.ErrorEvent
     }
 
     override fun canHandle(event: ContactsEvent): Boolean {
-        return event is ContactsEvent.FilterContactsEvent
+        return event is ContactsEvent.FilterContactsEvent || event is ContactsEvent.GetContactsEvent
     }
 }

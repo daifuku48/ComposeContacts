@@ -10,11 +10,15 @@ class ContactsViewModel(
     useCases: List<UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
+    init {
+        handleEvent(ContactsEvent.GetContactsEvent)
+    }
+
     override fun createInitialState(): ContactsState {
         return ContactsState()
     }
 
-    fun handleChangerSearchText(newText: String) {
+    fun handleChangedSearchText(newText: String) {
         handleEvent(ContactsEvent.SearchTextChangedEvent(newText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
