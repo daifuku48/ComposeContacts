@@ -1,10 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import kotlinx.coroutines.launch
 
 class CreateUserViewModel(
     reducer: CreateUserReducer,
@@ -27,8 +29,10 @@ class CreateUserViewModel(
     }
 
     private fun navigateToMainUserScreen() {
-        val navOptions = NavOptions.Builder().setPopUpTo(Screen.CREATE_USER_SCREEN, false).build()
-        navigate(Screen.MAIN_USER_SCREEN, navOptions)
+        viewModelScope.launch {
+            val navOptions = NavOptions.Builder().setPopUpTo(Screen.CREATE_USER_SCREEN, false).build()
+            navigate(Screen.MAIN_USER_SCREEN, navOptions)
+        }
     }
 
     fun handleSaveUser() {

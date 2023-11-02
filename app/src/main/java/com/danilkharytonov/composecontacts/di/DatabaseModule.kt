@@ -16,4 +16,8 @@ val databaseModule = module {
     single {
         get<UserDatabase>().getMainUserDao()
     }
+
+    single {
+        get<UserDatabase>().getSubUserDao()
+    }
 }
