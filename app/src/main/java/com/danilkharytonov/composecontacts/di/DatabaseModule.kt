@@ -10,14 +10,14 @@ val databaseModule = module {
             context = get(),
             klass = UserDatabase::class.java,
             name = "user_db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
-    single {
-        get<UserDatabase>().getMainUserDao()
-    }
+single {
+    get<UserDatabase>().getMainUserDao()
+}
 
-    single {
-        get<UserDatabase>().getSubUserDao()
-    }
+single {
+    get<UserDatabase>().getSubUserDao()
+}
 }

@@ -1,12 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.domain.use_cases.edit_profile.EditProfileUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import kotlinx.coroutines.launch
 
 class EditProfileViewModel(
     reducer: EditProfileReducer, useCases: List<EditProfileUseCase>, appNavigator: Navigator
@@ -35,10 +33,8 @@ class EditProfileViewModel(
     }
 
     private fun navigateToMainScreen() {
-        viewModelScope.launch {
-            val navOptions = NavOptions.Builder().setPopUpTo(Screen.MAIN_USER_SCREEN, true).build()
-            navigate(Screen.MAIN_USER_SCREEN, navOptions)
-        }
+        val navOptions = NavOptions.Builder().setPopUpTo(Screen.MAIN_USER_SCREEN, true).build()
+        navigate(Screen.MAIN_USER_SCREEN, navOptions)
     }
 
     fun updateNameEventHandle(name: String) {
