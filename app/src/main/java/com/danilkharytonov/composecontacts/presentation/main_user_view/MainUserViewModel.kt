@@ -12,6 +12,7 @@ class MainUserViewModel(
 ) : BaseViewModel<MainUserEvent, MainUserState>(reducer, useCases, appNavigator) {
     init {
         addSpecialEvent(MainUserEvent.NavigateToEditingUserEvent)
+        addSpecialEvent(MainUserEvent.NavigateToContactsScreen)
     }
 
     override fun createInitialState(): MainUserState {
@@ -22,6 +23,10 @@ class MainUserViewModel(
         navigate(Screen.EDIT_PROFILE_SCREEN)
     }
 
+    private fun navigateToContactsScreen() {
+        navigate(Screen.CONTACTS_SCREEN)
+    }
+
     fun handleNavigateToEditScreen() {
         handleEvent(MainUserEvent.NavigateToEditingUserEvent)
     }
@@ -29,11 +34,16 @@ class MainUserViewModel(
     override fun handleSpecialEvent(event: MainUserEvent) {
         when (event) {
             MainUserEvent.NavigateToEditingUserEvent -> navigateToEditingScreen()
+            MainUserEvent.NavigateToContactsScreen -> navigateToContactsScreen()
             else -> {}
         }
     }
 
     fun requestUserData() {
         handleEvent(MainUserEvent.UserLoading)
+    }
+
+    fun handleNavigateToContactsScreen() {
+        handleEvent(MainUserEvent.NavigateToContactsScreen)
     }
 }

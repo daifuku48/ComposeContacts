@@ -14,6 +14,8 @@ import androidx.navigation.compose.rememberNavController
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
 import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsView
+import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsViewModel
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUser
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserViewModel
 import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileView
@@ -69,6 +71,12 @@ class MainActivity : ComponentActivity() {
                                             val editProfileViewModel =
                                                 getViewModel<EditProfileViewModel>()
                                             EditProfileView(viewModel = editProfileViewModel)
+                                        }
+
+                                        composable(route = Screen.ContactsScreen.route) {
+                                            val contactsViewModel =
+                                                getViewModel<ContactsViewModel>()
+                                            ContactsView(viewModel = contactsViewModel)
                                         }
                                     }
                                 }

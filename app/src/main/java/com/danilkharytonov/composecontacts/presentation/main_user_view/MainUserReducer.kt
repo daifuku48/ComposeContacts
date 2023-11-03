@@ -13,9 +13,12 @@ class MainUserReducer : Reducer<MainUserState, MainUserEvent> {
                 email = event.user.email,
                 dateOfBirth = event.user.dateOfBirth,
                 iconImage = event.user.iconImage,
-                isLoading = false)
+                isLoading = false
+            )
+
             is MainUserEvent.UserLoading -> state.copy(isLoading = true)
             is MainUserEvent.NavigateToEditingUserEvent -> state
+            is MainUserEvent.NavigateToContactsScreen -> state
             MainUserEvent.Error -> state.copy(isLoading = false)
         }
     }

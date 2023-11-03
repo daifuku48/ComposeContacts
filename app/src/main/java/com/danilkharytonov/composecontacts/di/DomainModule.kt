@@ -1,5 +1,7 @@
 package com.danilkharytonov.composecontacts.di
 
+import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.FilterContactsUseCase
+import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.SearchContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.edit_profile.EditProfileUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
@@ -23,5 +25,13 @@ val domainModule = module {
 
     factory {
         EditProfileUseCase(get(), get())
+    }
+
+    factory {
+        FilterContactsUseCase(get())
+    }
+
+    factory {
+        SearchContactsUseCase(get())
     }
 }

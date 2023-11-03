@@ -55,6 +55,9 @@ android {
 
 dependencies {
 
+    //Immutable Collections
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.6")
+    
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
 

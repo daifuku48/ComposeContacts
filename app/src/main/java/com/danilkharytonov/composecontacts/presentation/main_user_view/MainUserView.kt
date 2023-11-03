@@ -81,6 +81,16 @@ fun MainUserView(viewModel: MainUserViewModel) {
             ) {
                 Text(text = stringResource(R.string.edit_profile), fontSize = 30.sp)
             }
+
+            Button(
+                onClick = {
+                    viewModel.handleNavigateToContactsScreen()
+                }, modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 10.dp)
+            ) {
+                Text(text = stringResource(id = R.string.contacts), fontSize = 30.sp)
+            }
         }
     }
 }

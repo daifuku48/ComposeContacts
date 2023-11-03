@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 abstract class BaseViewModel<Event : UiEvent, State : UiState>(
@@ -51,7 +52,9 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState>(
         useCase.filter { it.canHandle(event) }.forEach { useCase ->
             viewModelScope.launch(Dispatchers.IO) {
                 val result = useCase.execute(uiState.value, event)
-                handleEvent(result)
+                withContext(Dispatchers.Main ) {
+                    handleEvent(result)
+                }
             }
         }
     }
