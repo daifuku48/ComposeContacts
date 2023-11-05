@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view
 
 import com.danilkharytonov.composecontacts.domain.model.Category
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.UseCase
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 
@@ -11,6 +12,7 @@ class ContactsViewModel(
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
     init {
+        addSpecialEvent(ContactsEvent.NavigateToAddContactEvent)
         handleEvent(ContactsEvent.GetContactsEvent)
     }
 
@@ -38,9 +40,22 @@ class ContactsViewModel(
         )
     }
 
+    fun handleNavigateToAddContact() {
+        handleEvent(ContactsEvent.NavigateToAddContactEvent)
+    }
+
     fun handleExpandMenu() {
         handleEvent(ContactsEvent.ExpandedChangedEvent(isExpanded = !uiState.value.isExpanded))
     }
 
-    override fun handleSpecialEvent(event: ContactsEvent) {}
+    private fun navigateToAddContact() {
+        navigate(Screen.ADD_CONTACT_SCREEN)
+    }
+
+    override fun handleSpecialEvent(event: ContactsEvent) {
+        when (event) {
+            is ContactsEvent.NavigateToAddContactEvent -> navigateToAddContact()
+            else -> {}
+        }
+    }
 }

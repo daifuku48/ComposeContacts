@@ -149,7 +149,9 @@ fun ContactsView(
     }
     Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
-            onClick = { }, modifier = Modifier
+            onClick = {
+                viewModel.handleNavigateToAddContact()
+            }, modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(30.dp)
         ) {

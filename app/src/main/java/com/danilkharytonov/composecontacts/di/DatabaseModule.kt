@@ -13,11 +13,11 @@ val databaseModule = module {
         ).build()
     }
 
-single {
-    get<UserDatabase>().getMainUserDao()
-}
+    single {
+        get<UserDatabase>().getMainUserDao()
+    }
 
-single {
-    get<UserDatabase>().getSubUserDao()
-}
+    single {
+        get<UserDatabase>().getSubUserDao()
+    }
 }

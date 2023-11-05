@@ -5,11 +5,11 @@ import com.danilkharytonov.composecontacts.data.database.toDomain
 import com.danilkharytonov.composecontacts.data.model.ContactUser
 import com.danilkharytonov.composecontacts.data.model.toEntity
 import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.domain.repository.SubUserRepository
+import com.danilkharytonov.composecontacts.domain.repository.SubUserLocalRepository
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
-class SubUserRepositoryImpl(private val subUserDao: SubUserDao) : SubUserRepository {
+class SubUserRepositoryLocalImpl(private val subUserDao: SubUserDao) : SubUserLocalRepository {
     override fun insertUser(user: ContactUser) {
         subUserDao.insertUser(user.toEntity())
     }
@@ -18,8 +18,8 @@ class SubUserRepositoryImpl(private val subUserDao: SubUserDao) : SubUserReposit
         return subUserDao.getAllUsers().map { it.toDomain() }.toPersistentList()
     }
 
-    override fun getUsersByCategory(category: Category): PersistentList<ContactUser> {
-        return if (category == Category.ALL) {
+    override fun getUsersByCategory(category: Int): PersistentList<ContactUser> {
+        return if (category == Category.ALL.ordinal) {
             getAllUsers()
         } else subUserDao.getUsersByCategory(category).map { it.toDomain() }.toPersistentList()
     }

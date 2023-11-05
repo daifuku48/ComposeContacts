@@ -6,7 +6,7 @@ import com.danilkharytonov.composecontacts.data.model.ContactUser
 
 @Entity(tableName = "sub_user_table")
 data class SubUserEntity(
-    @PrimaryKey
+    @PrimaryKey()
     var uuid: String = MAIN_USER_ID,
     var name: String,
     var surname: String,
