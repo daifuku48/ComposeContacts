@@ -10,11 +10,11 @@ class GetContactsUseCase(
     private val repository: RemoteSubUserRepository
 ) : UseCase<AddContactState, AddContactEvent> {
     override suspend fun execute(state: AddContactState, event: AddContactEvent): AddContactEvent {
-        return if (event is AddContactEvent.GetContactUsers){
+        return if (event is AddContactEvent.GetContactUsers) {
             try {
                 val users = repository.getUsersFromRemote().toPersistentList()
                 AddContactEvent.ContactUsersIsReceived(users)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 AddContactEvent.ErrorEvent
             }
         } else AddContactEvent.ErrorEvent
