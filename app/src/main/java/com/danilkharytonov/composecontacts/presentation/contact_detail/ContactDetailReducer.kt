@@ -20,6 +20,8 @@ class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent> {
             is ContactDetailEvent.GetContactByIdEvent -> state
             is ContactDetailEvent.UserIsDeletedEvent -> state
             is ContactDetailEvent.ErrorEvent -> state
+            is ContactDetailEvent.HideDeleteUserPopUpEvent -> state.copy(isVisiblePopUpDeleteDialog = false)
+            is ContactDetailEvent.ShowDeleteUserPopUpEvent -> state.copy(isVisiblePopUpDeleteDialog = true)
         }
     }
 }

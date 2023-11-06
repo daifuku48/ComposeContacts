@@ -11,5 +11,6 @@ data class ContactDetailState(
     val phoneNumber: String? = null,
     val dateOfBirth: String? = null,
     val iconImage: String? = null,
-    val category: Category? = null
+    val category: Category? = null,
+    val isVisiblePopUpDeleteDialog: Boolean = false
 ) : UiState

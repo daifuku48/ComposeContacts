@@ -43,4 +43,12 @@ class ContactDetailViewModel(
     fun deleteUser(uuid: String) {
         handleEvent(ContactDetailEvent.DeleteUserEvent(uuid))
     }
+
+    fun hidePopUpDeleteContact() {
+        handleEvent(ContactDetailEvent.HideDeleteUserPopUpEvent)
+    }
+
+    fun showPopUpToDeleteContact() {
+        handleEvent(ContactDetailEvent.ShowDeleteUserPopUpEvent)
+    }
 }

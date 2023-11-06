@@ -28,4 +28,7 @@
     <string name="add_contact">Add Contact</string>
     <string name="exit">Exit</string>
     <string name="delete_user">Delete user</string>
+    <string name="are_you_sure_to_remove_user">Are you sure to remove user?</string>
+    <string name="i_m_sure">I`m sure</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

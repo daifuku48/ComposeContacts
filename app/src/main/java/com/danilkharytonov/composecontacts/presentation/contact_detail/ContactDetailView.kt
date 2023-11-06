@@ -1,10 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,9 +63,35 @@ fun ContactDetailView(viewModel: ContactDetailViewModel, userId: String) {
             Text(text = stringResource(id = R.string.Category, category.name))
         }
         CreateSpace()
-        Button(onClick = { viewModel.deleteUser(userId) }) {
+        Button(onClick = { viewModel.showPopUpToDeleteContact() }) {
             Text(text = stringResource(R.string.delete_user))
         }
+    }
+    if (state.isVisiblePopUpDeleteDialog) {
+        AlertDialog(onDismissRequest = {
+            viewModel.hidePopUpDeleteContact()
+        }, title = {
+            Text(stringResource(R.string.add_contact))
+        }, text = {
+            Box(
+                modifier = Modifier.padding(top = 7.dp)
+            ) {
+                Text(text = stringResource(R.string.are_you_sure_to_remove_user))
+            }
+        }, confirmButton = {
+            Button(onClick = {
+                viewModel.hidePopUpDeleteContact()
+                viewModel.deleteUser(userId)
+            }) {
+                Text(text = stringResource(R.string.i_m_sure))
+            }
+        }, dismissButton = {
+            Button(onClick = {
+                viewModel.hidePopUpDeleteContact()
+            }) {
+                Text(text = stringResource(R.string.dismiss))
+            }
+        })
     }
 }
 
