@@ -17,9 +17,7 @@ class MainUserReducer : Reducer<MainUserState, MainUserEvent> {
             )
 
             is MainUserEvent.UserLoading -> state.copy(isLoading = true)
-            is MainUserEvent.NavigateToEditingUserEvent -> state
-            is MainUserEvent.NavigateToContactsScreen -> state
-            MainUserEvent.Error -> state.copy(isLoading = false)
+            is MainUserEvent.Error -> state.copy(isLoading = false)
         }
     }
 }

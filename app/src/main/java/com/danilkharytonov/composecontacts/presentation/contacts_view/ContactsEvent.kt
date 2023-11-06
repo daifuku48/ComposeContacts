@@ -11,7 +11,6 @@ sealed class ContactsEvent : UiEvent {
     data class CategoryOnChangedEvent(val category: Category, val categoryText: String) :
         ContactsEvent()
 
-    object NavigateToAddContactEvent : ContactsEvent()
     data class ContactsIsFiltered(val contacts: PersistentList<ContactUser>) : ContactsEvent()
     data class FilterContactsEvent(val searchText: String, val category: Category) : ContactsEvent()
     data class ExpandedChangedEvent(val isExpanded: Boolean) : ContactsEvent()

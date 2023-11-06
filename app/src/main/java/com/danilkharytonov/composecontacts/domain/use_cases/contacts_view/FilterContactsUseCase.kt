@@ -16,7 +16,7 @@ class FilterContactsUseCase(
                     Category.ALL -> ContactsEvent.ContactsIsFiltered(repository.getAllUsers())
                     else -> ContactsEvent.ContactsIsFiltered(
                         repository.getUsersByCategory(
-                            event.category.ordinal
+                            event.category
                         )
                     )
                 }

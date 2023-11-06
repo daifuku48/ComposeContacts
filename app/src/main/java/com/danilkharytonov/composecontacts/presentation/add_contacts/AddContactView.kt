@@ -27,9 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -49,20 +47,17 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AddContactView(viewModel: AddContactViewModel) {
     val state by viewModel.uiState.collectAsState()
-    var isPopupVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val categoryMap by remember {
-        mutableStateOf(
-            mapOf(
-                Category.ALL to ContextCompat.getString(context, R.string.Category_All),
-                Category.FAMILY to ContextCompat.getString(context, R.string.Category_Family),
-                Category.FRIENDS to ContextCompat.getString(context, R.string.Category_Friends),
-                Category.WORK to ContextCompat.getString(context, R.string.Category_Work)
-            )
+    val categoryMap = remember {
+        mapOf(
+            Category.ALL to ContextCompat.getString(context, R.string.Category_All),
+            Category.FAMILY to ContextCompat.getString(context, R.string.Category_Family),
+            Category.FRIENDS to ContextCompat.getString(context, R.string.Category_Friends),
+            Category.WORK to ContextCompat.getString(context, R.string.Category_Work)
         )
     }
     LaunchedEffect(key1 = LOAD_CONTACT_USER) {
-        viewModel.handleLoadUserEvent()
+        viewModel.loadUsers()
     }
 
     LazyColumn(
@@ -70,7 +65,7 @@ fun AddContactView(viewModel: AddContactViewModel) {
     ) {
         itemsIndexed(state.contactList) { index, item ->
             if (index == state.contactList.size - 4) {
-                viewModel.handleLoadUserToEndEvent()
+                viewModel.loadUserToEnd()
             }
 
             Row(modifier = Modifier
@@ -79,8 +74,8 @@ fun AddContactView(viewModel: AddContactViewModel) {
                 .clip(shape = RoundedCornerShape(10.dp))
                 .background(Color.LightGray)
                 .clickable {
-                    viewModel.handleSetSavedUser(item)
-                    isPopupVisible = true
+                    viewModel.setSavedUser(item)
+                    viewModel.showPopUpAddContact()
                 }) {
 
                 AsyncImage(
@@ -95,9 +90,9 @@ fun AddContactView(viewModel: AddContactViewModel) {
             }
         }
     }
-    if (isPopupVisible) {
+    if (state.isPopupAddContactVisible) {
         AlertDialog(onDismissRequest = {
-            isPopupVisible = false
+            viewModel.hidePopUpAddContact()
         }, title = {
             Text(stringResource(R.string.add_contact))
         }, text = {
@@ -105,7 +100,7 @@ fun AddContactView(viewModel: AddContactViewModel) {
                 modifier = Modifier.padding(top = 7.dp)
             ) {
                 ExposedDropdownMenuBox(expanded = state.isExpanded, onExpandedChange = {
-                    viewModel.handleExpandMenu()
+                    viewModel.expandMenu()
                 }) {
 
                     TextField(
@@ -117,8 +112,9 @@ fun AddContactView(viewModel: AddContactViewModel) {
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = state.isExpanded) },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
                     )
-                    ExposedDropdownMenu(expanded = state.isExpanded,
-                        onDismissRequest = { viewModel.handleExpandMenu() }) {
+                    ExposedDropdownMenu(
+                        expanded = state.isExpanded,
+                        onDismissRequest = { viewModel.expandMenu() }) {
                         Category.values().forEach { category ->
                             key(category) {
                                 DropdownMenuItem(text = {
@@ -126,7 +122,8 @@ fun AddContactView(viewModel: AddContactViewModel) {
                                         text = categoryMap[category]!!, fontSize = 16.sp
                                     )
                                 }, onClick = {
-                                    viewModel.handleSetCategory(category)
+                                    viewModel.setCategory(category)
+                                    viewModel.expandMenu()
                                 })
                             }
                         }
@@ -135,16 +132,15 @@ fun AddContactView(viewModel: AddContactViewModel) {
             }
         }, confirmButton = {
             Button(onClick = {
-                isPopupVisible = false
-                viewModel.handleSavedUser()
-                viewModel.handleNavigateToContactList()
+                viewModel.hidePopUpAddContact()
+                viewModel.saveUser()
+                viewModel.navigateToContactScreen()
             }) {
                 Text(stringResource(id = R.string.save))
-
             }
         }, dismissButton = {
             Button(onClick = {
-                isPopupVisible = false
+                viewModel.hidePopUpAddContact()
                 viewModel.declineSavedUser()
             }) {
                 Text(stringResource(R.string.exit))

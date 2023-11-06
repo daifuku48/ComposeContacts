@@ -2,7 +2,7 @@ package com.danilkharytonov.composecontacts.domain.use_cases.edit_profile
 
 import android.util.Patterns
 import androidx.core.net.toUri
-import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
+import com.danilkharytonov.composecontacts.data.database.model.MAIN_USER_ID
 import com.danilkharytonov.composecontacts.data.repository.ResourceManagerImpl.Companion.MAIN_USER_IMAGE
 import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.domain.repository.MainUserRepository

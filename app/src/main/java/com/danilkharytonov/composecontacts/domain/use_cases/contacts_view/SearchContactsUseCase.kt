@@ -11,7 +11,7 @@ class SearchContactsUseCase(private val repository: SubUserLocalRepository) :
     override suspend fun execute(state: ContactsState, event: ContactsEvent): ContactsEvent {
         return if (event is ContactsEvent.SearchTextChangedEvent) {
             val searchText = event.searchText
-            val users = repository.getUsersByCategory(state.currentCategory.ordinal)
+            val users = repository.getUsersByCategory(state.currentCategory)
             val filteredContacts = users.filter { contact ->
                 contact.name.contains(searchText, ignoreCase = true) ||
                         contact.surname.contains(searchText, ignoreCase = true)

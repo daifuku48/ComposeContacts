@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.data.repository
 
-import com.danilkharytonov.composecontacts.data.database.SubUserDao
-import com.danilkharytonov.composecontacts.data.database.toDomain
+import com.danilkharytonov.composecontacts.data.database.dao.SubUserDao
+import com.danilkharytonov.composecontacts.data.database.model.toDomain
 import com.danilkharytonov.composecontacts.data.model.ContactUser
 import com.danilkharytonov.composecontacts.data.model.toEntity
 import com.danilkharytonov.composecontacts.domain.model.Category
@@ -18,8 +18,8 @@ class SubUserRepositoryLocalImpl(private val subUserDao: SubUserDao) : SubUserLo
         return subUserDao.getAllUsers().map { it.toDomain() }.toPersistentList()
     }
 
-    override fun getUsersByCategory(category: Int): PersistentList<ContactUser> {
-        return if (category == Category.ALL.ordinal) {
+    override fun getUsersByCategory(category: Category): PersistentList<ContactUser> {
+        return if (category == Category.ALL) {
             getAllUsers()
         } else subUserDao.getUsersByCategory(category).map { it.toDomain() }.toPersistentList()
     }

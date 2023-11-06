@@ -16,7 +16,6 @@ class ContactsReducer : Reducer<ContactsState, ContactsEvent> {
             is ContactsEvent.GetContactsEvent -> state
             is ContactsEvent.SearchTextChangedEvent -> state.copy(searchText = event.searchText)
             is ContactsEvent.ErrorEvent -> state
-            is ContactsEvent.NavigateToAddContactEvent -> state
         }
     }
 }

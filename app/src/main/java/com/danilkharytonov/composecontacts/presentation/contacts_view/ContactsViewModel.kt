@@ -11,8 +11,7 @@ class ContactsViewModel(
     useCases: List<UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
-    init {
-        addSpecialEvent(ContactsEvent.NavigateToAddContactEvent)
+    fun getContactEvent() {
         handleEvent(ContactsEvent.GetContactsEvent)
     }
 
@@ -20,7 +19,7 @@ class ContactsViewModel(
         return ContactsState()
     }
 
-    fun handleChangedSearchText(newText: String) {
+    fun changedSearchText(newText: String) {
         handleEvent(ContactsEvent.SearchTextChangedEvent(newText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
@@ -30,7 +29,7 @@ class ContactsViewModel(
         )
     }
 
-    fun handleChangedCategory(category: Category, categoryText: String) {
+    fun changedCategory(category: Category, categoryText: String) {
         handleEvent(ContactsEvent.CategoryOnChangedEvent(category, categoryText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
@@ -40,22 +39,13 @@ class ContactsViewModel(
         )
     }
 
-    fun handleNavigateToAddContact() {
-        handleEvent(ContactsEvent.NavigateToAddContactEvent)
+    fun navigateToAddContact() {
+        navigate(Screen.AddContactScreen.route)
     }
 
-    fun handleExpandMenu() {
+    fun expandMenu() {
         handleEvent(ContactsEvent.ExpandedChangedEvent(isExpanded = !uiState.value.isExpanded))
     }
 
-    private fun navigateToAddContact() {
-        navigate(Screen.ADD_CONTACT_SCREEN)
-    }
-
-    override fun handleSpecialEvent(event: ContactsEvent) {
-        when (event) {
-            is ContactsEvent.NavigateToAddContactEvent -> navigateToAddContact()
-            else -> {}
-        }
-    }
+    override fun handleSpecialEvent(event: ContactsEvent) {}
 }

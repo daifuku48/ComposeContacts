@@ -13,27 +13,33 @@ class AddContactViewModel(
     useCases: List<UseCase<AddContactState, AddContactEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<AddContactEvent, AddContactState>(reducer, useCases, appNavigator) {
-    init {
-        addSpecialEvent(AddContactEvent.NavigateToContactList)
-    }
-
     override fun createInitialState(): AddContactState {
         return AddContactState()
     }
 
-    fun handleLoadUserToEndEvent() {
+    override fun handleSpecialEvent(event: AddContactEvent) {}
+
+    fun loadUserToEnd() {
         handleEvent(AddContactEvent.LoadContactUsersToEnd)
     }
 
-    fun handleSavedUser() {
+    fun saveUser() {
         handleEvent(AddContactEvent.SaveContactUserEvent)
     }
 
-    fun handleSetSavedUser(contactUser: ContactUser) {
+    fun showPopUpAddContact() {
+        handleEvent(AddContactEvent.ShowPopUpAddContact)
+    }
+
+    fun hidePopUpAddContact() {
+        handleEvent(AddContactEvent.HidePopUpAddContact)
+    }
+
+    fun setSavedUser(contactUser: ContactUser) {
         handleEvent(AddContactEvent.SetUserForSave(contactUser))
     }
 
-    fun handleSetCategory(category: Category) {
+    fun setCategory(category: Category) {
         handleEvent(AddContactEvent.SetCategoryForSavedUser(category = category))
     }
 
@@ -41,30 +47,16 @@ class AddContactViewModel(
         handleEvent(AddContactEvent.ClearUserForSave)
     }
 
-    fun handleLoadUserEvent() {
+    fun loadUsers() {
         handleEvent(AddContactEvent.GetContactUsers)
     }
 
-    override fun handleSpecialEvent(event: AddContactEvent) {
-        when (event) {
-            is AddContactEvent.NavigateToContactList -> {
-                navigateToContactScreen()
-            }
-
-            else -> {}
-        }
-    }
-
-    private fun navigateToContactScreen() {
+    fun navigateToContactScreen() {
         val navOptions = NavOptions.Builder().setPopUpTo(Screen.ADD_CONTACT_SCREEN, true).build()
         navigate(Screen.CONTACTS_SCREEN, navOptions)
     }
 
-    fun handleExpandMenu() {
+    fun expandMenu() {
         handleEvent(AddContactEvent.ExpandedChangedEvent(isExpanded = !uiState.value.isExpanded))
-    }
-
-    fun handleNavigateToContactList() {
-        handleEvent(AddContactEvent.NavigateToContactList)
     }
 }

@@ -75,7 +75,7 @@ fun MainUserView(viewModel: MainUserViewModel) {
 
             Button(
                 onClick = {
-                    viewModel.handleNavigateToEditScreen()
+                    viewModel.navigateToEditingScreen()
                 }, modifier = Modifier
                     .align(Alignment.CenterHorizontally)
             ) {
@@ -84,7 +84,7 @@ fun MainUserView(viewModel: MainUserViewModel) {
 
             Button(
                 onClick = {
-                    viewModel.handleNavigateToContactsScreen()
+                    viewModel.navigateToContactsScreen()
                 }, modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 10.dp)

@@ -12,4 +12,5 @@ data class AddContactState(
     val isExpanded: Boolean = false,
     val currentCategoryText: String = "All",
     val currentCategory: Category = Category.ALL,
+    val isPopupAddContactVisible: Boolean = false
 ) : UiState

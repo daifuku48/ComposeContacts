@@ -37,7 +37,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                viewModel.updateIconEventHandle(uri.toString())
+                viewModel.updateIcon(uri.toString())
             }
         }
 
@@ -78,7 +78,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         TextField(
             value = state.name,
             onValueChange = { text ->
-                viewModel.updateNameEventHandle(text)
+                viewModel.updateName(text)
             },
             label = { Text(text = stringResource(R.string.your_name)) }
         )
@@ -88,7 +88,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         TextField(
             value = state.surname,
             onValueChange = { text ->
-                viewModel.updateSurnameEventHandle(text)
+                viewModel.updateSurname(text)
             },
             label = { Text(text = stringResource(R.string.surname)) }
         )
@@ -98,7 +98,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         TextField(
             value = state.phoneNumber,
             onValueChange = { text ->
-                viewModel.updatePhoneEventNumber(text)
+                viewModel.updatePhone(text)
             },
             label = { Text(text = stringResource(R.string.phone_number)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
@@ -109,7 +109,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         TextField(
             value = state.email,
             onValueChange = { text ->
-                viewModel.updateEmailEventHandle(text)
+                viewModel.updateEmail(text)
             },
             label = { Text(text = stringResource(R.string.email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
@@ -120,14 +120,14 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         TextField(
             value = state.date,
             onValueChange = { text ->
-                viewModel.updateDateOfBirthHandle(text)
+                viewModel.updateDateOfBirth(text)
             },
             label = { Text(text = stringResource(R.string.date_of_birth)) },
         )
 
         Button(
             onClick = {
-                viewModel.handleEditUser()
+                viewModel.editUser()
             }, modifier = Modifier
                 .padding(30.dp)
         ) {

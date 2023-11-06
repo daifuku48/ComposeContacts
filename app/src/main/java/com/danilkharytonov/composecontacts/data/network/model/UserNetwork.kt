@@ -1,6 +1,7 @@
 package com.danilkharytonov.composecontacts.data.network.model
 
 import com.danilkharytonov.composecontacts.data.model.ContactUser
+import com.danilkharytonov.composecontacts.domain.model.Category
 import com.google.gson.annotations.SerializedName
 
 data class UserNetwork(
@@ -29,6 +30,6 @@ fun UserNetwork.toDomain(): ContactUser {
         email = email,
         dateOfBirth = dateOfBirth.date,
         iconImage = picture.iconImage,
-        category = 0
+        category = Category.ALL
     )
 }

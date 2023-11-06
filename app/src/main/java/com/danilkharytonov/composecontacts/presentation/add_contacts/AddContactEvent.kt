@@ -18,6 +18,7 @@ sealed class AddContactEvent : UiEvent {
     object ContactUserIsSaved : AddContactEvent()
     data class ExpandedChangedEvent(val isExpanded: Boolean) : AddContactEvent()
 
-    object NavigateToContactList : AddContactEvent()
+    object ShowPopUpAddContact : AddContactEvent()
+    object HidePopUpAddContact : AddContactEvent()
     object ErrorEvent : AddContactEvent()
 }

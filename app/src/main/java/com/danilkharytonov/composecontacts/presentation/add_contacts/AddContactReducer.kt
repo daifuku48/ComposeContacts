@@ -12,7 +12,7 @@ class AddContactReducer : Reducer<AddContactState, AddContactEvent> {
             is AddContactEvent.SaveContactUserEvent -> state
             is AddContactEvent.SetCategoryForSavedUser -> state.copy(
                 savedUser = state.savedUser?.copy(
-                    category = event.category.ordinal
+                    category = event.category
                 ),
                 currentCategoryText = event.category.name.lowercase(),
                 currentCategory = event.category
@@ -23,7 +23,8 @@ class AddContactReducer : Reducer<AddContactState, AddContactEvent> {
             is AddContactEvent.LoadContactUsersToStart -> state
             is AddContactEvent.ClearUserForSave -> state.copy(savedUser = null)
             is AddContactEvent.ExpandedChangedEvent -> state.copy(isExpanded = event.isExpanded)
-            is AddContactEvent.NavigateToContactList -> state
+            is AddContactEvent.HidePopUpAddContact -> state.copy(isPopupAddContactVisible = false)
+            is AddContactEvent.ShowPopUpAddContact -> state.copy(isPopupAddContactVisible = true)
         }
     }
 }

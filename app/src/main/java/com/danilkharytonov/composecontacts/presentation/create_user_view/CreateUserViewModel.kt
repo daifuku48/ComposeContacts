@@ -31,31 +31,31 @@ class CreateUserViewModel(
         navigate(Screen.MAIN_USER_SCREEN, navOptions)
     }
 
-    fun handleSaveUser() {
+    fun saveUser() {
         handleEvent(CreateUserEvent.SaveUserEvent)
     }
 
-    fun updateNameEventHandle(name: String) {
+    fun updateName(name: String) {
         handleEvent(CreateUserEvent.NameChangedEvent(name))
     }
 
-    fun updateSurnameEventHandle(surname: String) {
+    fun updateSurname(surname: String) {
         handleEvent(CreateUserEvent.SurnameChangedEvent(surname))
     }
 
-    fun updatePhoneEventNumber(phoneNumber: String) {
+    fun updatePhone(phoneNumber: String) {
         handleEvent(CreateUserEvent.PhoneChangedEvent(phoneNumber))
     }
 
-    fun updateEmailEventHandle(email: String) {
+    fun updateEmail(email: String) {
         handleEvent(CreateUserEvent.EmailChangedEvent(email))
     }
 
-    fun updateDateOfBirthHandle(dateOfBirth: String) {
+    fun updateDateOfBirth(dateOfBirth: String) {
         handleEvent(CreateUserEvent.DateOfBirthChangedEvent(dateOfBirth))
     }
 
-    fun updateIconEventHandle(icon: String) {
+    fun updateIcon(icon: String) {
         handleEvent(CreateUserEvent.IconChangedEvent(icon))
     }
 }

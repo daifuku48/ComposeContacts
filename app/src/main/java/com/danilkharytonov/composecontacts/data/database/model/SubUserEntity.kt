@@ -1,8 +1,9 @@
-package com.danilkharytonov.composecontacts.data.database
+package com.danilkharytonov.composecontacts.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.danilkharytonov.composecontacts.data.model.ContactUser
+import com.danilkharytonov.composecontacts.domain.model.Category
 
 @Entity(tableName = "sub_user_table")
 data class SubUserEntity(
@@ -14,7 +15,7 @@ data class SubUserEntity(
     var email: String,
     var dateOfBirth: String,
     var iconImage: String,
-    val category: Int
+    val category: Category
 )
 
 fun SubUserEntity.toDomain(): ContactUser {
