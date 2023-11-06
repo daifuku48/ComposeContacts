@@ -134,7 +134,7 @@ fun ContactsView(
                         .clip(shape = RoundedCornerShape(10.dp))
                         .background(Color.LightGray)
                         .clickable {
-                            //Navigate to user details
+                            viewModel.navigateToDetailContact(state.contactsList[index].uuid)
                         }
                 ) {
 

@@ -3,12 +3,16 @@ package com.danilkharytonov.composecontacts.di
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.GetContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.PagingContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.SaveContactUseCase
+import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.DeleteUserUseCase
+import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.GetSubUserByIdUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.FilterContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.SearchContactsUseCase
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivityReducer
 import com.danilkharytonov.composecontacts.presentation.activity.MainViewModel
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactReducer
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactViewModel
+import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailReducer
+import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailViewModel
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsReducer
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsViewModel
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUserReducer
@@ -69,6 +73,14 @@ val viewModelModule = module {
                 get<PagingContactsUseCase>(),
                 get<SaveContactUseCase>()
             ),
+            appNavigator = get()
+        )
+    }
+
+    viewModel {
+        ContactDetailViewModel(
+            reducer = ContactDetailReducer(),
+            useCases = listOf(get<DeleteUserUseCase>(), get<GetSubUserByIdUseCase>()),
             appNavigator = get()
         )
     }
