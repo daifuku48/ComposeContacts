@@ -19,7 +19,7 @@ class EditProfileViewModel(
         return EditProfileState()
     }
 
-    fun updateIconEventHandle(image: String) {
+    fun updateIcon(image: String) {
         handleEvent(EditProfileEvent.EditIconEvent(image))
     }
 
@@ -28,6 +28,7 @@ class EditProfileViewModel(
             EditProfileEvent.EditingUserSavedEvent -> {
                 navigateToMainScreen()
             }
+
             else -> {}
         }
     }
@@ -37,27 +38,27 @@ class EditProfileViewModel(
         navigate(Screen.MAIN_USER_SCREEN, navOptions)
     }
 
-    fun updateNameEventHandle(name: String) {
+    fun updateName(name: String) {
         handleEvent(EditProfileEvent.EditNameEvent(name))
     }
 
-    fun updateSurnameEventHandle(surname: String) {
+    fun updateSurname(surname: String) {
         handleEvent(EditProfileEvent.EditSurnameEvent(surname))
     }
 
-    fun updatePhoneEventNumber(phoneNumber: String) {
+    fun updatePhone(phoneNumber: String) {
         handleEvent(EditProfileEvent.EditPhoneEvent(phoneNumber))
     }
 
-    fun updateEmailEventHandle(email: String) {
+    fun updateEmail(email: String) {
         handleEvent(EditProfileEvent.EditEmailEvent(email))
     }
 
-    fun updateDateOfBirthHandle(date: String) {
+    fun updateDateOfBirth(date: String) {
         handleEvent(EditProfileEvent.EditBirthEvent(date))
     }
 
-    fun handleEditUser() {
+    fun editUser() {
         handleEvent(EditProfileEvent.SaveEditingUser)
     }
 }

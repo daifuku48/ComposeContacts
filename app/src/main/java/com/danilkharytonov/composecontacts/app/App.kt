@@ -4,6 +4,7 @@ import android.app.Application
 import com.danilkharytonov.composecontacts.di.appModule
 import com.danilkharytonov.composecontacts.di.databaseModule
 import com.danilkharytonov.composecontacts.di.domainModule
+import com.danilkharytonov.composecontacts.di.networkModule
 import com.danilkharytonov.composecontacts.di.repositoryModule
 import com.danilkharytonov.composecontacts.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,7 @@ class App : Application() {
                     databaseModule,
                     domainModule,
                     repositoryModule,
+                    networkModule,
                     viewModelModule
                 )
             )

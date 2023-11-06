@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.domain.model
 
-import com.danilkharytonov.composecontacts.data.database.MAIN_USER_ID
-import com.danilkharytonov.composecontacts.data.database.MainUserEntity
+import com.danilkharytonov.composecontacts.data.database.model.MAIN_USER_ID
+import com.danilkharytonov.composecontacts.data.database.model.MainUserEntity
 
 data class User(
     var uuid: String,

@@ -12,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
+import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactView
+import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactViewModel
 import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsView
@@ -78,6 +80,12 @@ class MainActivity : ComponentActivity() {
                                                 getViewModel<ContactsViewModel>()
                                             ContactsView(viewModel = contactsViewModel)
                                         }
+
+                                        composable(route = Screen.AddContactScreen.route) {
+                                            val addContactViewModel =
+                                                getViewModel<AddContactViewModel>()
+                                            AddContactView(viewModel = addContactViewModel)
+                                        }
                                     }
                                 }
                             }
@@ -90,5 +98,6 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val UPDATE_MAIN_USER = "UPDATE_MAIN_USER"
+        const val LOAD_CONTACT_USER = "LOAD_CONTACT_USER"
     }
 }

@@ -1,6 +1,7 @@
 package com.danilkharytonov.composecontacts.data.model
 
-import com.danilkharytonov.composecontacts.data.database.SubUserEntity
+import com.danilkharytonov.composecontacts.data.database.model.SubUserEntity
+import com.danilkharytonov.composecontacts.domain.model.Category
 
 data class ContactUser(
     var uuid: String,
@@ -10,7 +11,7 @@ data class ContactUser(
     var email: String,
     var dateOfBirth: String,
     var iconImage: String,
-    var category: Int
+    var category: Category
 )
 
 fun ContactUser.toEntity(): SubUserEntity {

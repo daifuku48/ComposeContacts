@@ -6,7 +6,6 @@ class EditProfileReducer : Reducer<EditProfileState, EditProfileEvent> {
     override fun reduce(state: EditProfileState, event: EditProfileEvent): EditProfileState {
         return when (event) {
             is EditProfileEvent.SaveEditingUser -> state
-            is EditProfileEvent.NavigateToProfileScreenEvent -> state
             is EditProfileEvent.EditingUserSavedEvent -> state
             is EditProfileEvent.GetMainUserEvent -> state
             is EditProfileEvent.MainUserIsReceivedEvent -> state.copy(

@@ -15,7 +15,6 @@ sealed class EditProfileEvent : UiEvent {
     ) : EditProfileEvent()
 
     object EditingUserSavedEvent : EditProfileEvent()
-    object NavigateToProfileScreenEvent : EditProfileEvent()
     data class EditNameEvent(val name: String) : EditProfileEvent()
     data class EditSurnameEvent(val surname: String) : EditProfileEvent()
     data class EditPhoneEvent(val phone: String) : EditProfileEvent()

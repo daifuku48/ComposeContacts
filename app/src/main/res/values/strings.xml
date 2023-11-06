@@ -24,4 +24,6 @@
     <string name="search">Search</string>
     <string name="all">All</string>
     <string name="category">Category</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="exit">Exit</string>
 </resources>

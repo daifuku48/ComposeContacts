@@ -10,40 +10,22 @@ class MainUserViewModel(
     useCases: List<GetMainUserUseCase>,
     appNavigator: Navigator
 ) : BaseViewModel<MainUserEvent, MainUserState>(reducer, useCases, appNavigator) {
-    init {
-        addSpecialEvent(MainUserEvent.NavigateToEditingUserEvent)
-        addSpecialEvent(MainUserEvent.NavigateToContactsScreen)
-    }
 
     override fun createInitialState(): MainUserState {
         return MainUserState()
     }
 
-    private fun navigateToEditingScreen() {
+    override fun handleSpecialEvent(event: MainUserEvent) {}
+
+    fun navigateToEditingScreen() {
         navigate(Screen.EDIT_PROFILE_SCREEN)
-    }
-
-    private fun navigateToContactsScreen() {
-        navigate(Screen.CONTACTS_SCREEN)
-    }
-
-    fun handleNavigateToEditScreen() {
-        handleEvent(MainUserEvent.NavigateToEditingUserEvent)
-    }
-
-    override fun handleSpecialEvent(event: MainUserEvent) {
-        when (event) {
-            MainUserEvent.NavigateToEditingUserEvent -> navigateToEditingScreen()
-            MainUserEvent.NavigateToContactsScreen -> navigateToContactsScreen()
-            else -> {}
-        }
     }
 
     fun requestUserData() {
         handleEvent(MainUserEvent.UserLoading)
     }
 
-    fun handleNavigateToContactsScreen() {
-        handleEvent(MainUserEvent.NavigateToContactsScreen)
+    fun navigateToContactsScreen() {
+        navigate(Screen.CONTACTS_SCREEN)
     }
 }

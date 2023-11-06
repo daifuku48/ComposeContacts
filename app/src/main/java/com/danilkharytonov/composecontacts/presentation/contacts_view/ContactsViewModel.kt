@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view
 
 import com.danilkharytonov.composecontacts.domain.model.Category
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.UseCase
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 
@@ -10,7 +11,7 @@ class ContactsViewModel(
     useCases: List<UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
-    init {
+    fun getContactEvent() {
         handleEvent(ContactsEvent.GetContactsEvent)
     }
 
@@ -18,7 +19,7 @@ class ContactsViewModel(
         return ContactsState()
     }
 
-    fun handleChangedSearchText(newText: String) {
+    fun changedSearchText(newText: String) {
         handleEvent(ContactsEvent.SearchTextChangedEvent(newText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
@@ -28,7 +29,7 @@ class ContactsViewModel(
         )
     }
 
-    fun handleChangedCategory(category: Category, categoryText: String) {
+    fun changedCategory(category: Category, categoryText: String) {
         handleEvent(ContactsEvent.CategoryOnChangedEvent(category, categoryText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
@@ -38,7 +39,11 @@ class ContactsViewModel(
         )
     }
 
-    fun handleExpandMenu() {
+    fun navigateToAddContact() {
+        navigate(Screen.AddContactScreen.route)
+    }
+
+    fun expandMenu() {
         handleEvent(ContactsEvent.ExpandedChangedEvent(isExpanded = !uiState.value.isExpanded))
     }
 

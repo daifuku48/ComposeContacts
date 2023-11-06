@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.data.repository
 
-import com.danilkharytonov.composecontacts.data.database.MainUserDao
-import com.danilkharytonov.composecontacts.data.database.toDomain
+import com.danilkharytonov.composecontacts.data.database.dao.MainUserDao
+import com.danilkharytonov.composecontacts.data.database.model.toDomain
 import com.danilkharytonov.composecontacts.domain.model.User
 import com.danilkharytonov.composecontacts.domain.model.toMainUserEntity
 import com.danilkharytonov.composecontacts.domain.repository.MainUserRepository

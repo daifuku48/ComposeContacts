@@ -1,4 +1,4 @@
-package com.danilkharytonov.composecontacts.data.database
+package com.danilkharytonov.composecontacts.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

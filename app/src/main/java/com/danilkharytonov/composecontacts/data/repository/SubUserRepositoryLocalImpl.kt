@@ -1,15 +1,15 @@
 package com.danilkharytonov.composecontacts.data.repository
 
-import com.danilkharytonov.composecontacts.data.database.SubUserDao
-import com.danilkharytonov.composecontacts.data.database.toDomain
+import com.danilkharytonov.composecontacts.data.database.dao.SubUserDao
+import com.danilkharytonov.composecontacts.data.database.model.toDomain
 import com.danilkharytonov.composecontacts.data.model.ContactUser
 import com.danilkharytonov.composecontacts.data.model.toEntity
 import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.domain.repository.SubUserRepository
+import com.danilkharytonov.composecontacts.domain.repository.SubUserLocalRepository
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
-class SubUserRepositoryImpl(private val subUserDao: SubUserDao) : SubUserRepository {
+class SubUserRepositoryLocalImpl(private val subUserDao: SubUserDao) : SubUserLocalRepository {
     override fun insertUser(user: ContactUser) {
         subUserDao.insertUser(user.toEntity())
     }

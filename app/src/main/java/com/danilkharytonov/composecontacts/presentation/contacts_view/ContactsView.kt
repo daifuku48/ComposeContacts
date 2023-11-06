@@ -24,6 +24,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -43,6 +44,7 @@ import androidx.core.content.ContextCompat.getString
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.domain.model.Category
+import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Companion.LOAD_CONTACT_USER
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,13 +64,16 @@ fun ContactsView(
             )
         )
     }
+    LaunchedEffect(key1 = LOAD_CONTACT_USER, block = {
+        viewModel.getContactEvent()
+    })
     Column(modifier = Modifier.fillMaxSize()) {
 
         Row(modifier = Modifier.padding(10.dp)) {
             OutlinedTextField(
                 value = state.searchText,
                 onValueChange = { text ->
-                    viewModel.handleChangedSearchText(text)
+                    viewModel.changedSearchText(text)
                 },
                 label = { Text(text = stringResource(R.string.search)) },
                 modifier = Modifier.weight(0.6f)
@@ -81,7 +86,7 @@ fun ContactsView(
                 ExposedDropdownMenuBox(
                     expanded = state.isExpanded,
                     onExpandedChange = {
-                        viewModel.handleExpandMenu()
+                        viewModel.expandMenu()
                     }
                 ) {
                     TextField(
@@ -95,7 +100,7 @@ fun ContactsView(
                     )
                     ExposedDropdownMenu(
                         expanded = state.isExpanded,
-                        onDismissRequest = { viewModel.handleExpandMenu() }
+                        onDismissRequest = { viewModel.expandMenu() }
                     ) {
                         Category.values().forEach { category ->
                             key(category) {
@@ -107,7 +112,7 @@ fun ContactsView(
                                         )
                                     },
                                     onClick = {
-                                        viewModel.handleChangedCategory(
+                                        viewModel.changedCategory(
                                             category,
                                             categoryText = categoryMap[category]!!
                                         )
@@ -149,7 +154,9 @@ fun ContactsView(
     }
     Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
-            onClick = { }, modifier = Modifier
+            onClick = {
+                viewModel.navigateToAddContact()
+            }, modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(30.dp)
         ) {

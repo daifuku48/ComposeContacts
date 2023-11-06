@@ -1,14 +1,16 @@
-package com.danilkharytonov.composecontacts.data.database
+package com.danilkharytonov.composecontacts.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.danilkharytonov.composecontacts.data.database.model.SubUserEntity
 import com.danilkharytonov.composecontacts.domain.model.Category
 
 @Dao
 interface SubUserDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(subUserEntity: SubUserEntity)
 
     @Query("DELETE FROM sub_user_table WHERE uuid=:uuid")
