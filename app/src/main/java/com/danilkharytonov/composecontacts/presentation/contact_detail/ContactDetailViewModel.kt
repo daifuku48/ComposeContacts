@@ -1,8 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail
 
-import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.UseCase
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 
@@ -35,9 +33,7 @@ class ContactDetailViewModel(
     }
 
     private fun navigateToContactList() {
-        val navOptions =
-            NavOptions.Builder().setPopUpTo(Screen.ContactDetailScreen.route, true).build()
-        navigate(Screen.ContactsScreen.route, navOptions)
+        popBackStack()
     }
 
     fun deleteUser(uuid: String) {
