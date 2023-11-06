@@ -3,6 +3,8 @@ package com.danilkharytonov.composecontacts.di
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.GetContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.PagingContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.SaveContactUseCase
+import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.DeleteUserUseCase
+import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.GetSubUserByIdUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.FilterContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.SearchContactsUseCase
 import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
@@ -48,5 +50,13 @@ val domainModule = module {
 
     factory {
         PagingContactsUseCase(get())
+    }
+
+    factory {
+        DeleteUserUseCase(get())
+    }
+
+    factory {
+        GetSubUserByIdUseCase(get())
     }
 }

@@ -43,6 +43,10 @@ class ContactsViewModel(
         navigate(Screen.AddContactScreen.route)
     }
 
+    fun navigateToDetailContact(uuid: String) {
+        navigate("${Screen.ContactDetailScreen.route}/$uuid")
+    }
+
     fun expandMenu() {
         handleEvent(ContactsEvent.ExpandedChangedEvent(isExpanded = !uiState.value.isExpanded))
     }

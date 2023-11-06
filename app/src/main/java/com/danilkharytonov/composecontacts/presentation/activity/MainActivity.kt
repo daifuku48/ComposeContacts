@@ -11,11 +11,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactView
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactViewModel
 import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailView
+import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailViewModel
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsView
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsViewModel
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateUser
@@ -86,6 +89,17 @@ class MainActivity : ComponentActivity() {
                                                 getViewModel<AddContactViewModel>()
                                             AddContactView(viewModel = addContactViewModel)
                                         }
+
+                                        composable(route = Screen.ContactDetailScreen.route + "/{$USER_ID}",
+                                            arguments = listOf(navArgument("USER_ID") { defaultValue = "0" })) { backStackEntry ->
+                                            val contactDetailViewModel =
+                                                getViewModel<ContactDetailViewModel>()
+                                            backStackEntry.arguments?.getString(USER_ID)?.let { userId ->
+                                                ContactDetailView(viewModel = contactDetailViewModel,
+                                                    userId
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -99,5 +113,6 @@ class MainActivity : ComponentActivity() {
     companion object {
         const val UPDATE_MAIN_USER = "UPDATE_MAIN_USER"
         const val LOAD_CONTACT_USER = "LOAD_CONTACT_USER"
+        const val USER_ID = "user_id"
     }
 }
