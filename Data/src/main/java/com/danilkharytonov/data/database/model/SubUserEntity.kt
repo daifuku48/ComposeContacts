@@ -6,9 +6,9 @@ import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.model.ContactUser
 
 @Entity(tableName = "sub_user_table")
-data class SubUserEntity(
+internal data class SubUserEntity(
     @PrimaryKey()
-    var uuid: String = MAIN_USER_ID,
+    var uuid: String,
     var name: String,
     var surname: String,
     var phoneNumber: String,
@@ -16,17 +16,17 @@ data class SubUserEntity(
     var dateOfBirth: String,
     var iconImage: String,
     val category: Category
-)
-
-fun SubUserEntity.toDomain(): ContactUser {
-    return ContactUser(
-        uuid = uuid,
-        name = name,
-        surname = surname,
-        phoneNumber = phoneNumber,
-        email = email,
-        dateOfBirth = dateOfBirth,
-        iconImage = iconImage,
-        category = category
-    )
+) {
+    fun toDomain() : ContactUser {
+        return ContactUser(
+            uuid = uuid,
+            name = name,
+            surname = surname,
+            phoneNumber = phoneNumber,
+            email = email,
+            dateOfBirth = dateOfBirth,
+            iconImage = iconImage,
+            category = category
+        )
+    }
 }

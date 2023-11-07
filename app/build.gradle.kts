@@ -55,10 +55,9 @@ android {
 
 dependencies {
 
-    implementation(project(":Core"))
     implementation(project(":Domain"))
     implementation(project(":Data"))
-
+    implementation(project(":Core"))
     //Immutable Collections
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.6")
     

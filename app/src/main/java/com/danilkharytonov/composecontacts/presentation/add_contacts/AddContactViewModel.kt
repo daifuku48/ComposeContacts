@@ -1,16 +1,18 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
 import androidx.navigation.NavOptions
-import com.danilkharytonov.core.base.BaseViewModel
-import com.danilkharytonov.core.base.UseCase
-import com.danilkharytonov.core.base.navigation.Navigator
-import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.model.ContactUser
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactReducer
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
 
 class AddContactViewModel(
     reducer: AddContactReducer,
-    useCases: List<UseCase<AddContactState, AddContactEvent>>,
+    useCases: List<com.danilkharytonov.core.base.UseCase<AddContactState, AddContactEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<AddContactEvent, AddContactState>(reducer, useCases, appNavigator) {
     override fun createInitialState(): AddContactState {

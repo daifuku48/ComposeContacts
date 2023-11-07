@@ -1,9 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
-import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.core.base.UseCase
-import com.danilkharytonov.core.base.navigation.Navigator
-import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.domain.use_cases.main_user_view.MainUserEvent
+import com.danilkharytonov.domain.use_cases.main_user_view.MainUserReducer
+import com.danilkharytonov.domain.use_cases.main_user_view.MainUserState
 
 class MainUserViewModel(
     reducer: MainUserReducer,

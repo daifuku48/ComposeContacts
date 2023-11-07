@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.danilkharytonov.data.database.model.MainUserEntity
 
 @Dao
-interface MainUserDao {
+internal interface MainUserDao {
     @Query("SELECT * FROM main_user_table")
     suspend fun getMainUser(): MainUserEntity?
 

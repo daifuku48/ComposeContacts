@@ -4,7 +4,7 @@ import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.model.ContactUser
 import com.google.gson.annotations.SerializedName
 
-data class UserNetwork(
+internal data class UserNetwork(
     @SerializedName("email")
     val email: String,
     @SerializedName("gender")
@@ -19,17 +19,17 @@ data class UserNetwork(
     val phoneNumber: String,
     @SerializedName("dob")
     val dateOfBirth: DobNetwork
-)
-
-fun UserNetwork.toDomain(): ContactUser {
-    return ContactUser(
-        uuid = login.uuid,
-        name = name.firstName,
-        surname = name.lastName,
-        phoneNumber = phoneNumber,
-        email = email,
-        dateOfBirth = dateOfBirth.date,
-        iconImage = picture.iconImage,
-        category = Category.ALL
-    )
+) {
+    fun toDomain() : ContactUser {
+        return ContactUser(
+            uuid = login.uuid,
+            name = name.firstName,
+            surname = name.lastName,
+            phoneNumber = phoneNumber,
+            email = email,
+            dateOfBirth = dateOfBirth.date,
+            iconImage = picture.iconImage,
+            category = Category.ALL
+        )
+    }
 }

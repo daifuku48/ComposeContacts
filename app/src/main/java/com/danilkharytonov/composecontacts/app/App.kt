@@ -2,10 +2,10 @@ package com.danilkharytonov.composecontacts.app
 
 import android.app.Application
 import com.danilkharytonov.composecontacts.di.appModule
-import com.danilkharytonov.composecontacts.di.databaseModule
-import com.danilkharytonov.composecontacts.di.domainModule
-import com.danilkharytonov.composecontacts.di.networkModule
-import com.danilkharytonov.composecontacts.di.repositoryModule
+import com.danilkharytonov.data.di.databaseModule
+import com.danilkharytonov.domain.di.domainModule
+import com.danilkharytonov.data.di.networkModule
+import com.danilkharytonov.data.di.repositoryModule
 import com.danilkharytonov.composecontacts.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

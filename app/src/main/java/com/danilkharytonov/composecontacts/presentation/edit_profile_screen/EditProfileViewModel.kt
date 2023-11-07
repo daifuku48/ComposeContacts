@@ -1,10 +1,13 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
 import androidx.navigation.NavOptions
-import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.core.base.UseCase
-import com.danilkharytonov.core.base.navigation.Navigator
-import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileEvent
+import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileReducer
+import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileState
 
 class EditProfileViewModel(
     reducer: EditProfileReducer,

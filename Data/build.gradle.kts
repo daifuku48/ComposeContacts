@@ -42,7 +42,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.6")
 
     implementation(project(":Domain"))
-    implementation(project(":Core"))
+
+    implementation("io.insert-koin:koin-core:3.5.0")
 
     //Room
     implementation("androidx.room:room-runtime:2.6.0")

@@ -9,7 +9,7 @@ import com.danilkharytonov.domain.model.Category
 
 
 @Dao
-interface SubUserDao {
+internal interface SubUserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(subUserEntity: SubUserEntity)

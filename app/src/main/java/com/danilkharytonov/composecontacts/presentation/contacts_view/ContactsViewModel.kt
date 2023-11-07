@@ -1,14 +1,16 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import com.danilkharytonov.core.base.BaseViewModel
-import com.danilkharytonov.core.base.UseCase
-import com.danilkharytonov.core.base.navigation.Navigator
-import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
+import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
+import com.danilkharytonov.domain.use_cases.contacts_view.ContactsReducer
+import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState
 
 class ContactsViewModel(
     reducer: ContactsReducer,
-    useCases: List<UseCase<ContactsState, ContactsEvent>>,
+    useCases: List<com.danilkharytonov.core.base.UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
     fun getContactEvent() {

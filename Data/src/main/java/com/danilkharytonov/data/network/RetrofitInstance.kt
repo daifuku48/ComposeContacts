@@ -4,7 +4,7 @@ import com.danilkharytonov.data.network.model.UsersNetwork
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RetrofitInstance {
+internal interface RetrofitInstance {
     @GET("api/")
     suspend fun getAllUsers(@Query("results") results: Int): UsersNetwork
 

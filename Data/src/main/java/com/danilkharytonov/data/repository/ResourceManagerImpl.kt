@@ -4,14 +4,14 @@ import android.content.Context
 import android.util.Log
 import androidx.core.content.edit
 import androidx.core.net.toUri
-import com.danilkharytonov.data.database.model.MAIN_USER_ID
+import com.danilkharytonov.domain.model.MAIN_USER_ID
 import com.danilkharytonov.domain.repository.ResourceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 
-class ResourceManagerImpl(
+internal class ResourceManagerImpl(
     private val context: Context
 ) : ResourceManager {
 

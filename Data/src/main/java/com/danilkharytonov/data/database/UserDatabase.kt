@@ -14,7 +14,7 @@ import com.danilkharytonov.data.database.model.SubUserEntity
     exportSchema = false
 )
 @TypeConverters(CategoryConverter::class)
-abstract class UserDatabase : RoomDatabase() {
+internal abstract class UserDatabase : RoomDatabase() {
     abstract fun getMainUserDao(): MainUserDao
     abstract fun getSubUserDao(): SubUserDao
 }

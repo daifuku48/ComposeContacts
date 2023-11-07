@@ -2,12 +2,10 @@ package com.danilkharytonov.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.danilkharytonov.domain.model.User
-
-const val MAIN_USER_ID = "MAIN_USER_ID"
+import com.danilkharytonov.domain.model.MAIN_USER_ID
 
 @Entity("main_user_table")
-data class MainUserEntity(
+internal data class MainUserEntity(
     @PrimaryKey
     var uuid: String = MAIN_USER_ID,
     var name: String,
@@ -17,15 +15,3 @@ data class MainUserEntity(
     var dateOfBirth: String,
     var iconImage: String
 )
-
-fun MainUserEntity.toDomain(): User {
-    return User(
-        uuid = uuid,
-        name = name,
-        surname = surname,
-        phoneNumber = phoneNumber,
-        email = email,
-        dateOfBirth = dateOfBirth,
-        iconImage = iconImage
-    )
-}

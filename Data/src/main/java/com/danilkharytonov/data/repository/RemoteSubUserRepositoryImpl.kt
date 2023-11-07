@@ -1,11 +1,10 @@
 package com.danilkharytonov.data.repository
 
 import com.danilkharytonov.data.network.RetrofitInstance
-import com.danilkharytonov.data.network.model.toDomain
 import com.danilkharytonov.domain.model.ContactUser
 import com.danilkharytonov.domain.repository.RemoteSubUserRepository
 
-class RemoteSubUserRepositoryImpl(
+internal class RemoteSubUserRepositoryImpl(
     private val retrofitInstance: RetrofitInstance
 ) : RemoteSubUserRepository {
     override suspend fun getUsersFromRemote(): List<ContactUser> {
