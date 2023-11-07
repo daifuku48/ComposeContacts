@@ -1,8 +1,8 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail
 
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.UseCase
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.core.base.navigation.Navigator
 
 class ContactDetailViewModel(
     reducer: ContactDetailReducer,

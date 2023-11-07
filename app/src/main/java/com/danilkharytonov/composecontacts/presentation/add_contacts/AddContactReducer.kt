@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
+import com.danilkharytonov.core.base.Reducer
 
 class AddContactReducer : Reducer<AddContactState, AddContactEvent> {
     override fun reduce(state: AddContactState, event: AddContactEvent): AddContactState {

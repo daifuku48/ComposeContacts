@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.presentation.activity
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
-import com.danilkharytonov.composecontacts.presentation.base.Screen
+import com.danilkharytonov.core.base.Reducer
+import com.danilkharytonov.core.base.navigation.Screen
 
 class MainActivityReducer : Reducer<MainActivityState, MainActivityEvent> {
     override fun reduce(state: MainActivityState, event: MainActivityEvent): MainActivityState {

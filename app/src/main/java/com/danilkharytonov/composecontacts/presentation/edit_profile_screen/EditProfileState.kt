@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
-import com.danilkharytonov.composecontacts.presentation.base.UiState
+import com.danilkharytonov.core.base.UiState
 
 data class EditProfileState(
     val name: String = "",

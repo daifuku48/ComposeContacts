@@ -1,12 +1,5 @@
 package com.danilkharytonov.composecontacts.di
 
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.GetContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.PagingContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.SaveContactUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.DeleteUserUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.GetSubUserByIdUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.FilterContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.SearchContactsUseCase
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivityReducer
 import com.danilkharytonov.composecontacts.presentation.activity.MainViewModel
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactReducer
@@ -21,6 +14,17 @@ import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.Edit
 import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileViewModel
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserReducer
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserViewModel
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.GetContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.PagingContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.SaveContactUseCase
+import com.danilkharytonov.composecontacts.presentation.contact_detail.use_cases.DeleteUserUseCase
+import com.danilkharytonov.composecontacts.presentation.contact_detail.use_cases.GetSubUserByIdUseCase
+import com.danilkharytonov.composecontacts.presentation.contacts_view.use_cases.FilterContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.contacts_view.use_cases.SearchContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.create_user_view.use_cases.SaveMainUserUseCase
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.use_cases.EditProfileUseCase
+import com.danilkharytonov.composecontacts.presentation.activity.use_cases.CheckingExistingUserUseCase
+import com.danilkharytonov.composecontacts.presentation.main_user_view.use_cases.GetMainUserUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -28,7 +32,7 @@ val viewModelModule = module {
     viewModel {
         MainUserViewModel(
             reducer = MainUserReducer(),
-            useCases = listOf(get()),
+            useCases = listOf(get<GetMainUserUseCase>()),
             appNavigator = get()
         )
     }
@@ -36,7 +40,7 @@ val viewModelModule = module {
     viewModel {
         CreateUserViewModel(
             reducer = CreateUserReducer(),
-            useCases = listOf(get()),
+            useCases = listOf(get<SaveMainUserUseCase>()),
             appNavigator = get()
         )
     }
@@ -44,7 +48,7 @@ val viewModelModule = module {
     viewModel {
         MainViewModel(
             reducer = MainActivityReducer(),
-            useCases = listOf(get()),
+            useCases = listOf(get<CheckingExistingUserUseCase>()),
             appNavigator = get()
         )
     }
@@ -52,7 +56,7 @@ val viewModelModule = module {
     viewModel {
         EditProfileViewModel(
             reducer = EditProfileReducer(),
-            useCases = listOf(get()),
+            useCases = listOf(get<EditProfileUseCase>()),
             appNavigator = get()
         )
     }

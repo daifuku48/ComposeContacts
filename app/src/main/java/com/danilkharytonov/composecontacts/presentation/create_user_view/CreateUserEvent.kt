@@ -1,7 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
-
+import com.danilkharytonov.core.base.UiEvent
 
 sealed class CreateUserEvent : UiEvent {
     object SaveUserEvent : CreateUserEvent()

@@ -1,8 +1,8 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import com.danilkharytonov.composecontacts.data.model.ContactUser
-import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
+import com.danilkharytonov.core.base.UiEvent
+import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.domain.model.ContactUser
 import kotlinx.collections.immutable.PersistentList
 
 sealed class ContactsEvent : UiEvent {

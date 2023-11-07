@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
-import com.danilkharytonov.composecontacts.domain.model.User
-import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
+import com.danilkharytonov.core.base.UiEvent
+import com.danilkharytonov.domain.model.User
 
 sealed class MainUserEvent : UiEvent {
     object UserLoading : MainUserEvent()

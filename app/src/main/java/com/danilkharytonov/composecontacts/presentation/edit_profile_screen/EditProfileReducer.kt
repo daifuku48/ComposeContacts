@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
+import com.danilkharytonov.core.base.Reducer
 
 class EditProfileReducer : Reducer<EditProfileState, EditProfileEvent> {
     override fun reduce(state: EditProfileState, event: EditProfileEvent): EditProfileState {

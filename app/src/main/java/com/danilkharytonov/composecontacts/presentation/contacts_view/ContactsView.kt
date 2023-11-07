@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.getString
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.composecontacts.domain.model.Category
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Companion.LOAD_CONTACT_USER
+import com.danilkharytonov.domain.model.Category
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

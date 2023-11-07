@@ -1,10 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.UseCase
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.core.base.navigation.Navigator
+import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.domain.model.Category
 
 class ContactsViewModel(
     reducer: ContactsReducer,

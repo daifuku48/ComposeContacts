@@ -1,3 +1,0 @@
-package com.danilkharytonov.composecontacts.presentation.base
-
-interface UiState

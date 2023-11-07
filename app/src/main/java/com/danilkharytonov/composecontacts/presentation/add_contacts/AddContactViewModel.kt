@@ -1,12 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
 import androidx.navigation.NavOptions
-import com.danilkharytonov.composecontacts.data.model.ContactUser
-import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.UseCase
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.core.base.navigation.Navigator
+import com.danilkharytonov.core.base.navigation.Screen
+import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.domain.model.ContactUser
 
 class AddContactViewModel(
     reducer: AddContactReducer,

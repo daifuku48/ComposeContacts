@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.di
 
-import com.danilkharytonov.composecontacts.data.network.RetrofitInstance
+import com.danilkharytonov.data.network.RetrofitInstance
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module

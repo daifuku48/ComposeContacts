@@ -1,12 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.activity
 
-import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.core.base.navigation.Navigator
 
 class MainViewModel(
     reducer: MainActivityReducer,
-    useCases: List<CheckingExistingUserUseCase>,
+    useCases: List<UseCase<MainActivityState, MainActivityEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<MainActivityEvent, MainActivityState>(reducer, useCases, appNavigator) {
 

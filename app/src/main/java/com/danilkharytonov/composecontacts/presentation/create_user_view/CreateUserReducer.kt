@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
+import com.danilkharytonov.core.base.Reducer
 
 class CreateUserReducer : Reducer<CreateUserState, CreateUserEvent> {
     override fun reduce(state: CreateUserState, event: CreateUserEvent): CreateUserState {

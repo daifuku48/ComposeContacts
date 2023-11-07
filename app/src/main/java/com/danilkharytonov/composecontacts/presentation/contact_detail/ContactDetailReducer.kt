@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
+import com.danilkharytonov.core.base.Reducer
 
 class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent> {
     override fun reduce(state: ContactDetailState, event: ContactDetailEvent): ContactDetailState {

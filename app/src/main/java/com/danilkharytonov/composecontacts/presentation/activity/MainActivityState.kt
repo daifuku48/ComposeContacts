@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.activity
 
-import com.danilkharytonov.composecontacts.presentation.base.UiState
+import com.danilkharytonov.core.base.UiState
 
 data class MainActivityState(
     val startDestination: String? = null,

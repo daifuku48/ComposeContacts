@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.presentation.base.UiState
+import com.danilkharytonov.core.base.UiState
 
 data class CreateUserState(
     val uuid: String = "",

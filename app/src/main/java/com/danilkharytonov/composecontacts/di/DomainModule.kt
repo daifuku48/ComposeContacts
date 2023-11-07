@@ -1,16 +1,16 @@
 package com.danilkharytonov.composecontacts.di
 
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.GetContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.PagingContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.add_contact_view.SaveContactUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.DeleteUserUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contact_detail.GetSubUserByIdUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.FilterContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.contacts_view.SearchContactsUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.edit_profile.EditProfileUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
-import com.danilkharytonov.composecontacts.domain.use_cases.main_user_view.GetMainUserUseCase
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.GetContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.PagingContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.add_contacts.use_cases.SaveContactUseCase
+import com.danilkharytonov.composecontacts.presentation.contact_detail.use_cases.DeleteUserUseCase
+import com.danilkharytonov.composecontacts.presentation.contact_detail.use_cases.GetSubUserByIdUseCase
+import com.danilkharytonov.composecontacts.presentation.contacts_view.use_cases.FilterContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.contacts_view.use_cases.SearchContactsUseCase
+import com.danilkharytonov.composecontacts.presentation.create_user_view.use_cases.SaveMainUserUseCase
+import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.use_cases.EditProfileUseCase
+import com.danilkharytonov.composecontacts.presentation.activity.use_cases.CheckingExistingUserUseCase
+import com.danilkharytonov.composecontacts.presentation.main_user_view.use_cases.GetMainUserUseCase
 import org.koin.dsl.module
 
 val domainModule = module {

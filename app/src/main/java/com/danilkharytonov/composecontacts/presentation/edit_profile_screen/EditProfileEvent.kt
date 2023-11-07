@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
-import com.danilkharytonov.composecontacts.presentation.base.navigation.UiEvent
+import com.danilkharytonov.core.base.UiEvent
 
 sealed class EditProfileEvent : UiEvent {
     object SaveEditingUser : EditProfileEvent()

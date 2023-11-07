@@ -15,8 +15,6 @@ import androidx.navigation.navArgument
 import com.danilkharytonov.composecontacts.presentation.activity.ui.theme.ComposeContactsTheme
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactView
 import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailView
 import com.danilkharytonov.composecontacts.presentation.contact_detail.ContactDetailViewModel
 import com.danilkharytonov.composecontacts.presentation.contacts_view.ContactsView
@@ -27,6 +25,8 @@ import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.Edit
 import com.danilkharytonov.composecontacts.presentation.edit_profile_screen.EditProfileViewModel
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserView
 import com.danilkharytonov.composecontacts.presentation.main_user_view.MainUserViewModel
+import com.danilkharytonov.core.base.navigation.Navigator
+import com.danilkharytonov.core.base.navigation.Screen
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -91,14 +91,19 @@ class MainActivity : ComponentActivity() {
                                         }
 
                                         composable(route = Screen.ContactDetailScreen.route + "/{$USER_ID}",
-                                            arguments = listOf(navArgument("USER_ID") { defaultValue = "0" })) { backStackEntry ->
+                                            arguments = listOf(navArgument("USER_ID") {
+                                                defaultValue = "0"
+                                            })
+                                        ) { backStackEntry ->
                                             val contactDetailViewModel =
                                                 getViewModel<ContactDetailViewModel>()
-                                            backStackEntry.arguments?.getString(USER_ID)?.let { userId ->
-                                                ContactDetailView(viewModel = contactDetailViewModel,
-                                                    userId
-                                                )
-                                            }
+                                            backStackEntry.arguments?.getString(USER_ID)
+                                                ?.let { userId ->
+                                                    ContactDetailView(
+                                                        viewModel = contactDetailViewModel,
+                                                        userId
+                                                    )
+                                                }
                                         }
                                     }
                                 }

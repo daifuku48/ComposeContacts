@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail
 
-import com.danilkharytonov.composecontacts.domain.model.Category
-import com.danilkharytonov.composecontacts.presentation.base.UiState
+import com.danilkharytonov.core.base.UiState
+import com.danilkharytonov.domain.model.Category
 
 data class ContactDetailState(
     val uuid: String? = null,

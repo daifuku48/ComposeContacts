@@ -1,14 +1,14 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
 import androidx.navigation.NavOptions
-import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.BaseViewModel
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.core.base.navigation.Navigator
+import com.danilkharytonov.core.base.navigation.Screen
 
 class CreateUserViewModel(
     reducer: CreateUserReducer,
-    useCases: List<SaveMainUserUseCase>,
+    useCases: List<UseCase<CreateUserState, CreateUserEvent>>,
     appNavigator: Navigator
 ) : BaseViewModel<CreateUserEvent, CreateUserState>(reducer, useCases, appNavigator) {
     init {
