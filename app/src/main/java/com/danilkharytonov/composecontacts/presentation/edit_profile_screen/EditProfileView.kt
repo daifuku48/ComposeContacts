@@ -4,13 +4,15 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.create_user_view.components.TextFieldsUser
 
 @Composable
 fun EditProfileView(viewModel: EditProfileViewModel) {
-    val state = viewModel.uiModel
+    val state by viewModel.state.collectAsState(EditProfileUiState())
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->

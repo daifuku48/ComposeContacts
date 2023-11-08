@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ContactsView(
     viewModel: ContactsViewModel
 ) {
-    val state = viewModel.uiModel
+    val state by viewModel.state.collectAsState(ContactsUiState())
     val context = LocalContext.current
     val categoryMap by remember {
         mutableStateOf(

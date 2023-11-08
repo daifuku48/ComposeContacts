@@ -5,16 +5,23 @@ import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserEvent
-import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserReducer
 import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class CreateUserViewModel(
     reducer: CreateUserReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<CreateUserState, CreateUserEvent>>,
     appNavigator: Navigator,
-) : BaseViewModel<CreateUserEvent, CreateUserState, CreateUserUiState>(reducer, useCases, appNavigator) {
-    override val uiModel: CreateUserUiState
-        get() = uiState.value.toUi()
+) : BaseViewModel<CreateUserEvent, CreateUserState, CreateUserUiState>(
+    reducer,
+    useCases,
+    appNavigator
+) {
+
+    override val state: Flow<CreateUserUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }
 
     init {
         addSpecialEvent(CreateUserEvent.UserSaved)

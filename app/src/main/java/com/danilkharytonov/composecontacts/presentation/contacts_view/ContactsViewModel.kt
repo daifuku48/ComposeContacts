@@ -5,8 +5,9 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigato
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
-import com.danilkharytonov.domain.use_cases.contacts_view.ContactsReducer
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class ContactsViewModel(
     reducer: ContactsReducer,
@@ -14,8 +15,9 @@ class ContactsViewModel(
     appNavigator: Navigator
 ) : BaseViewModel<ContactsEvent, ContactsState, ContactsUiState>(reducer, useCases, appNavigator) {
 
-    override val uiModel: ContactsUiState
-        get() = uiState.value.toUi()
+    override val state: Flow<ContactsUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }
 
     fun getContactEvent() {
         handleEvent(ContactsEvent.GetContactsEvent)

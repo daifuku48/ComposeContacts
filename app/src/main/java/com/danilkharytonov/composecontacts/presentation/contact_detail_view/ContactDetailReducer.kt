@@ -1,8 +1,10 @@
-package com.danilkharytonov.domain.use_cases.contact_detail_view
+package com.danilkharytonov.composecontacts.presentation.contact_detail_view
 
 import com.danilkharytonov.core.base.Reducer
+import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailEvent
+import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailState
 
-class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent> {
+class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent, ContactDetailUiState> {
     override fun reduce(state: ContactDetailState, event: ContactDetailEvent): ContactDetailState {
         return when (event) {
             is ContactDetailEvent.ContactByIdIsReceived -> state.copy(
@@ -23,5 +25,19 @@ class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent> {
             is ContactDetailEvent.HideDeleteUserPopUpEvent -> state.copy(isVisiblePopUpDeleteDialog = false)
             is ContactDetailEvent.ShowDeleteUserPopUpEvent -> state.copy(isVisiblePopUpDeleteDialog = true)
         }
+    }
+
+    override fun mapToUiModel(state: ContactDetailState): ContactDetailUiState {
+        return ContactDetailUiState(
+            uuid = state.uuid,
+            name = state.name,
+            surname = state.surname,
+            email = state.email,
+            phoneNumber = state.phoneNumber,
+            dateOfBirth = state.dateOfBirth,
+            iconImage = state.iconImage,
+            category = state.category,
+            isVisiblePopUpDeleteDialog = state.isVisiblePopUpDeleteDialog
+        )
     }
 }

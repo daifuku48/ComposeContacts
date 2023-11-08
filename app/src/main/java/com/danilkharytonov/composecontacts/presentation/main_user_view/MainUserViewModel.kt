@@ -5,8 +5,9 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigato
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.core.base.UseCase
 import com.danilkharytonov.domain.use_cases.main_user_view.MainUserEvent
-import com.danilkharytonov.domain.use_cases.main_user_view.MainUserReducer
 import com.danilkharytonov.domain.use_cases.main_user_view.MainUserState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class MainUserViewModel(
     reducer: MainUserReducer,
@@ -14,8 +15,9 @@ class MainUserViewModel(
     appNavigator: Navigator,
 ) : BaseViewModel<MainUserEvent, MainUserState, MainUserUiState>(reducer, useCases, appNavigator) {
 
-    override val uiModel: MainUserUiState
-        get() = uiState.value.toUi()
+    override val state: Flow<MainUserUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }
 
     override fun createInitialState(): MainUserState {
         return MainUserState()

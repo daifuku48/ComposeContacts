@@ -6,8 +6,9 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigato
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.core.base.UseCase
 import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileEvent
-import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileReducer
 import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class EditProfileViewModel(
     reducer: EditProfileReducer,
@@ -15,8 +16,9 @@ class EditProfileViewModel(
     appNavigator: Navigator,
 ) : BaseViewModel<EditProfileEvent, EditProfileState, EditProfileUiState>(reducer, useCases, appNavigator) {
 
-    override val uiModel: EditProfileUiState
-        get() = uiState.value.toUi()
+    override val state: Flow<EditProfileUiState> = uiState.map {state ->
+        reducer.mapToUiModel(state)
+    }
 
     init {
         addSpecialEvent(EditProfileEvent.EditingUserSavedEvent)

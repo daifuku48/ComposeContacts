@@ -1,7 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.base
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
@@ -11,24 +9,25 @@ import com.danilkharytonov.core.base.UiEvent
 import com.danilkharytonov.core.base.UiState
 import com.danilkharytonov.core.base.UseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<Event : UiEvent, State : UiState, UiModel>(
-    private val reducer: Reducer<State, Event>,
+    private val reducer: Reducer<State, Event, UiModel>,
     private val useCase: List<UseCase<State, Event>>,
     private val appNavigator: Navigator
 ) : ViewModel() {
-    abstract val uiModel: UiModel
-
     private val initialState: State by lazy {
         createInitialState()
     }
 
-    abstract fun createInitialState(): State
-
-    protected val uiState: MutableState<State> = mutableStateOf(initialState)
+    protected val uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     private val _uiEvents: MutableList<Event> = arrayListOf()
+    abstract val state: Flow<UiModel>
+
+    abstract fun createInitialState(): State
 
     protected abstract fun handleSpecialEvent(event: Event)
 

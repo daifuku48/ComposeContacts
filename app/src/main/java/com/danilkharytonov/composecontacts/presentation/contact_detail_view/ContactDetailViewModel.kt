@@ -3,17 +3,19 @@ package com.danilkharytonov.composecontacts.presentation.contact_detail_view
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailEvent
-import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailReducer
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class ContactDetailViewModel(
     reducer: ContactDetailReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<ContactDetailState, ContactDetailEvent>>,
-    appNavigator: Navigator
+    appNavigator: Navigator,
 ) : BaseViewModel<ContactDetailEvent, ContactDetailState, ContactDetailUiState>(reducer, useCases, appNavigator) {
 
-    override val uiModel: ContactDetailUiState
-        get() = uiState.value.toUi()
+    override val state: Flow<ContactDetailUiState> = uiState.map {state ->
+        reducer.mapToUiModel(state)
+    }
 
     init {
         addSpecialEvent(ContactDetailEvent.UserIsDeletedEvent)

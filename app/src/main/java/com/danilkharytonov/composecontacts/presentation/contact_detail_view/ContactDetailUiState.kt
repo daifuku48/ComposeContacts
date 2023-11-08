@@ -1,7 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail_view
 
 import com.danilkharytonov.domain.model.Category
-import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailState
 
 data class ContactDetailUiState(
     val uuid: String? = null,
@@ -14,17 +13,3 @@ data class ContactDetailUiState(
     val category: Category? = null,
     val isVisiblePopUpDeleteDialog: Boolean = false
 )
-
-fun ContactDetailState.toUi() : ContactDetailUiState {
-    return ContactDetailUiState(
-        uuid = uuid,
-        name = name,
-        surname = surname,
-        email = email,
-        phoneNumber = phoneNumber,
-        dateOfBirth = dateOfBirth,
-        iconImage = iconImage,
-        category = category,
-        isVisiblePopUpDeleteDialog = isVisiblePopUpDeleteDialog
-    )
-}

@@ -1,8 +1,10 @@
-package com.danilkharytonov.domain.use_cases.add_contacts_view
+package com.danilkharytonov.composecontacts.presentation.add_contacts
 
 import com.danilkharytonov.core.base.Reducer
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
 
-class AddContactReducer : Reducer<AddContactState, AddContactEvent> {
+class AddContactReducer : Reducer<AddContactState, AddContactEvent, AddContactUiState> {
     override fun reduce(state: AddContactState, event: AddContactEvent): AddContactState {
         return when (event) {
             is AddContactEvent.ContactUsersIsReceived -> state.copy(contactList = event.contacts)
@@ -26,5 +28,16 @@ class AddContactReducer : Reducer<AddContactState, AddContactEvent> {
             is AddContactEvent.HidePopUpAddContact -> state.copy(isPopupAddContactVisible = false)
             is AddContactEvent.ShowPopUpAddContact -> state.copy(isPopupAddContactVisible = true)
         }
+    }
+
+    override fun mapToUiModel(state: AddContactState): AddContactUiState {
+        return AddContactUiState(
+            contactList = state.contactList,
+            savedUser = state.savedUser,
+            isExpanded = state.isExpanded,
+            currentCategoryText = state.currentCategoryText,
+            currentCategory = state.currentCategory,
+            isPopupAddContactVisible = state.isPopupAddContactVisible
+        )
     }
 }
