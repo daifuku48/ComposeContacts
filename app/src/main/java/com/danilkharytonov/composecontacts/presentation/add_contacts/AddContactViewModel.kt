@@ -14,7 +14,11 @@ class AddContactViewModel(
     reducer: AddContactReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<AddContactState, AddContactEvent>>,
     appNavigator: Navigator
-) : BaseViewModel<AddContactEvent, AddContactState>(reducer, useCases, appNavigator) {
+) : BaseViewModel<AddContactEvent, AddContactState, AddContactUiState>(reducer, useCases, appNavigator) {
+
+    override val uiModel: AddContactUiState
+        get() = uiState.value.toUi()
+
     override fun createInitialState(): AddContactState {
         return AddContactState()
     }

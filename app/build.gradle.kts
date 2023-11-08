@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+    id("dev.shreyaspatil.compose-compiler-report-generator")
 }
 
 android {

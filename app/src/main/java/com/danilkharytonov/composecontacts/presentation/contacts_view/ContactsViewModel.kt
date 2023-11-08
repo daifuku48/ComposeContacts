@@ -12,7 +12,11 @@ class ContactsViewModel(
     reducer: ContactsReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
-) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
+) : BaseViewModel<ContactsEvent, ContactsState, ContactsUiState>(reducer, useCases, appNavigator) {
+
+    override val uiModel: ContactsUiState
+        get() = uiState.value.toUi()
+
     fun getContactEvent() {
         handleEvent(ContactsEvent.GetContactsEvent)
     }

@@ -1,21 +1,25 @@
 package com.danilkharytonov.composecontacts.presentation.base
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.core.base.Reducer
+import com.danilkharytonov.core.base.UiEvent
+import com.danilkharytonov.core.base.UiState
+import com.danilkharytonov.core.base.UseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class BaseViewModel<Event : com.danilkharytonov.core.base.UiEvent, State : com.danilkharytonov.core.base.UiState>(
-    private val reducer: com.danilkharytonov.core.base.Reducer<State, Event>,
-    private val useCase: List<com.danilkharytonov.core.base.UseCase<State, Event>>,
+abstract class BaseViewModel<Event : UiEvent, State : UiState, UiModel>(
+    private val reducer: Reducer<State, Event>,
+    private val useCase: List<UseCase<State, Event>>,
     private val appNavigator: Navigator
 ) : ViewModel() {
+    abstract val uiModel: UiModel
 
     private val initialState: State by lazy {
         createInitialState()
@@ -23,9 +27,7 @@ abstract class BaseViewModel<Event : com.danilkharytonov.core.base.UiEvent, Stat
 
     abstract fun createInitialState(): State
 
-    private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
-    val uiState = _uiState.asStateFlow()
-
+    protected val uiState: MutableState<State> = mutableStateOf(initialState)
     private val _uiEvents: MutableList<Event> = arrayListOf()
 
     protected abstract fun handleSpecialEvent(event: Event)
@@ -43,7 +45,7 @@ abstract class BaseViewModel<Event : com.danilkharytonov.core.base.UiEvent, Stat
     }
 
     protected fun handleEvent(event: Event) {
-        _uiState.update { reducer.reduce(state = uiState.value, event = event) }
+        uiState.value = reducer.reduce(state = uiState.value, event = event)
         if (_uiEvents.contains(event)) {
             handleSpecialEvent(event)
         }

@@ -6,8 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,14 +17,15 @@ import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Co
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AlertAddContactDialog
 import com.danilkharytonov.domain.model.Category
+import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AddContactView(viewModel: AddContactViewModel) {
-    val state by viewModel.uiState.collectAsState()
+    val state = viewModel.uiModel
     val context = LocalContext.current
     val categoryMap = remember {
-        mapOf(
+        persistentMapOf(
             Category.ALL to ContextCompat.getString(context, R.string.Category_All),
             Category.FAMILY to ContextCompat.getString(context, R.string.Category_Family),
             Category.FRIENDS to ContextCompat.getString(context, R.string.Category_Friends),
@@ -44,10 +43,12 @@ fun AddContactView(viewModel: AddContactViewModel) {
             if (index == state.contactList.size - 4) {
                 viewModel.loadUserToEnd()
             }
-            AddContactItem(item, onClick = {
-                viewModel.setSavedUser(item)
-                viewModel.showPopUpAddContact()
-            })
+            AddContactItem(iconImage = item.iconImage, name = item.name,
+                surname = item.surname,
+                onClick = {
+                    viewModel.setSavedUser(item)
+                    viewModel.showPopUpAddContact()
+                })
         }
     }
     if (state.isPopupAddContactVisible) {

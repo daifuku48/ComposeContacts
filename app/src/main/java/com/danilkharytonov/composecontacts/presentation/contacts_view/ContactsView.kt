@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +19,7 @@ import com.danilkharytonov.composecontacts.presentation.add_contacts.components.
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.AddUserActionButton
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.SearchToolBar
 import com.danilkharytonov.domain.model.Category
+import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -27,11 +27,11 @@ import org.koin.androidx.compose.koinViewModel
 fun ContactsView(
     viewModel: ContactsViewModel
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state = viewModel.uiModel
     val context = LocalContext.current
     val categoryMap by remember {
         mutableStateOf(
-            mapOf(
+            persistentMapOf(
                 Category.ALL to getString(context, R.string.Category_All),
                 Category.FAMILY to getString(context, R.string.Category_Family),
                 Category.FRIENDS to getString(context, R.string.Category_Friends),
@@ -62,7 +62,9 @@ fun ContactsView(
         LazyColumn {
             items(state.contactsList.size) { index ->
                 AddContactItem(
-                    item = state.contactsList[index],
+                    iconImage = state.contactsList[index].iconImage,
+                    name = state.contactsList[index].name,
+                    surname = state.contactsList[index].surname,
                     onClick = { viewModel.navigateToDetailContact(state.contactsList[index].uuid) }
                 )
             }

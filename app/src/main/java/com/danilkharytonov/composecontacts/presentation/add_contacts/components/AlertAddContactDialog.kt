@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.domain.model.Category
+import kotlinx.collections.immutable.PersistentMap
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +27,7 @@ fun AlertAddContactDialog(
     expandMenu: () -> Unit,
     currentCategoryText: String,
     isExpanded: Boolean,
-    categories: Map<Category, String>,
+    categories: PersistentMap<Category, String>,
     categoryOnClick: (Category) -> Unit,
     confirmButtonClick: () -> Unit,
     dismissButtonClick: () -> Unit,

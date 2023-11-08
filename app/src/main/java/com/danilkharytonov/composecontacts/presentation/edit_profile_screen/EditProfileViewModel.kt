@@ -12,8 +12,11 @@ import com.danilkharytonov.domain.use_cases.edit_profile_view.EditProfileState
 class EditProfileViewModel(
     reducer: EditProfileReducer,
     useCases: List<UseCase<EditProfileState, EditProfileEvent>>,
-    appNavigator: Navigator
-) : BaseViewModel<EditProfileEvent, EditProfileState>(reducer, useCases, appNavigator) {
+    appNavigator: Navigator,
+) : BaseViewModel<EditProfileEvent, EditProfileState, EditProfileUiState>(reducer, useCases, appNavigator) {
+
+    override val uiModel: EditProfileUiState
+        get() = uiState.value.toUi()
 
     init {
         addSpecialEvent(EditProfileEvent.EditingUserSavedEvent)

@@ -11,8 +11,11 @@ import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserState
 class CreateUserViewModel(
     reducer: CreateUserReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<CreateUserState, CreateUserEvent>>,
-    appNavigator: Navigator
-) : BaseViewModel<CreateUserEvent, CreateUserState>(reducer, useCases, appNavigator) {
+    appNavigator: Navigator,
+) : BaseViewModel<CreateUserEvent, CreateUserState, CreateUserUiState>(reducer, useCases, appNavigator) {
+    override val uiModel: CreateUserUiState
+        get() = uiState.value.toUi()
+
     init {
         addSpecialEvent(CreateUserEvent.UserSaved)
     }

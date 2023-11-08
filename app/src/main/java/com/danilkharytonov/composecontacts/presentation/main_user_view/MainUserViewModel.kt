@@ -11,8 +11,11 @@ import com.danilkharytonov.domain.use_cases.main_user_view.MainUserState
 class MainUserViewModel(
     reducer: MainUserReducer,
     useCases: List<UseCase<MainUserState, MainUserEvent>>,
-    appNavigator: Navigator
-) : BaseViewModel<MainUserEvent, MainUserState>(reducer, useCases, appNavigator) {
+    appNavigator: Navigator,
+) : BaseViewModel<MainUserEvent, MainUserState, MainUserUiState>(reducer, useCases, appNavigator) {
+
+    override val uiModel: MainUserUiState
+        get() = uiState.value.toUi()
 
     override fun createInitialState(): MainUserState {
         return MainUserState()

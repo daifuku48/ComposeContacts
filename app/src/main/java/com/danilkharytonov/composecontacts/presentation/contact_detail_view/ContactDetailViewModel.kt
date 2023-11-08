@@ -10,7 +10,10 @@ class ContactDetailViewModel(
     reducer: ContactDetailReducer,
     useCases: List<com.danilkharytonov.core.base.UseCase<ContactDetailState, ContactDetailEvent>>,
     appNavigator: Navigator
-) : BaseViewModel<ContactDetailEvent, ContactDetailState>(reducer, useCases, appNavigator) {
+) : BaseViewModel<ContactDetailEvent, ContactDetailState, ContactDetailUiState>(reducer, useCases, appNavigator) {
+
+    override val uiModel: ContactDetailUiState
+        get() = uiState.value.toUi()
 
     init {
         addSpecialEvent(ContactDetailEvent.UserIsDeletedEvent)

@@ -17,11 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.danilkharytonov.domain.model.ContactUser
 
 @Composable
 fun AddContactItem(
-    item: ContactUser,
+    iconImage: String,
+    name: String,
+    surname: String,
     onClick: () -> Unit
 ) {
     Row(modifier = Modifier
@@ -34,13 +35,13 @@ fun AddContactItem(
         }) {
 
         AsyncImage(
-            model = item.iconImage, contentDescription = null
+            model = iconImage, contentDescription = null
         )
 
         Column(modifier = Modifier.padding(start = 10.dp)) {
-            Text(text = item.name, fontSize = 16.sp)
+            Text(text = name, fontSize = 16.sp)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = item.surname)
+            Text(text = surname)
         }
     }
 }
