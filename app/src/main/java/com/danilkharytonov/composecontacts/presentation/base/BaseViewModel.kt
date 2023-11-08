@@ -11,6 +11,7 @@ import com.danilkharytonov.core.base.UseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -25,7 +26,7 @@ abstract class BaseViewModel<Event : UiEvent, State : UiState, UiModel>(
 
     protected val uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     private val _uiEvents: MutableList<Event> = arrayListOf()
-    abstract val state: Flow<UiModel>
+    abstract val state: StateFlow<UiModel>
 
     abstract fun createInitialState(): State
 

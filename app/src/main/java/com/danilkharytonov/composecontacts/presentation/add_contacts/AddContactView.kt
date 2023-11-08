@@ -19,12 +19,14 @@ import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Co
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AlertAddContactDialog
 import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.domain.model.ContactUser
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AddContactView(viewModel: AddContactViewModel) {
-    val state by viewModel.state.collectAsState(AddContactUiState())
+    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
     val categoryMap = remember {
         persistentMapOf(
@@ -38,21 +40,11 @@ fun AddContactView(viewModel: AddContactViewModel) {
         viewModel.loadUsers()
     }
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
-    ) {
-        itemsIndexed(state.contactList) { index, item ->
-            if (index == state.contactList.size - 4) {
-                viewModel.loadUserToEnd()
-            }
-            AddContactItem(iconImage = item.iconImage, name = item.name,
-                surname = item.surname,
-                onClick = {
-                    viewModel.setSavedUser(item)
-                    viewModel.showPopUpAddContact()
-                })
-        }
-    }
+    Contacts(
+        contactList = state.contactList,
+        loadUserToEnd = viewModel::loadUserToEnd,
+        setSavedUser = viewModel::setSavedUser
+    )
     if (state.isPopupAddContactVisible) {
         AlertAddContactDialog(
             onDismissRequest = { viewModel.hidePopUpAddContact() },
@@ -73,6 +65,24 @@ fun AddContactView(viewModel: AddContactViewModel) {
                 viewModel.declineSavedUser()
             }
         )
+    }
+}
+
+@Composable
+fun Contacts(contactList: ImmutableList<ContactUser>, loadUserToEnd: () -> Unit, setSavedUser: (ContactUser) -> Unit) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
+    ) {
+        itemsIndexed(contactList) { index, item ->
+            if (index == contactList.size - 4) {
+                loadUserToEnd()
+            }
+            AddContactItem(iconImage = item.iconImage, name = item.name,
+                surname = item.surname,
+                onClick = {
+                    setSavedUser(item)
+                })
+        }
     }
 }
 

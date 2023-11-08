@@ -1,5 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
@@ -10,7 +11,10 @@ import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class AddContactViewModel(
     reducer: AddContactReducer,
@@ -22,9 +26,9 @@ class AddContactViewModel(
     appNavigator
 ) {
 
-    override val state: Flow<AddContactUiState> = uiState.map { state ->
+    override val state: StateFlow<AddContactUiState> = uiState.map { state ->
         reducer.mapToUiModel(state)
-    }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, )
 
     override fun createInitialState(): AddContactState {
         return AddContactState()
