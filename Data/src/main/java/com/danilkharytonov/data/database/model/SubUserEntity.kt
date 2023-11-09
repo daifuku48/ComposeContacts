@@ -17,7 +17,7 @@ internal data class SubUserEntity(
     var iconImage: String,
     val category: Category
 ) {
-    fun toDomain() : ContactUser {
+    fun toDomain(): ContactUser {
         return ContactUser(
             uuid = uuid,
             name = name,

@@ -28,7 +28,8 @@ class ContactsReducer : Reducer<ContactsState, ContactsEvent, ContactsUiState> {
             searchText = state.searchText,
             currentCategoryText = state.currentCategoryText,
             currentCategory = state.currentCategory.toUi(),
-            contactsList = state.contactsList.map { category -> category.toUi() }.toPersistentList(),
+            contactsList = state.contactsList.map { category -> category.toUi() }
+                .toPersistentList(),
             isExpanded = state.isExpanded
         )
     }

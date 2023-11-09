@@ -15,7 +15,11 @@ class ContactDetailViewModel(
     reducer: ContactDetailReducer,
     useCases: List<UseCase<ContactDetailState, ContactDetailEvent>>,
     appNavigator: Navigator,
-) : BaseViewModel<ContactDetailEvent, ContactDetailState, ContactDetailUiState>(reducer, useCases, appNavigator) {
+) : BaseViewModel<ContactDetailEvent, ContactDetailState, ContactDetailUiState>(
+    reducer,
+    useCases,
+    appNavigator
+) {
 
     override val state: StateFlow<ContactDetailUiState> = uiState.map { state ->
         reducer.mapToUiModel(state)

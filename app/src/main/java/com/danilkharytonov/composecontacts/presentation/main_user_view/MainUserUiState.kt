@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
-data class MainUserUiState (
+data class MainUserUiState(
     val uuid: String? = null,
     val name: String? = null,
     val surname: String? = null,

@@ -1,14 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.main_user_view
 
 import androidx.lifecycle.viewModelScope
-import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactUiState
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.use_cases.main_user_view.MainUserEvent
 import com.danilkharytonov.domain.use_cases.main_user_view.MainUserState
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
