@@ -1,5 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail_view
 
+import com.danilkharytonov.composecontacts.presentation.contacts_view.toUi
 import com.danilkharytonov.core.base.Reducer
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailEvent
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailState
@@ -36,7 +37,7 @@ class ContactDetailReducer : Reducer<ContactDetailState, ContactDetailEvent, Con
             phoneNumber = state.phoneNumber,
             dateOfBirth = state.dateOfBirth,
             iconImage = state.iconImage,
-            category = state.category,
+            category = state.category?.toUi(),
             isVisiblePopUpDeleteDialog = state.isVisiblePopUpDeleteDialog
         )
     }

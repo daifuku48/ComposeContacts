@@ -19,7 +19,6 @@ import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Co
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.AddUserActionButton
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.SearchToolBar
-import com.danilkharytonov.domain.model.Category
 import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
 
@@ -33,10 +32,10 @@ fun ContactsView(
     val categoryMap by remember {
         mutableStateOf(
             persistentMapOf(
-                Category.ALL to getString(context, R.string.Category_All),
-                Category.FAMILY to getString(context, R.string.Category_Family),
-                Category.FRIENDS to getString(context, R.string.Category_Friends),
-                Category.WORK to getString(context, R.string.Category_Work)
+                UiCategory.ALL to getString(context, R.string.Category_All),
+                UiCategory.FAMILY to getString(context, R.string.Category_Family),
+                UiCategory.FRIENDS to getString(context, R.string.Category_Friends),
+                UiCategory.WORK to getString(context, R.string.Category_Work)
             )
         )
     }

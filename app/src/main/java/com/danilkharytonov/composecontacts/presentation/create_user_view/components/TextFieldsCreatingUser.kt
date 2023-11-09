@@ -73,22 +73,18 @@ fun TextFieldsUser(
             error = painterResource(id = R.drawable.baseline_person_24)
         )
 
-        TextField(
-            value = name,
-            onValueChange = { text ->
-                nameChanged(text)
-            },
-            label = { Text(text = stringResource(R.string.your_name)) }
+        UserTextField(
+            text = name,
+            onValueChanged = { nameChanged(it) },
+            label = stringResource(id = R.string.your_name)
         )
 
         CreateSpace()
 
-        TextField(
-            value = surname,
-            onValueChange = { text ->
-                surnameChanged(text)
-            },
-            label = { Text(text = stringResource(R.string.surname)) }
+        UserTextField(
+            text = surname,
+            onValueChanged = { nameChanged(it) },
+            label = stringResource(id = R.string.surname)
         )
 
         CreateSpace()
@@ -135,4 +131,20 @@ fun TextFieldsUser(
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UserTextField(
+    text: String,
+    onValueChanged: (String) -> Unit,
+    label: String
+) {
+    TextField(
+        value = text,
+        onValueChange = { text ->
+            onValueChanged(text)
+        },
+        label = { Text(text = label) },
+    )
 }

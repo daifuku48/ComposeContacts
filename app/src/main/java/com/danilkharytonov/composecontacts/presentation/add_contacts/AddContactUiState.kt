@@ -1,15 +1,15 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
-import com.danilkharytonov.domain.model.Category
-import com.danilkharytonov.domain.model.ContactUser
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiContactUser
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 data class AddContactUiState(
-    val contactList: PersistentList<ContactUser> = persistentListOf(),
-    val savedUser: ContactUser? = null,
+    val contactList: PersistentList<UiContactUser> = persistentListOf(),
+    val savedUser: UiContactUser? = null,
     val isExpanded: Boolean = false,
     val currentCategoryText: String = "All",
-    val currentCategory: Category = Category.ALL,
+    val currentCategory: UiCategory = UiCategory.ALL,
     val isPopupAddContactVisible: Boolean = false
 )

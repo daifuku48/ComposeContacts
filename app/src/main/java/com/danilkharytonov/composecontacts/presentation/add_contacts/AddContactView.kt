@@ -18,8 +18,8 @@ import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Companion.LOAD_CONTACT_USER
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AlertAddContactDialog
-import com.danilkharytonov.domain.model.Category
-import com.danilkharytonov.domain.model.ContactUser
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiContactUser
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
@@ -30,10 +30,10 @@ fun AddContactView(viewModel: AddContactViewModel) {
     val context = LocalContext.current
     val categoryMap = remember {
         persistentMapOf(
-            Category.ALL to ContextCompat.getString(context, R.string.Category_All),
-            Category.FAMILY to ContextCompat.getString(context, R.string.Category_Family),
-            Category.FRIENDS to ContextCompat.getString(context, R.string.Category_Friends),
-            Category.WORK to ContextCompat.getString(context, R.string.Category_Work)
+            UiCategory.ALL to ContextCompat.getString(context, R.string.Category_All),
+            UiCategory.FAMILY to ContextCompat.getString(context, R.string.Category_Family),
+            UiCategory.FRIENDS to ContextCompat.getString(context, R.string.Category_Friends),
+            UiCategory.WORK to ContextCompat.getString(context, R.string.Category_Work)
         )
     }
     LaunchedEffect(key1 = LOAD_CONTACT_USER) {
@@ -69,7 +69,11 @@ fun AddContactView(viewModel: AddContactViewModel) {
 }
 
 @Composable
-fun Contacts(contactList: ImmutableList<ContactUser>, loadUserToEnd: () -> Unit, setSavedUser: (ContactUser) -> Unit) {
+fun Contacts(
+    contactList: ImmutableList<UiContactUser>,
+    loadUserToEnd: () -> Unit,
+    setSavedUser: (UiContactUser) -> Unit
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
     ) {

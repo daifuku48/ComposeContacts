@@ -1,8 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
+import com.danilkharytonov.composecontacts.presentation.contacts_view.toUi
 import com.danilkharytonov.core.base.Reducer
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
+import kotlinx.collections.immutable.toPersistentList
 
 class AddContactReducer : Reducer<AddContactState, AddContactEvent, AddContactUiState> {
     override fun reduce(state: AddContactState, event: AddContactEvent): AddContactState {
@@ -32,11 +34,13 @@ class AddContactReducer : Reducer<AddContactState, AddContactEvent, AddContactUi
 
     override fun mapToUiModel(state: AddContactState): AddContactUiState {
         return AddContactUiState(
-            contactList = state.contactList,
-            savedUser = state.savedUser,
+            contactList = state.contactList.map { contactUser ->
+                contactUser.toUi()
+            }.toPersistentList(),
+            savedUser = state.savedUser?.toUi(),
             isExpanded = state.isExpanded,
             currentCategoryText = state.currentCategoryText,
-            currentCategory = state.currentCategory,
+            currentCategory = state.currentCategory.toUi(),
             isPopupAddContactVisible = state.isPopupAddContactVisible
         )
     }

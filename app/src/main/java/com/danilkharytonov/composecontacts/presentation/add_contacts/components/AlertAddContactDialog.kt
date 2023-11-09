@@ -17,7 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.PersistentMap
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,8 +28,8 @@ fun AlertAddContactDialog(
     expandMenu: () -> Unit,
     currentCategoryText: String,
     isExpanded: Boolean,
-    categories: PersistentMap<Category, String>,
-    categoryOnClick: (Category) -> Unit,
+    categories: PersistentMap<UiCategory, String>,
+    categoryOnClick: (UiCategory) -> Unit,
     confirmButtonClick: () -> Unit,
     dismissButtonClick: () -> Unit,
 ) {
@@ -55,18 +56,11 @@ fun AlertAddContactDialog(
                 ExposedDropdownMenu(
                     expanded = isExpanded,
                     onDismissRequest = { expandMenu() }) {
-                    Category.values().forEach { category ->
-                        key(category) {
-                            DropdownMenuItem(text = {
-                                Text(
-                                    text = categories[category]!!, fontSize = 16.sp
-                                )
-                            }, onClick = {
-                                categoryOnClick(category)
-                                expandMenu()
-                            })
-                        }
-                    }
+                    CategoryItemList(
+                        categories = categories,
+                        expandMenu = { expandMenu() },
+                        categoryOnClick = { categoryOnClick(it) }
+                    )
                 }
             }
         }
@@ -84,3 +78,5 @@ fun AlertAddContactDialog(
         }
     })
 }
+
+

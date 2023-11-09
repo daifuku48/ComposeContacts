@@ -4,6 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiContactUser
+import com.danilkharytonov.composecontacts.presentation.contacts_view.toDomain
 import com.danilkharytonov.core.base.UseCase
 import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.model.ContactUser
@@ -28,7 +31,7 @@ class AddContactViewModel(
 
     override val state: StateFlow<AddContactUiState> = uiState.map { state ->
         reducer.mapToUiModel(state)
-    }.stateIn(viewModelScope, SharingStarted.Lazily, )
+    }.stateIn(viewModelScope, SharingStarted.Lazily, AddContactUiState())
 
     override fun createInitialState(): AddContactState {
         return AddContactState()
@@ -52,12 +55,12 @@ class AddContactViewModel(
         handleEvent(AddContactEvent.HidePopUpAddContact)
     }
 
-    fun setSavedUser(contactUser: ContactUser) {
-        handleEvent(AddContactEvent.SetUserForSave(contactUser))
+    fun setSavedUser(contactUser: UiContactUser) {
+        handleEvent(AddContactEvent.SetUserForSave(contactUser.toDomain()))
     }
 
-    fun setCategory(category: Category) {
-        handleEvent(AddContactEvent.SetCategoryForSavedUser(category = category))
+    fun setCategory(category: UiCategory) {
+        handleEvent(AddContactEvent.SetCategoryForSavedUser(category = category.toDomain()))
     }
 
     fun declineSavedUser() {

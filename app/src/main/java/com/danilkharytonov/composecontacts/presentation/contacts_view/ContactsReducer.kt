@@ -3,6 +3,8 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view
 import com.danilkharytonov.core.base.Reducer
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState
+import kotlinx.collections.immutable.toPersistentList
+import okhttp3.internal.toImmutableList
 
 class ContactsReducer : Reducer<ContactsState, ContactsEvent, ContactsUiState> {
     override fun reduce(state: ContactsState, event: ContactsEvent): ContactsState {
@@ -25,8 +27,8 @@ class ContactsReducer : Reducer<ContactsState, ContactsEvent, ContactsUiState> {
         return ContactsUiState(
             searchText = state.searchText,
             currentCategoryText = state.currentCategoryText,
-            currentCategory = state.currentCategory,
-            contactsList = state.contactsList,
+            currentCategory = state.currentCategory.toUi(),
+            contactsList = state.contactsList.map { category -> category.toUi() }.toPersistentList(),
             isExpanded = state.isExpanded
         )
     }

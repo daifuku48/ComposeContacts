@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
 
 @Composable
 fun UserTextFields(
@@ -24,7 +24,7 @@ fun UserTextFields(
     email: String?,
     phoneNumber: String?,
     dateOfBirth: String?,
-    category: Category?,
+    category: UiCategory?,
     onClickDeleteUser: () -> Unit
 ) {
     Column(

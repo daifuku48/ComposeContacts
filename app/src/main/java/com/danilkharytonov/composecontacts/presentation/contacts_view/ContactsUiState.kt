@@ -1,14 +1,14 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import com.danilkharytonov.domain.model.Category
-import com.danilkharytonov.domain.model.ContactUser
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 data class ContactsUiState(
     val searchText: String = "",
     val currentCategoryText: String = "All",
-    val currentCategory: Category = Category.ALL,
-    val contactsList: PersistentList<ContactUser> = persistentListOf(),
+    val currentCategory: UiCategory = UiCategory.ALL,
+    val contactsList: PersistentList<UiContactUser> = persistentListOf(),
     val isExpanded: Boolean = false
 )

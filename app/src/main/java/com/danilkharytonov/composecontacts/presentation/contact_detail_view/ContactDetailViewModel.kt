@@ -1,11 +1,16 @@
 package com.danilkharytonov.composecontacts.presentation.contact_detail_view
 
+import androidx.lifecycle.viewModelScope
+import com.danilkharytonov.composecontacts.presentation.add_contacts.AddContactUiState
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailEvent
 import com.danilkharytonov.domain.use_cases.contact_detail_view.ContactDetailState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class ContactDetailViewModel(
     reducer: ContactDetailReducer,
@@ -13,9 +18,9 @@ class ContactDetailViewModel(
     appNavigator: Navigator,
 ) : BaseViewModel<ContactDetailEvent, ContactDetailState, ContactDetailUiState>(reducer, useCases, appNavigator) {
 
-    override val state: Flow<ContactDetailUiState> = uiState.map {state ->
+    override val state: StateFlow<ContactDetailUiState> = uiState.map { state ->
         reducer.mapToUiModel(state)
-    }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, ContactDetailUiState())
 
     init {
         addSpecialEvent(ContactDetailEvent.UserIsDeletedEvent)

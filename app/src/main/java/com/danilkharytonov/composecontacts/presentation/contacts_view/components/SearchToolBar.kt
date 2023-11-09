@@ -3,7 +3,6 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view.component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -11,14 +10,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.domain.model.Category
-import kotlinx.collections.immutable.PersistentMap
+import com.danilkharytonov.composecontacts.presentation.add_contacts.components.CategoryItemList
+import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import kotlinx.collections.immutable.ImmutableMap
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,8 +26,8 @@ fun SearchToolBar(
     isExpandMenu: Boolean,
     expandMenu: () -> Unit,
     currentCategoryText: String,
-    categories: PersistentMap<Category, String>,
-    onClickCategory: (Category) -> Unit,
+    categories: ImmutableMap<UiCategory, String>,
+    onClickCategory: (UiCategory) -> Unit,
 ) {
     Row(modifier = Modifier.padding(10.dp)) {
         OutlinedTextField(
@@ -64,21 +62,11 @@ fun SearchToolBar(
                     expanded = isExpandMenu,
                     onDismissRequest = { expandMenu() }
                 ) {
-                    Category.values().forEach { category ->
-                        key(category) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(
-                                        text = categories[category]!!,
-                                        fontSize = 16.sp
-                                    )
-                                },
-                                onClick = {
-                                    onClickCategory(category)
-                                }
-                            )
-                        }
-                    }
+                    CategoryItemList(
+                        categories = categories,
+                        expandMenu = { expandMenu() },
+                        categoryOnClick = { onClickCategory(it) }
+                    )
                 }
             }
         }
