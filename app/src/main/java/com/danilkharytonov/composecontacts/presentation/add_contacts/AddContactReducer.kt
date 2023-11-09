@@ -22,7 +22,11 @@ class AddContactReducer : Reducer<AddContactState, AddContactEvent, AddContactUi
                 currentCategory = event.category
             )
 
-            is AddContactEvent.SetUserForSave -> state.copy(savedUser = event.user)
+            is AddContactEvent.SetUserForSave -> state.copy(
+                savedUser = event.user,
+                isPopupAddContactVisible = true
+            )
+
             is AddContactEvent.LoadContactUsersToEnd -> state
             is AddContactEvent.LoadContactUsersToStart -> state
             is AddContactEvent.ClearUserForSave -> state.copy(savedUser = null)

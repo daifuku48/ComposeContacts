@@ -1,8 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,25 +25,11 @@ fun CreateUser(viewModel: CreateUserViewModel) {
 
 @Composable
 fun CreateUserView(viewModel: CreateUserViewModel) {
-    val state by viewModel.state.collectAsState(CreateUserUiState())
-
-    val launcher =
-        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                viewModel.updateIcon(uri.toString())
-            }
-        }
+    val state by viewModel.state.collectAsState()
 
     TextFieldsUser(
         titleText = stringResource(id = R.string.creating_user),
         iconImage = state.iconImage,
-        onClickIconImage = {
-            launcher.launch(
-                PickVisualMediaRequest(
-                    mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
-                )
-            )
-        },
         name = state.name,
         nameChanged = { viewModel.updateName(it) },
         surname = state.surname,
@@ -58,6 +41,7 @@ fun CreateUserView(viewModel: CreateUserViewModel) {
         dateOfBirth = state.dateOfBirth,
         dateOfBirthChanged = { viewModel.updateDateOfBirth(it) },
         onButtonClick = { viewModel.saveUser() },
+        updateIcon = { viewModel.updateIcon(it) },
         buttonText = stringResource(R.string.create)
     )
 }

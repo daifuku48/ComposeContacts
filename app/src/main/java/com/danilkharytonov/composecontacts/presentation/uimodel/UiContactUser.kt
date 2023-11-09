@@ -1,7 +1,9 @@
 package com.danilkharytonov.composecontacts.presentation.uimodel
 
+import androidx.compose.runtime.Stable
 import com.danilkharytonov.domain.model.ContactUser
 
+@Stable
 data class UiContactUser(
     var uuid: String,
     var name: String,
@@ -13,8 +15,7 @@ data class UiContactUser(
     var category: UiCategory
 )
 
-
-fun ContactUser.toUi() : UiContactUser {
+fun ContactUser.toUi(): UiContactUser {
     return UiContactUser(
         uuid = uuid,
         name = name,

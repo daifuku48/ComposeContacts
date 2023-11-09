@@ -32,7 +32,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ContactsView(
     viewModel: ContactsViewModel
 ) {
-    val state by viewModel.state.collectAsState(ContactsUiState())
+    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
     val categoryMap by remember {
         mutableStateOf(
@@ -84,7 +84,7 @@ fun Contacts(
     LazyColumn(
         modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
     ) {
-        items(contactList.size) {  index ->
+        items(contactList.size) { index ->
             AddContactItem(iconImage = contactList[index].iconImage, name = contactList[index].name,
                 surname = contactList[index].surname,
                 onClick = {

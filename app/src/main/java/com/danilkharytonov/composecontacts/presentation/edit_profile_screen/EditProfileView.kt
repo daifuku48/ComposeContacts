@@ -1,8 +1,5 @@
 package com.danilkharytonov.composecontacts.presentation.edit_profile_screen
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,25 +9,11 @@ import com.danilkharytonov.composecontacts.presentation.create_user_view.compone
 
 @Composable
 fun EditProfileView(viewModel: EditProfileViewModel) {
-    val state by viewModel.state.collectAsState(EditProfileUiState())
-
-    val launcher =
-        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                viewModel.updateIcon(uri.toString())
-            }
-        }
+    val state by viewModel.state.collectAsState()
 
     TextFieldsUser(
         titleText = stringResource(R.string.editing_user),
         iconImage = state.iconImage,
-        onClickIconImage = {
-            launcher.launch(
-                PickVisualMediaRequest(
-                    mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
-                )
-            )
-        },
         name = state.name,
         nameChanged = { viewModel.updateName(it) },
         surname = state.surname,
@@ -42,6 +25,7 @@ fun EditProfileView(viewModel: EditProfileViewModel) {
         dateOfBirth = state.date,
         dateOfBirthChanged = { viewModel.updateDateOfBirth(it) },
         onButtonClick = { viewModel.editUser() },
-        buttonText = stringResource(R.string.save)
+        buttonText = stringResource(R.string.save),
+        updateIcon = { viewModel.updateIcon(it) }
     )
 }

@@ -4,6 +4,7 @@ import com.danilkharytonov.domain.model.MAIN_USER_ID
 import com.danilkharytonov.domain.model.User
 import com.danilkharytonov.domain.repository.MainUserRepository
 import com.danilkharytonov.domain.repository.ResourceManager
+import com.danilkharytonov.domain.use_cases.create_user_view.SaveMainUserUseCase.Companion.MAIN_USER_IMAGE
 import java.util.regex.Pattern
 
 class EditProfileUseCase(
@@ -81,9 +82,5 @@ class EditProfileUseCase(
     private fun isValidDate(date: String): Boolean {
         val pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.\\d{4}$")
         return pattern.matcher(date).matches()
-    }
-
-    companion object {
-        const val MAIN_USER_IMAGE = "main_user_image.jpg"
     }
 }

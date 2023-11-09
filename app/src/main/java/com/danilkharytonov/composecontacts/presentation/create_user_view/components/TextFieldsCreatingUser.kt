@@ -1,5 +1,8 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view.components
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +31,6 @@ import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateS
 fun TextFieldsUser(
     titleText: String,
     iconImage: String,
-    onClickIconImage: () -> Unit,
     name: String,
     nameChanged: (String) -> Unit,
     surname: String,
@@ -40,8 +42,15 @@ fun TextFieldsUser(
     dateOfBirth: String,
     dateOfBirthChanged: (String) -> Unit,
     onButtonClick: () -> Unit,
-    buttonText: String
+    buttonText: String,
+    updateIcon: (String) -> Unit
 ) {
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                updateIcon(uri.toString())
+            }
+        }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,7 +75,11 @@ fun TextFieldsUser(
             contentDescription = stringResource(R.string.user_icon),
             modifier = Modifier
                 .clickable {
-                    onClickIconImage()
+                    launcher.launch(
+                        PickVisualMediaRequest(
+                            mediaType = ActivityResultContracts.PickVisualMedia.ImageAndVideo
+                        )
+                    )
                 }
                 .size(100.dp),
             error = painterResource(id = R.drawable.baseline_person_24)

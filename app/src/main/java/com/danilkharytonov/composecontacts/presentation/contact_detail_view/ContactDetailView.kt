@@ -10,7 +10,7 @@ import com.danilkharytonov.composecontacts.presentation.contact_detail_view.comp
 
 @Composable
 fun ContactDetailView(viewModel: ContactDetailViewModel, userId: String) {
-    val state by viewModel.state.collectAsState(ContactDetailUiState())
+    val state by viewModel.state.collectAsState()
 
     LaunchedEffect(key1 = LOAD_CONTACT_USER, block = {
         viewModel.loadUser(userId)

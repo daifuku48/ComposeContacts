@@ -20,7 +20,7 @@ import com.danilkharytonov.composecontacts.presentation.main_user_view.component
 
 @Composable
 fun MainUserView(viewModel: MainUserViewModel) {
-    val state by viewModel.state.collectAsState(MainUserUiState())
+    val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = UPDATE_MAIN_USER, block = {
         viewModel.requestUserData()
     })
