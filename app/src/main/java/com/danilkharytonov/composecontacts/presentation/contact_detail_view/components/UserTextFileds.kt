@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
 
 @Composable
 fun UserTextFields(

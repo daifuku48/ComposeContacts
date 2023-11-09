@@ -2,6 +2,7 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view
 
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -13,12 +14,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Companion.LOAD_CONTACT_USER
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.AddUserActionButton
 import com.danilkharytonov.composecontacts.presentation.contacts_view.components.SearchToolBar
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiContactUser
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
 
@@ -59,16 +64,10 @@ fun ContactsView(
             }
         )
 
-        LazyColumn {
-            items(state.contactsList.size) { index ->
-                AddContactItem(
-                    iconImage = state.contactsList[index].iconImage,
-                    name = state.contactsList[index].name,
-                    surname = state.contactsList[index].surname,
-                    onClick = { viewModel.navigateToDetailContact(state.contactsList[index].uuid) }
-                )
-            }
-        }
+        Contacts(
+            contactList = state.contactsList,
+            onClickUser = { viewModel.navigateToDetailContact(it) }
+        )
     }
     AddUserActionButton(
         onClick = {
@@ -77,6 +76,23 @@ fun ContactsView(
     )
 }
 
+@Composable
+fun Contacts(
+    contactList: ImmutableList<UiContactUser>,
+    onClickUser: (String) -> Unit
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
+    ) {
+        items(contactList.size) {  index ->
+            AddContactItem(iconImage = contactList[index].iconImage, name = contactList[index].name,
+                surname = contactList[index].surname,
+                onClick = {
+                    onClickUser(contactList[index].uuid)
+                })
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

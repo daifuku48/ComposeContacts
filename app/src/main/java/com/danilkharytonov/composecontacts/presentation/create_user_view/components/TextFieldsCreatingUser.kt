@@ -24,7 +24,6 @@ import coil.compose.AsyncImage
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.create_user_view.CreateSpace
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldsUser(
     titleText: String,
@@ -83,40 +82,36 @@ fun TextFieldsUser(
 
         UserTextField(
             text = surname,
-            onValueChanged = { nameChanged(it) },
+            onValueChanged = { surnameChanged(it) },
             label = stringResource(id = R.string.surname)
         )
 
         CreateSpace()
 
-        TextField(
-            value = phoneNumber,
-            onValueChange = { text ->
-                phoneNumberChanged(text)
-            },
-            label = { Text(text = stringResource(R.string.phone_number)) },
+        UserTextField(
+            text = phoneNumber,
+            onValueChanged = { phoneNumberChanged(it) },
+            label = stringResource(id = R.string.phone_number),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
         )
 
         CreateSpace()
 
-        TextField(
-            value = email,
-            onValueChange = { text ->
-                emailChanged(text)
-            },
-            label = { Text(text = stringResource(R.string.email)) },
+        UserTextField(
+            text = email,
+            onValueChanged = { emailChanged(it) },
+            label = stringResource(id = R.string.email),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
 
         CreateSpace()
 
-        TextField(
-            value = dateOfBirth,
-            onValueChange = { text ->
-                dateOfBirthChanged(text)
-            },
-            label = { Text(text = stringResource(R.string.date_of_birth)) },
+        UserTextField(
+            text = dateOfBirth,
+            onValueChanged = { dateOfBirthChanged(it) },
+            label = stringResource(
+                id = R.string.date_of_birth
+            )
         )
 
         Button(
@@ -138,7 +133,8 @@ fun TextFieldsUser(
 fun UserTextField(
     text: String,
     onValueChanged: (String) -> Unit,
-    label: String
+    label: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
 ) {
     TextField(
         value = text,
@@ -146,5 +142,6 @@ fun UserTextField(
             onValueChanged(text)
         },
         label = { Text(text = label) },
+        keyboardOptions = keyboardOptions
     )
 }

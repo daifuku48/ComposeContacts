@@ -1,7 +1,7 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableMap
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiContactUser
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 

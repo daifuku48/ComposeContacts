@@ -4,16 +4,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiContactUser
-import com.danilkharytonov.composecontacts.presentation.contacts_view.toDomain
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiContactUser
+import com.danilkharytonov.composecontacts.presentation.uimodel.toDomain
 import com.danilkharytonov.core.base.UseCase
-import com.danilkharytonov.domain.model.Category
-import com.danilkharytonov.domain.model.ContactUser
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -45,10 +42,6 @@ class AddContactViewModel(
 
     fun saveUser() {
         handleEvent(AddContactEvent.SaveContactUserEvent)
-    }
-
-    fun showPopUpAddContact() {
-        handleEvent(AddContactEvent.ShowPopUpAddContact)
     }
 
     fun hidePopUpAddContact() {

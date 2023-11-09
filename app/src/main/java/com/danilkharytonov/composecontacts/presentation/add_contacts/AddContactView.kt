@@ -18,8 +18,8 @@ import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.activity.MainActivity.Companion.LOAD_CONTACT_USER
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AddContactItem
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.AlertAddContactDialog
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiContactUser
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiContactUser
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentMapOf
 import org.koin.androidx.compose.koinViewModel
@@ -45,6 +45,7 @@ fun AddContactView(viewModel: AddContactViewModel) {
         loadUserToEnd = viewModel::loadUserToEnd,
         setSavedUser = viewModel::setSavedUser
     )
+
     if (state.isPopupAddContactVisible) {
         AlertAddContactDialog(
             onDismissRequest = { viewModel.hidePopUpAddContact() },

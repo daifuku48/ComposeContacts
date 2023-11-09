@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.danilkharytonov.composecontacts.R
 import com.danilkharytonov.composecontacts.presentation.add_contacts.components.CategoryItemList
-import com.danilkharytonov.composecontacts.presentation.contacts_view.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
 import kotlinx.collections.immutable.ImmutableMap
 
 @OptIn(ExperimentalMaterial3Api::class)

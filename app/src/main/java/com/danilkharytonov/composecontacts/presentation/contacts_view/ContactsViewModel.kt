@@ -3,7 +3,8 @@ package com.danilkharytonov.composecontacts.presentation.contacts_view
 import androidx.lifecycle.viewModelScope
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
-import com.danilkharytonov.domain.model.Category
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.toDomain
 import com.danilkharytonov.domain.model.Screen
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState

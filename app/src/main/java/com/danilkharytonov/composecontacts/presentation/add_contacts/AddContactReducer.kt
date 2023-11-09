@@ -1,6 +1,6 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
-import com.danilkharytonov.composecontacts.presentation.contacts_view.toUi
+import com.danilkharytonov.composecontacts.presentation.uimodel.toUi
 import com.danilkharytonov.core.base.Reducer
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
 import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState

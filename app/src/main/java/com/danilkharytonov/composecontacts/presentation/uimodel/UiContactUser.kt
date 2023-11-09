@@ -1,6 +1,5 @@
-package com.danilkharytonov.composecontacts.presentation.contacts_view
+package com.danilkharytonov.composecontacts.presentation.uimodel
 
-import com.danilkharytonov.domain.model.Category
 import com.danilkharytonov.domain.model.ContactUser
 
 data class UiContactUser(

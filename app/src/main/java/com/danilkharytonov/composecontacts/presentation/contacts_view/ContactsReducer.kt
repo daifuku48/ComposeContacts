@@ -1,10 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
+import com.danilkharytonov.composecontacts.presentation.uimodel.toUi
 import com.danilkharytonov.core.base.Reducer
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
 import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState
 import kotlinx.collections.immutable.toPersistentList
-import okhttp3.internal.toImmutableList
 
 class ContactsReducer : Reducer<ContactsState, ContactsEvent, ContactsUiState> {
     override fun reduce(state: ContactsState, event: ContactsEvent): ContactsState {
