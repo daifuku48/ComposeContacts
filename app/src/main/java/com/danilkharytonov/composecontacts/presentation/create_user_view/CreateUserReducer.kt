@@ -1,8 +1,10 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
-import com.danilkharytonov.composecontacts.presentation.base.Reducer
+import com.danilkharytonov.core.base.Reducer
+import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserEvent
+import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserState
 
-class CreateUserReducer : Reducer<CreateUserState, CreateUserEvent> {
+class CreateUserReducer : Reducer<CreateUserState, CreateUserEvent, CreateUserUiState> {
     override fun reduce(state: CreateUserState, event: CreateUserEvent): CreateUserState {
         return when (event) {
             is CreateUserEvent.SaveUserEvent -> state
@@ -17,4 +19,15 @@ class CreateUserReducer : Reducer<CreateUserState, CreateUserEvent> {
         }
     }
 
+    override fun mapToUiModel(state: CreateUserState): CreateUserUiState {
+        return CreateUserUiState(
+            uuid = state.uuid,
+            name = state.name,
+            surname = state.surname,
+            phoneNumber = state.phoneNumber,
+            email = state.email,
+            dateOfBirth = state.dateOfBirth,
+            iconImage = state.iconImage
+        )
+    }
 }

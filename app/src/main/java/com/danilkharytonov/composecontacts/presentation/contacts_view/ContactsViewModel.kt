@@ -1,16 +1,28 @@
 package com.danilkharytonov.composecontacts.presentation.contacts_view
 
-import com.danilkharytonov.composecontacts.domain.model.Category
+import androidx.lifecycle.viewModelScope
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.UseCase
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.toDomain
+import com.danilkharytonov.domain.model.Screen
+import com.danilkharytonov.domain.use_cases.contacts_view.ContactsEvent
+import com.danilkharytonov.domain.use_cases.contacts_view.ContactsState
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class ContactsViewModel(
     reducer: ContactsReducer,
-    useCases: List<UseCase<ContactsState, ContactsEvent>>,
+    useCases: List<com.danilkharytonov.core.base.UseCase<ContactsState, ContactsEvent>>,
     appNavigator: Navigator
-) : BaseViewModel<ContactsEvent, ContactsState>(reducer, useCases, appNavigator) {
+) : BaseViewModel<ContactsEvent, ContactsState, ContactsUiState>(reducer, useCases, appNavigator) {
+
+    override val state: StateFlow<ContactsUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, ContactsUiState())
+
     fun getContactEvent() {
         handleEvent(ContactsEvent.GetContactsEvent)
     }
@@ -29,8 +41,8 @@ class ContactsViewModel(
         )
     }
 
-    fun changedCategory(category: Category, categoryText: String) {
-        handleEvent(ContactsEvent.CategoryOnChangedEvent(category, categoryText))
+    fun changedCategory(category: UiCategory, categoryText: String) {
+        handleEvent(ContactsEvent.CategoryOnChangedEvent(category.toDomain(), categoryText))
         handleEvent(
             ContactsEvent.FilterContactsEvent(
                 searchText = uiState.value.searchText,

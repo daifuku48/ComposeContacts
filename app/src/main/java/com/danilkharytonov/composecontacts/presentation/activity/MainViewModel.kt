@@ -1,22 +1,12 @@
 package com.danilkharytonov.composecontacts.presentation.activity
 
-import com.danilkharytonov.composecontacts.domain.use_cases.main_activity.CheckingExistingUserUseCase
-import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import androidx.lifecycle.ViewModel
+import com.danilkharytonov.domain.use_cases.main_activity.CheckingExistingUserUseCase
 
 class MainViewModel(
-    reducer: MainActivityReducer,
-    useCases: List<CheckingExistingUserUseCase>,
-    appNavigator: Navigator
-) : BaseViewModel<MainActivityEvent, MainActivityState>(reducer, useCases, appNavigator) {
-
-    init {
-        handleEvent(MainActivityEvent.CheckExistingUser)
+    private val checkingExistingUserUseCase: CheckingExistingUserUseCase
+) : ViewModel() {
+    fun getDestination(): String {
+        return checkingExistingUserUseCase.execute()
     }
-
-    override fun createInitialState(): MainActivityState {
-        return MainActivityState()
-    }
-
-    override fun handleSpecialEvent(event: MainActivityEvent) {}
 }

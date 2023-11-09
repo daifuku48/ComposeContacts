@@ -1,18 +1,35 @@
 package com.danilkharytonov.composecontacts.presentation.add_contacts
 
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
-import com.danilkharytonov.composecontacts.data.model.ContactUser
-import com.danilkharytonov.composecontacts.domain.model.Category
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
-import com.danilkharytonov.composecontacts.presentation.base.UseCase
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiCategory
+import com.danilkharytonov.composecontacts.presentation.uimodel.UiContactUser
+import com.danilkharytonov.composecontacts.presentation.uimodel.toDomain
+import com.danilkharytonov.core.base.UseCase
+import com.danilkharytonov.domain.model.Screen
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactEvent
+import com.danilkharytonov.domain.use_cases.add_contacts_view.AddContactState
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class AddContactViewModel(
     reducer: AddContactReducer,
     useCases: List<UseCase<AddContactState, AddContactEvent>>,
-    appNavigator: Navigator
-) : BaseViewModel<AddContactEvent, AddContactState>(reducer, useCases, appNavigator) {
+    appNavigator: Navigator,
+) : BaseViewModel<AddContactEvent, AddContactState, AddContactUiState>(
+    reducer,
+    useCases,
+    appNavigator
+) {
+
+    override val state: StateFlow<AddContactUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, AddContactUiState())
+
     override fun createInitialState(): AddContactState {
         return AddContactState()
     }
@@ -27,20 +44,16 @@ class AddContactViewModel(
         handleEvent(AddContactEvent.SaveContactUserEvent)
     }
 
-    fun showPopUpAddContact() {
-        handleEvent(AddContactEvent.ShowPopUpAddContact)
-    }
-
     fun hidePopUpAddContact() {
         handleEvent(AddContactEvent.HidePopUpAddContact)
     }
 
-    fun setSavedUser(contactUser: ContactUser) {
-        handleEvent(AddContactEvent.SetUserForSave(contactUser))
+    fun setSavedUser(contactUser: UiContactUser) {
+        handleEvent(AddContactEvent.SetUserForSave(contactUser.toDomain()))
     }
 
-    fun setCategory(category: Category) {
-        handleEvent(AddContactEvent.SetCategoryForSavedUser(category = category))
+    fun setCategory(category: UiCategory) {
+        handleEvent(AddContactEvent.SetCategoryForSavedUser(category = category.toDomain()))
     }
 
     fun declineSavedUser() {

@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "ComposeContacts"
 include(":app")
- 
+include(":Data")
+include(":Domain")
+include(":Core")

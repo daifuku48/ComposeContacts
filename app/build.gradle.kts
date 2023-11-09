@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+    id("dev.shreyaspatil.compose-compiler-report-generator")
 }
 
 android {
@@ -55,6 +56,9 @@ android {
 
 dependencies {
 
+    implementation(project(":Domain"))
+    implementation(project(":Data"))
+    implementation(project(":Core"))
     //Immutable Collections
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.6")
     
@@ -83,9 +87,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     // Navigation Component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

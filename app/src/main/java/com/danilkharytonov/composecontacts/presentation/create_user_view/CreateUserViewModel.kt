@@ -1,16 +1,31 @@
 package com.danilkharytonov.composecontacts.presentation.create_user_view
 
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
-import com.danilkharytonov.composecontacts.domain.use_cases.create_user_view.SaveMainUserUseCase
 import com.danilkharytonov.composecontacts.presentation.base.BaseViewModel
-import com.danilkharytonov.composecontacts.presentation.base.Screen
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
+import com.danilkharytonov.domain.model.Screen
+import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserEvent
+import com.danilkharytonov.domain.use_cases.create_user_view.CreateUserState
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class CreateUserViewModel(
     reducer: CreateUserReducer,
-    useCases: List<SaveMainUserUseCase>,
-    appNavigator: Navigator
-) : BaseViewModel<CreateUserEvent, CreateUserState>(reducer, useCases, appNavigator) {
+    useCases: List<com.danilkharytonov.core.base.UseCase<CreateUserState, CreateUserEvent>>,
+    appNavigator: Navigator,
+) : BaseViewModel<CreateUserEvent, CreateUserState, CreateUserUiState>(
+    reducer,
+    useCases,
+    appNavigator
+) {
+
+    override val state: StateFlow<CreateUserUiState> = uiState.map { state ->
+        reducer.mapToUiModel(state)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, CreateUserUiState())
+
     init {
         addSpecialEvent(CreateUserEvent.UserSaved)
     }

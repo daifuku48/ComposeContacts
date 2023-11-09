@@ -4,7 +4,6 @@ import com.danilkharytonov.composecontacts.presentation.base.navigation.AppNavig
 import com.danilkharytonov.composecontacts.presentation.base.navigation.Navigator
 import org.koin.dsl.module
 
-
 val appModule = module {
     single<Navigator> {
         AppNavigator()
